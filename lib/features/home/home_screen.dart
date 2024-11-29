@@ -83,100 +83,112 @@ class HomeScreen extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.all(screenHeight * 0.02),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // Set to a fixed number of columns (3)
-              crossAxisSpacing: screenWidth * 0.02,
-              mainAxisSpacing: screenHeight * 0.01,
-              childAspectRatio: screenWidth / 400, // Adjust this ratio for size
-            ),
-            itemCount: components.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  List<Widget> destinations = [
-                    ButtonScreen(),
-                    InputAndFormScreen(),
-                    SelectionControlScreen(),
-                    NavigationalComponentsScreen(),
-                    PaginationScreen(),
-                    ListScreen(),
-                    TableScreen(),
-                    SliderAndProgressIndicatorScreen(),
-                    DialgoueAndPopupScreen(),
-                    ImagesAndMediaScreen(),
-                    CardAndContainerScreen(),
-                    ChartAndGraphScreen(),
-                    InteractiveWidgetsScreen(),
-                    TextElementScreen(),
-                    MenusAndNavigationScreen(),
-                    FileHandlingAndDownloadScreen(),
-                    GridAndLayoutScreen(),
-                    RealTimeFeatureScreen(),
-                    AuthenticationAndSecurityScreen(),
-                    AdvancedComponentScreen(),
-                    AccessibilityFeatureScreen(),
-                    SpecializedUiComponentScreen(),
-                    MiscellaneousScreen(),
-                  ];
-                  Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => destinations[index],
-                  ));
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(screenHeight * 0.02),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8,
-                        offset: Offset(4, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: screenHeight * 0.1,
-                        width: screenWidth * 0.1,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              CommonColor.primaryColor,
-                              CommonColor.secondaryColor,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+        child: RawScrollbar(
+          thumbColor: CommonColor.secondaryColor,
+          thumbVisibility: true,
+          thickness: 8,
+          radius: Radius.circular(8),
+          child: Padding(
+            padding: EdgeInsets.all(screenHeight * 0.02),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: screenWidth < 700
+                    ? 2
+                    : 3, // Set to a fixed number of columns (3)
+                crossAxisSpacing: screenWidth * 0.02,
+                mainAxisSpacing: screenHeight * 0.01,
+                childAspectRatio:
+                    screenWidth / 400, // Adjust this ratio for size
+              ),
+              itemCount: components.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    List<Widget> destinations = [
+                      ButtonScreen(),
+                      InputAndFormScreen(),
+                      SelectionControlScreen(),
+                      NavigationalComponentsScreen(),
+                      PaginationScreen(),
+                      ListScreen(),
+                      TableScreen(),
+                      SliderAndProgressIndicatorScreen(),
+                      DialgoueAndPopupScreen(),
+                      ImagesAndMediaScreen(),
+                      CardAndContainerScreen(),
+                      ChartAndGraphScreen(),
+                      InteractiveWidgetsScreen(),
+                      TextElementScreen(),
+                      MenusAndNavigationScreen(),
+                      FileHandlingAndDownloadScreen(),
+                      GridAndLayoutScreen(),
+                      RealTimeFeatureScreen(),
+                      AuthenticationAndSecurityScreen(),
+                      AdvancedComponentScreen(),
+                      AccessibilityFeatureScreen(),
+                      SpecializedUiComponentScreen(),
+                      MiscellaneousScreen(),
+                    ];
+                    Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => destinations[index],
+                    ));
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(screenHeight * 0.02),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 8,
+                          offset: Offset(4, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.zero,
+                          height: screenHeight * 0.1,
+                          width: screenWidth * 0.1,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                CommonColor.primaryColor,
+                                CommonColor.secondaryColor,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child: Icon(
+                            components[index]['icon'],
+                            color: Colors.white,
                           ),
                         ),
-                        child: Icon(
-                          components[index]['icon'],
-                          color: Colors.white,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      Text(
-                        components[index]['title'],
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                        Text(
+                          components[index]['title'],
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: CommonColor.primaryColorDark,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
