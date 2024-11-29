@@ -90,187 +90,210 @@ class _LoginScreenState extends State<LoginScreenWeb> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: CommonColor.primaryColor,
+      // backgroundColor: CommonColor.primaryColor,
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: screenHeight,
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Left section with welcome messages
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Welcome to web!",
-                        style: TextStyle(
-                          fontSize: screenHeight * 0.06,
-                          color: Colors.white,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  CommonColor.primaryColor,
+                  CommonColor.primaryColorDark,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Left section with welcome messages
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Welcome to web!",
+                          style: TextStyle(
+                            fontSize: screenHeight * 0.06,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      Text(
-                        "Please login to continue!",
-                        style: TextStyle(
-                          fontSize: screenHeight * 0.06,
-                          color: Colors.white,
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                          "Please login to continue!",
+                          style: TextStyle(
+                            fontSize: screenHeight * 0.06,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Right section with the login form
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(screenHeight * 0.04),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.05,
-                        vertical: screenHeight * 0.05,
+                // Right section with the login form
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            blurRadius: 10,
+                            offset: Offset(4, 4),
+                          ),
+                        ],
+                        borderRadius:
+                            BorderRadius.circular(screenHeight * 0.04),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          CommonTextfield(
-                            labelText: "Username",
-                            hintText: "Enter username",
-                            suffixIcon: Icons.person,
-                            controller: _usernameController,
-                            isObscure: false,
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          // Password Field with Toggle Visibility
-                          CommonTextfield(
-                            labelText: "Password",
-                            hintText: "Enter password",
-                            suffixIcon: _isPasswordObscure
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            controller: _passwordController,
-                            isObscure: _isPasswordObscure,
-                            onSuffixIconPressed: () {
-                              setState(() {
-                                _isPasswordObscure = !_isPasswordObscure;
-                              });
-                            },
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Note:",
-                                style: TextStyle(
-                                  color: CommonColor.secondaryColor,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  " Enter username and password from below data",
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.03),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CommonButton(
-                                onPressed:
-                                    _isLoading ? null : () => _login(context),
-                                buttonName: "Log In",
-                                horizontalPadding: screenWidth * 0.1,
-                                verticalPadding: screenHeight * 0.015,
-                              ),
-                              if (_isLoading)
-                                Positioned(
-                                  child: SizedBox(
-                                    height: 24,
-                                    width: 24,
-                                    child: const CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2,
-                                    ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.05,
+                          vertical: screenHeight * 0.05,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CommonTextfield(
+                              labelText: "Username",
+                              hintText: "Enter username",
+                              suffixIcon: Icons.person,
+                              controller: _usernameController,
+                              isObscure: false,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            // Password Field with Toggle Visibility
+                            CommonTextfield(
+                              labelText: "Password",
+                              hintText: "Enter password",
+                              suffixIcon: _isPasswordObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              controller: _passwordController,
+                              isObscure: _isPasswordObscure,
+                              onSuffixIconPressed: () {
+                                setState(() {
+                                  _isPasswordObscure = !_isPasswordObscure;
+                                });
+                              },
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Note:",
+                                  style: TextStyle(
+                                    color: CommonColor.secondaryColor,
                                   ),
                                 ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.03),
-                          Divider(color: CommonColor.primaryColor),
-                          SizedBox(height: screenHeight * 0.03),
-                          Container(
-                            padding: EdgeInsets.all(screenHeight * 0.02),
-                            decoration: BoxDecoration(
-                              color: CommonColor.tertiaryColor.withOpacity(1),
-                              borderRadius:
-                                  BorderRadius.circular(screenWidth * 0.03),
+                                Expanded(
+                                  child: Text(
+                                    " Enter username and password from below data",
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                ),
+                              ],
                             ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            SizedBox(height: screenHeight * 0.03),
+                            Stack(
+                              alignment: Alignment.center,
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Accepted usernames:",
-                                      style: TextStyle(
-                                        color: CommonColor.secondaryColor,
-                                        fontSize: screenHeight * 0.025,
+                                CommonButton(
+                                  onPressed:
+                                      _isLoading ? null : () => _login(context),
+                                  buttonName: "Log In",
+                                  horizontalPadding: screenWidth * 0.1,
+                                  verticalPadding: screenHeight * 0.015,
+                                ),
+                                if (_isLoading)
+                                  Positioned(
+                                    child: SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child: const CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 2,
                                       ),
                                     ),
-                                    SizedBox(height: screenHeight * 0.01),
-                                    ...acceptedUsernames.map((username) {
-                                      return Text(
-                                        username,
+                                  ),
+                              ],
+                            ),
+                            SizedBox(height: screenHeight * 0.03),
+                            Divider(color: CommonColor.primaryColor),
+                            SizedBox(height: screenHeight * 0.03),
+                            Container(
+                              padding: EdgeInsets.all(screenHeight * 0.02),
+                              decoration: BoxDecoration(
+                                color: CommonColor.tertiaryColor.withOpacity(1),
+                                borderRadius:
+                                    BorderRadius.circular(screenWidth * 0.03),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Accepted usernames:",
+                                        style: TextStyle(
+                                          color: CommonColor.secondaryColor,
+                                          fontSize: screenHeight * 0.025,
+                                        ),
+                                      ),
+                                      SizedBox(height: screenHeight * 0.01),
+                                      ...acceptedUsernames.map((username) {
+                                        return Text(
+                                          username,
+                                          style: TextStyle(
+                                            fontSize: screenHeight * 0.02,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Password for all users:",
+                                        style: TextStyle(
+                                          color: CommonColor.secondaryColor,
+                                          fontSize: screenHeight * 0.025,
+                                        ),
+                                      ),
+                                      Text(
+                                        acceptedPassword,
                                         style: TextStyle(
                                           fontSize: screenHeight * 0.02,
                                         ),
-                                      );
-                                    }).toList(),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Password for all users:",
-                                      style: TextStyle(
-                                        color: CommonColor.secondaryColor,
-                                        fontSize: screenHeight * 0.025,
                                       ),
-                                    ),
-                                    Text(
-                                      acceptedPassword,
-                                      style: TextStyle(
-                                        fontSize: screenHeight * 0.02,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

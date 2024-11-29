@@ -143,14 +143,14 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height: 50,
-                        width: 50,
+                        height: screenHeight * 0.1,
+                        width: screenWidth * 0.1,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
                             colors: [
+                              CommonColor.primaryColor,
                               CommonColor.secondaryColor,
-                              CommonColor.tertiaryColor
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -159,7 +159,6 @@ class HomeScreen extends StatelessWidget {
                         child: Icon(
                           components[index]['icon'],
                           color: Colors.white,
-                          size: 28,
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.02),
@@ -171,7 +170,6 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
-                          fontSize: 14,
                         ),
                       ),
                     ],
