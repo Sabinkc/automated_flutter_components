@@ -1,3 +1,4 @@
+
 import 'package:components_automation/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     });
   }

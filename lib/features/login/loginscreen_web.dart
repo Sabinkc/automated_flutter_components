@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     });
   }
@@ -99,34 +99,40 @@ class _LoginScreenState extends State<LoginScreenWeb> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(width: screenWidth * 0.1),
-              Column(
-                children: [
-                  Text(
-                    "Welcome to web!",
-                    style: TextStyle(
-                      fontSize: screenHeight * 0.06,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Text(
-                    "Please login to continue!",
-                    style: TextStyle(
-                      fontSize: screenHeight * 0.06,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: screenWidth * 0.1),
+              // Left section with welcome messages
               Expanded(
+                flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Welcome to web!",
+                        style: TextStyle(
+                          fontSize: screenHeight * 0.06,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        "Please login to continue!",
+                        style: TextStyle(
+                          fontSize: screenHeight * 0.06,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Right section with the login form
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Container(
-                    width: screenWidth * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(screenHeight * 0.04),
@@ -134,7 +140,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
-                        vertical: screenHeight * 0.03,
+                        vertical: screenHeight * 0.05,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -164,6 +170,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                           ),
                           SizedBox(height: screenHeight * 0.02),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Note:",

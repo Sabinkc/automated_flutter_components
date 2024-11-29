@@ -1,103 +1,177 @@
-import 'package:components_automation/features/components/common%20components/common_components_screen.dart';
-import 'package:components_automation/features/components/mobile%20specific%20behaviours/mobile_specific_behavior_screen.dart';
-import 'package:components_automation/features/components/mobile%20specific%20components/mobile_specific_components_screen.dart';
-import 'package:components_automation/features/components/web%20behaviours/web_behavior_screen.dart';
+import 'package:components_automation/core/constants.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/accessibility_feature_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/advanced_component_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/authentication_and_security_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/button_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/card_and_container_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/chart_and_graph_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/grid_and_layout_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/images_and_media_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/input_and_form_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/list_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/navigational_components_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/real_time_feature_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/slider_and_progress_indicator_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/specialized_ui_component_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/table_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/text_element_screen.dart';
+import 'package:components_automation/features/components/common%20components/pagination_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:components_automation/core/constants.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  // List of 22 titles and corresponding icons
+  final List<Map<String, dynamic>> components = [
+    {'title': 'Buttons', 'icon': Icons.radio_button_checked},
+    {'title': 'Inputs & Forms', 'icon': Icons.input},
+    {'title': 'Selection Controls', 'icon': Icons.check_box},
+    {'title': 'Navigational Components', 'icon': Icons.navigation},
+    {'title': 'Pagination', 'icon': Icons.pages},
+    {'title': 'Lists', 'icon': Icons.list},
+    {'title': 'Tables', 'icon': Icons.table_chart},
+    {'title': 'Sliders & Progress Indicators', 'icon': Icons.linear_scale},
+    {'title': 'Dialogs & Pop-ups', 'icon': Icons.message},
+    {'title': 'Images & Media', 'icon': Icons.image},
+    {'title': 'Cards & Containers', 'icon': Icons.credit_card},
+    {'title': 'Charts & Graphs', 'icon': Icons.insert_chart},
+    {'title': 'Interactive Widgets', 'icon': Icons.widgets},
+    {'title': 'Text Elements', 'icon': Icons.text_fields},
+    {'title': 'Menus & Navigation', 'icon': Icons.menu},
+    {'title': 'File Handling & Downloads', 'icon': Icons.file_download},
+    {'title': 'Grid & Layouts', 'icon': Icons.grid_on},
+    {'title': 'Real-time Features', 'icon': Icons.update},
+    {'title': 'Authentication & Security', 'icon': Icons.lock},
+    {'title': 'Advanced Components', 'icon': Icons.extension},
+    {'title': 'Accessibility Features', 'icon': Icons.accessibility},
+    {'title': 'Specialized UI Components', 'icon': Icons.star},
+    {'title': 'Miscellaneous', 'icon': Icons.more_horiz},
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions
-    final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Define padding and spacing
-    final double padding = screenWidth * 0.04; // 4% of screen width for padding
-    final double crossAxisSpacing =
-        screenWidth * 0.04; // Spacing between columns
-    final double mainAxisSpacing = screenHeight * 0.02; // Spacing between rows
-
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu, color: Colors.white),
-          ),
-          title: const Text(
-            "Home",
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          backgroundColor: CommonColor.primaryColor,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Components",
+          style: TextStyle(color: Colors.white),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(padding),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              CommonColor.primaryColorDark,
+              CommonColor.primaryColorLight
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(screenHeight * 0.02),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 2 items per row
-              crossAxisSpacing: crossAxisSpacing,
-              mainAxisSpacing: mainAxisSpacing,
-              childAspectRatio: (screenWidth / 2 - crossAxisSpacing) /
-                  ((screenHeight - kToolbarHeight - padding * 2) / 2),
+              crossAxisCount: 3, // Set to a fixed number of columns (3)
+              crossAxisSpacing: screenWidth * 0.02,
+              mainAxisSpacing: screenHeight * 0.01,
+              childAspectRatio: screenWidth / 400, // Adjust this ratio for size
             ),
-            itemCount: 4, // Number of grid items
+            itemCount: components.length,
             itemBuilder: (context, index) {
-              // Define icons and labels for the grid items
-              final List<IconData> icons = [
-                Icons.device_hub,
-                Icons.mobile_friendly,
-                Icons.web_rounded,
-                Icons.mobile_screen_share,
-              ];
-              final List<String> labels = [
-                'Common components (Web and mobile)',
-                'Mobile specific components',
-                'Web behaviours',
-                'Mobile specific behaviours',
-              ];
-              final List<Widget> destinations = [
-                CommonComponentsScreen(),
-                MobileSpecificComponentScreen(),
-                WebBehaviorScreen(),
-                MobileSpecificBehaviorScreen(),
-              ];
-
-              return Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => destinations[index],
-                        ));
-                  },
+              return GestureDetector(
+                onTap: () {
+                  List<Widget> destinations = [
+                    ButtonScreen(),
+                    InputAndFormScreen(),
+                    SelectionControlScreen(),
+                    NavigationalComponentsScreen(),
+                    PaginationScreen(),
+                    ListScreen(),
+                    TableScreen(),
+                    SliderAndProgressIndicatorScreen(),
+                    DialgoueAndPopupScreen(),
+                    ImagesAndMediaScreen(),
+                    CardAndContainerScreen(),
+                    ChartAndGraphScreen(),
+                    InteractiveWidgetsScreen(),
+                    TextElementScreen(),
+                    MenusAndNavigationScreen(),
+                    FileHandlingAndDownloadScreen(),
+                    GridAndLayoutScreen(),
+                    RealTimeFeatureScreen(),
+                    AuthenticationAndSecurityScreen(),
+                    AdvancedComponentScreen(),
+                    AccessibilityFeatureScreen(),
+                    SpecializedUiComponentScreen(),
+                    MiscellaneousScreen(),
+                  ];
+                  Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (context) => destinations[index],
+                  ));
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(screenHeight * 0.02),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8,
+                        offset: Offset(4, 4),
+                      ),
+                    ],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        icons[index],
-                        size: screenHeight * 0.13,
-                        color: CommonColor.secondaryColor,
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              CommonColor.secondaryColor,
+                              CommonColor.tertiaryColor
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: Icon(
+                          components[index]['icon'],
+                          color: Colors.white,
+                          size: 28,
+                        ),
                       ),
-                      SizedBox(height: screenHeight * 0.01),
+                      SizedBox(height: screenHeight * 0.02),
                       Text(
-                        labels[index],
+                        components[index]['title'],
                         textAlign: TextAlign.center,
-                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: TextStyle(
-                          fontSize: screenHeight * 0.025,
-                          fontWeight: FontWeight.bold,
-                          color: CommonColor.primaryColorDark,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                          fontSize: 14,
                         ),
                       ),
                     ],

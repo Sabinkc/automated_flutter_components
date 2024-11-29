@@ -20,7 +20,7 @@ class MyApplication extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
