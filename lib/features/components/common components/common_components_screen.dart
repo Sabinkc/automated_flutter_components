@@ -1,5 +1,26 @@
 import 'package:components_automation/core/constants.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/accessibility_feature_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/advanced_component_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/authentication_and_security_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/button_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/card_and_container_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/chart_and_graph_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/grid_and_layout_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/images_and_media_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/input_and_form_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/list_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/navigational_components_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/real_time_feature_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/slider_and_progress_indicator_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/specialized_ui_component_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/table_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/text_element_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,9 +91,32 @@ class CommonComponentsScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                // Handle item tap
+                List<Widget> destinations = [
+                  ButtonScreen(),
+                  InputAndFormScreen(),
+                  SelectionControlScreen(),
+                  NavigationalComponentsScreen(),
+                  ListScreen(),
+                  TableScreen(),
+                  SliderAndProgressIndicatorScreen(),
+                  DialgoueAndPopupScreen(),
+                  ImagesAndMediaScreen(),
+                  CardAndContainerScreen(),
+                  ChartAndGraphScreen(),
+                  InteractiveWidgetsScreen(),
+                  TextElementScreen(),
+                  MenusAndNavigationScreen(),
+                  FileHandlingAndDownloadScreen(),
+                  GridAndLayoutScreen(),
+                  RealTimeFeatureScreen(),
+                  AuthenticationAndSecurityScreen(),
+                  AdvancedComponentScreen(),
+                  AccessibilityFeatureScreen(),
+                  SpecializedUiComponentScreen(),
+                  MiscellaneousScreen(),
+                ];
                 Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) => ButtonScreen(),
+                  builder: (context) => destinations[index],
                 ));
               },
               child: Card(
@@ -92,6 +136,8 @@ class CommonComponentsScreen extends StatelessWidget {
                     Text(
                       components[index]['title'],
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style: TextStyle(
                         fontSize: screenHeight * 0.02,
                         fontWeight: FontWeight.w500,

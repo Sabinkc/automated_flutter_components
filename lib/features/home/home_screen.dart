@@ -55,10 +55,10 @@ class HomeScreen extends StatelessWidget {
                 Icons.mobile_screen_share,
               ];
               final List<String> labels = [
-                'Common components \n(Web and mobile)',
-                'Mobile specific \ncomponents',
+                'Common components (Web and mobile)',
+                'Mobile specific components',
                 'Web behaviours',
-                'Mobile specific \nbehaviours',
+                'Mobile specific behaviours',
               ];
               final List<Widget> destinations = [
                 CommonComponentsScreen(),
@@ -92,9 +92,10 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         labels[index],
                         textAlign: TextAlign.center,
-                        maxLines: 2,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: screenWidth * 0.035,
+                          fontSize: screenHeight * 0.025,
                           fontWeight: FontWeight.bold,
                           color: CommonColor.primaryColorDark,
                         ),
