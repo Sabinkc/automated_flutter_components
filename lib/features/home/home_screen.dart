@@ -28,9 +28,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   // List of 22 titles and corresponding icons
   final List<Map<String, dynamic>> components = [
     {'title': 'Buttons', 'icon': Icons.radio_button_checked},
@@ -57,6 +62,8 @@ class HomeScreen extends StatelessWidget {
     {'title': 'Specialized UI Components', 'icon': Icons.star},
     {'title': 'Miscellaneous', 'icon': Icons.more_horiz},
   ];
+
+  int hoveredIndex = -1; // Track the hovered index
 
   @override
   Widget build(BuildContext context) {
@@ -102,88 +109,102 @@ class HomeScreen extends StatelessWidget {
               ),
               itemCount: components.length,
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    List<Widget> destinations = [
-                      ButtonScreen(),
-                      InputAndFormScreen(),
-                      SelectionControlScreen(),
-                      NavigationalComponentsScreen(),
-                      PaginationScreen(),
-                      ListScreen(),
-                      TableScreen(),
-                      SliderAndProgressIndicatorScreen(),
-                      DialgoueAndPopupScreen(),
-                      ImagesAndMediaScreen(),
-                      CardAndContainerScreen(),
-                      ChartAndGraphScreen(),
-                      InteractiveWidgetsScreen(),
-                      TextElementScreen(),
-                      MenusAndNavigationScreen(),
-                      FileHandlingAndDownloadScreen(),
-                      GridAndLayoutScreen(),
-                      RealTimeFeatureScreen(),
-                      AuthenticationAndSecurityScreen(),
-                      AdvancedComponentScreen(),
-                      AccessibilityFeatureScreen(),
-                      SpecializedUiComponentScreen(),
-                      MiscellaneousScreen(),
-                    ];
-                    Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => destinations[index],
-                    ));
+                return MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      hoveredIndex = index; // Set hovered index
+                    });
                   },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(screenHeight * 0.02),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 8,
-                          offset: Offset(4, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.zero,
-                          height: screenHeight * 0.1,
-                          width: screenWidth * 0.1,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                CommonColor.primaryColor,
-                                CommonColor.secondaryColor,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                  onExit: (_) {
+                    setState(() {
+                      hoveredIndex = -1; // Reset on hover exit
+                    });
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      List<Widget> destinations = [
+                        ButtonScreen(),
+                        InputAndFormScreen(),
+                        SelectionControlScreen(),
+                        NavigationalComponentsScreen(),
+                        PaginationScreen(),
+                        ListScreen(),
+                        TableScreen(),
+                        SliderAndProgressIndicatorScreen(),
+                        DialgoueAndPopupScreen(),
+                        ImagesAndMediaScreen(),
+                        CardAndContainerScreen(),
+                        ChartAndGraphScreen(),
+                        InteractiveWidgetsScreen(),
+                        TextElementScreen(),
+                        MenusAndNavigationScreen(),
+                        FileHandlingAndDownloadScreen(),
+                        GridAndLayoutScreen(),
+                        RealTimeFeatureScreen(),
+                        AuthenticationAndSecurityScreen(),
+                        AdvancedComponentScreen(),
+                        AccessibilityFeatureScreen(),
+                        SpecializedUiComponentScreen(),
+                        MiscellaneousScreen(),
+                      ];
+                      Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => destinations[index],
+                      ));
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: hoveredIndex == index
+                            ? CommonColor.primaryColorLight
+                            : Colors.white, // Change color on hover
+                        borderRadius:
+                            BorderRadius.circular(screenHeight * 0.02),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 8,
+                            offset: Offset(4, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.zero,
+                            height: screenHeight * 0.1,
+                            width: screenWidth * 0.1,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: [
+                                  CommonColor.primaryColor,
+                                  CommonColor.secondaryColor,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                            child: Icon(
+                              components[index]['icon'],
+                              color: Colors.white,
                             ),
                           ),
-                          child: Icon(
-                            components[index]['icon'],
-                            color: Colors.white,
+                          SizedBox(
+                            height: 5,
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          components[index]['title'],
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.primaryColorDark,
+                          Text(
+                            components[index]['title'],
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: CommonColor.primaryColorDark,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
