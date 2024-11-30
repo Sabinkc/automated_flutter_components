@@ -183,7 +183,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                                 CommonButton(
                                   onPressed:
                                       _isLoading ? null : () => _login(context),
-                                  buttonName: "Log In",
+                                  buttonName: "Login",
                                   horizontalPadding: screenWidth * 0.3,
                                   verticalPadding: screenHeight * 0.015,
                                 ),
@@ -206,6 +206,13 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                             Container(
                               padding: EdgeInsets.all(screenHeight * 0.02),
                               decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    blurRadius: 5,
+                                    offset: Offset(4, 4),
+                                  ),
+                                ],
                                 color: CommonColor.tertiaryColor.withOpacity(1),
                                 borderRadius:
                                     BorderRadius.circular(screenWidth * 0.03),

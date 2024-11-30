@@ -1,4 +1,3 @@
-
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -51,15 +50,15 @@ class _ButtonScreenState extends State<ButtonScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: RawScrollbar(
-          thumbColor: CommonColor.secondaryColor,
-          thumbVisibility: true,
-          thickness: 8,
-          radius: Radius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RawScrollbar(
+            thumbColor: CommonColor.secondaryColor,
+            thumbVisibility: true,
+            thickness: 4,
+            radius: Radius.circular(8),
             child: GridView.count(
-              crossAxisCount: width > 800 ? 4 : (width > 600 ? 3 : 2),
+              crossAxisCount: width > 800 ? 5 : (width > 600 ? 3 : 2),
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               childAspectRatio: 1,
