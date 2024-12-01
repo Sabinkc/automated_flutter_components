@@ -19,6 +19,12 @@ class _ButtonScreenState extends State<ButtonScreen> {
   String _dropdownValue = 'Option 1';
   bool _isFavIconPressed = false;
   bool _isOutlinedButtonPressed = false;
+  bool _isHoveringHoverbutton = false;
+  bool _firstCheckboxValue = false;
+  bool _secondCheckboxValue = false;
+  String? _radioValueMarked = 'Option 1'; // Initially marked
+  String? _radioValueUnmarked = null; // Initially unmarked
+// Initially unmarked
 
   @override
   Widget build(BuildContext context) {
@@ -271,29 +277,124 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
-                  'Radio Button',
+                  'Checkbox Button (Combined)',
+                  Column(
+                    children: [
+                      // First Row with two checkboxes side by side
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceEvenly, // Space between checkboxes
+                        children: [
+                          Tooltip(
+                            message:
+                                "A checkbox allows users to select multiple options from a set.",
+                            child: Checkbox(
+                              value: _firstCheckboxValue, // Initially unticked
+                              onChanged: (bool? newValue) {
+                                setState(() {
+                                  _firstCheckboxValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          Tooltip(
+                            message:
+                                "A checkbox allows users to select multiple options from a set.",
+                            child: Checkbox(
+                              value: _secondCheckboxValue, // Initially unticked
+                              onChanged: (bool? newValue) {
+                                setState(() {
+                                  _secondCheckboxValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+                // Radio Button Component (Marked)
+                _buildButtonCard(
+                  'Radio Button (Marked)',
                   Tooltip(
                     message:
                         "A radio button allows selecting one option from a set.",
-                    child: Column(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Radio<String>(
                           value: 'Option 1',
-                          groupValue: _radioValue,
+                          groupValue:
+                              'Option 1', // The value matches the selected option, so this button is marked
+                          onChanged: null, // No state change when tapped
+                        ),
+                      ],
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+// Radio Button Component (Unmarked)
+                _buildButtonCard(
+                  'Radio Button (Unmarked)',
+                  Tooltip(
+                    message:
+                        "A radio button allows selecting one option from a set.",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Radio<String>(
+                          value: 'Option 2',
+                          groupValue: null, // Set to null, making it unmarked
+                          onChanged: null, // No state change when tapped
+                        ),
+                      ],
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+                _buildButtonCard(
+                  'Radio Button (Combined)',
+                  Tooltip(
+                    message:
+                        "A radio button allows selecting one option from a set.",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment
+                          .center, // Align radio buttons in the center
+                      children: [
+                        // Radio Button 1
+                        Radio<String>(
+                          value: 'Option 1',
+                          groupValue:
+                              _radioValue, // Initially null, so both are unmarked
                           onChanged: (String? newValue) {
                             setState(() {
-                              _radioValue = newValue!;
+                              _radioValue = newValue;
                             });
                           },
                         ),
+                        // Radio Button 2
                         Radio<String>(
                           value: 'Option 2',
-                          groupValue: _radioValue,
+                          groupValue:
+                              _radioValue, // Initially null, so both are unmarked
                           onChanged: (String? newValue) {
                             setState(() {
-                              _radioValue = newValue!;
+                              _radioValue = newValue;
                             });
                           },
                         ),
@@ -305,6 +406,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
                   'Dropdown Button',
                   Tooltip(
@@ -361,6 +463,225 @@ class _ButtonScreenState extends State<ButtonScreen> {
                           _offtoggleValue = newValue;
                         });
                       },
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+                _buildButtonCard(
+                  'Popup Menu Button',
+                  Tooltip(
+                    message:
+                        "A button that shows a menu with a list of options.",
+                    child: PopupMenuButton<String>(
+                      onSelected: (String value) {
+                        // Handle the selected value
+                        print('Selected option: $value');
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem(
+                              value: 'Menu 1', child: Text('Option 1')),
+                          PopupMenuItem(
+                              value: 'Menu 2', child: Text('Option 2')),
+                          PopupMenuItem(
+                              value: 'Menu 3', child: Text('Option 3')),
+                        ];
+                      },
+                      child: Icon(Icons.menu),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+                _buildButtonCard(
+                  'Double Tap Button',
+                  Tooltip(
+                    message: "Performs action on double tap.",
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: const Text(
+                                  'You just double click the button!'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // Close the dialog
+                                  },
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        color: Colors.blue,
+                        child: Text(
+                          'Double Tap Me',
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+                _buildButtonCard(
+                  'Long Press Button',
+                  Tooltip(
+                    message: "Performs action on long press.",
+                    child: GestureDetector(
+                      onLongPress: () {
+                        // Displaying a SnackBar on long press
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Long Pressed!'),
+                            duration: Duration(
+                                seconds:
+                                    2), // Optional: Set how long the SnackBar stays
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        color: Colors.blue,
+                        child: Text(
+                          'Long Press Me',
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+                _buildButtonCard(
+                  'Disabled Button',
+                  Tooltip(
+                    message: "A button that is disabled and unclickable.",
+                    child: ElevatedButton(
+                      onPressed: null, // Disabled button
+                      child: Text(
+                        'Click me',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+                _buildButtonCard(
+                  'Hover Button',
+                  Tooltip(
+                    message: "Changes appearance on hover.",
+                    child: MouseRegion(
+                      onEnter: (_) {
+                        // Handle hover enter
+                        print('Mouse entered');
+                        // Update the button color on hover
+                        _isHoveringHoverbutton = true;
+                        setState(() {});
+                      },
+                      onExit: (_) {
+                        // Handle hover exit
+                        print('Mouse exited');
+                        // Revert the button color when not hovering
+                        _isHoveringHoverbutton = false;
+                        setState(() {});
+                      },
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _isHoveringHoverbutton
+                              ? Colors.purple
+                              : Colors.blue,
+                        ),
+                        onPressed: () {
+                          // Perform action
+                          print('Hovered Button Pressed');
+                        },
+                        child: Text(
+                          'Hover Me',
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+                _buildButtonCard(
+                  'Customised Button',
+                  Tooltip(
+                    message: "A button with personalised design and behaviour",
+                    child: InkWell(
+                      onTap: () {
+                        print('Beautiful Button Pressed');
+                      },
+                      splashColor: Colors.pinkAccent.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.blueAccent, Colors.purpleAccent],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              offset: Offset(4, 4),
+                              blurRadius: 10,
+                              spreadRadius: 1,
+                            ),
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.1),
+                              offset: Offset(-4, -4),
+                              blurRadius: 10,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                        child: Center(
+                          child: Text(
+                            'Customised button',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  offset: Offset(2, 2),
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   iconSize,
