@@ -1,7 +1,6 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 
 class InputAndFormScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,99 +65,117 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
             children: [
               _buildInputCard(
                 "Single-line Text Field",
-                TextField(
-                  controller: _textController,
-                  decoration: const InputDecoration(labelText: 'Enter text'),
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      isTypingInSingleLine = true;
-                      _multiLineTextController.clear();
-                    }
-                  },
-                ),
-              ),
-              _buildInputCard(
-                "Multi-line Text Field",
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxHeight: 120, // Limit the height to prevent overflow
-                  ),
+                Tooltip(
+                  message: 'Enter a single line of text.',
                   child: TextField(
-                    controller: _multiLineTextController,
-                    decoration: const InputDecoration(
-                      labelText: 'Enter multi-line text',
-                      // border: OutlineInputBorder(),
-                    ),
-                    maxLines: null, // Allows dynamic line expansion
-                    keyboardType: TextInputType.multiline,
+                    controller: _textController,
+                    decoration: const InputDecoration(labelText: 'Enter text'),
                     onChanged: (value) {
                       if (value.isNotEmpty) {
-                        isTypingInSingleLine = false;
-                        _textController.clear();
+                        isTypingInSingleLine = true;
+                        _multiLineTextController.clear();
                       }
                     },
                   ),
                 ),
               ),
               _buildInputCard(
+                "Multi-line Text Field",
+                Tooltip(
+                  message: 'Enter multiple lines of text.',
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 120, // Limit the height to prevent overflow
+                    ),
+                    child: TextField(
+                      controller: _multiLineTextController,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter multi-line text',
+                      ),
+                      maxLines: null, // Allows dynamic line expansion
+                      keyboardType: TextInputType.multiline,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          isTypingInSingleLine = false;
+                          _textController.clear();
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              _buildInputCard(
                 "Email Input",
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Enter email'),
-                  keyboardType: TextInputType.emailAddress,
-                  onSubmitted: (value) {
-                    if (_isValidEmail(value)) {
-                      _showAlertDialog(context, 'Valid Email', value);
-                    } else {
-                      _showAlertDialog(context, 'Invalid Email',
-                          'Please enter a valid email address.');
-                    }
-                  },
+                Tooltip(
+                  message: 'Enter a valid email address.',
+                  child: TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(labelText: 'Enter email'),
+                    keyboardType: TextInputType.emailAddress,
+                    onSubmitted: (value) {
+                      if (_isValidEmail(value)) {
+                        _showAlertDialog(context, 'Valid Email', value, false);
+                      } else {
+                        _showAlertDialog(context, 'Invalid Email',
+                            'Invalid email format.', false);
+                      }
+                    },
+                  ),
                 ),
               ),
               _buildInputCard(
                 "Number Input",
-                TextField(
-                  controller: _numberController,
-                  decoration: const InputDecoration(labelText: 'Enter number'),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
+                Tooltip(
+                  message: 'Enter a numeric value.',
+                  child: TextField(
+                    controller: _numberController,
+                    decoration:
+                        const InputDecoration(labelText: 'Enter number'),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
                 ),
               ),
               _buildInputCard(
                 "Date Picker",
-                ElevatedButton(
-                  onPressed: () async {
-                    DateTime? picked = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(2100),
-                    );
-                    if (picked != null) {
-                      _showAlertDialog(
-                          context, 'Selected Date', picked.toString());
-                    }
-                  },
-                  child: const Text('Pick a Date'),
+                Tooltip(
+                  message: 'Pick a date.',
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      if (picked != null) {
+                        _showAlertDialog(
+                            context, 'Selected Date', picked.toString(), true);
+                      }
+                    },
+                    child: const Text('Pick a Date'),
+                  ),
                 ),
               ),
               _buildInputCard(
                 "Time Picker",
-                ElevatedButton(
-                  onPressed: () async {
-                    TimeOfDay? picked = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (picked != null) {
-                      _showAlertDialog(
-                          context, 'Selected Time', picked.format(context));
-                    }
-                  },
-                  child: const Text('Pick a Time'),
+                Tooltip(
+                  message: 'Pick a time.',
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      TimeOfDay? picked = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (picked != null) {
+                        _showAlertDialog(context, 'Selected Time',
+                            picked.format(context), true);
+                      }
+                    },
+                    child: const Text('Pick a Time'),
+                  ),
                 ),
               ),
             ],
@@ -174,22 +191,79 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
     return emailRegex.hasMatch(email);
   }
 
-  void _showAlertDialog(BuildContext context, String title, String content) {
-    Timer(const Duration(milliseconds: 200), () {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(title),
-          content: Text(content),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+  // Show Alert Dialog after a random delay and show Circular Progress Indicator during the delay
+  void _showAlertDialog(
+      BuildContext context, String title, String content, bool isValid) {
+    // Random delay between 0 to 4 seconds
+    int randomValue =
+        (0 + (4 - 0) * (new DateTime.now().millisecondsSinceEpoch % 100) / 100)
+            .toInt();
+
+    // Show the dialog with loading
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                  child:
+                      CircularProgressIndicator()), // Show loading indicator first
+            ],
+          ),
+          actions: [],
+        );
+      },
+    );
+
+    // Simulate loading for random time between 0 to 4 seconds
+    Future.delayed(Duration(seconds: randomValue), () {
+      // Close the progress dialog and show the actual message after delay
+      Navigator.of(context).pop();
+
+      // If random value is 4, show error message
+      if (randomValue == 4) {
+        _showErrorDialog(
+            context, 'Error occurred', 'Unable to pick date or time.');
+      } else {
+        // Otherwise, show the valid message
+        _showSuccessDialog(context, title, content);
+      }
     });
+  }
+
+  void _showSuccessDialog(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildInputCard(String title, Widget inputWidget) {

@@ -80,7 +80,7 @@ class HomeTab extends StatelessWidget {
                       Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => LoginScreen()));
                     },
-                    buttonName: "Explore Components",
+                    buttonName: "Get Started",
                     horizontalPadding: 50,
                     verticalPadding: 10)
               ],

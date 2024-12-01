@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ButtonScreen extends StatefulWidget {
   const ButtonScreen({super.key});
@@ -9,10 +11,14 @@ class ButtonScreen extends StatefulWidget {
 }
 
 class _ButtonScreenState extends State<ButtonScreen> {
-  bool _checkboxValue = true;
+  bool _markedCheckboxValue = true;
+  bool _unMarkedCheckboxValue = false;
   String? _radioValue = 'Option 1';
-  bool _toggleValue = true;
+  bool _ontoggleValue = true;
+  bool _offtoggleValue = false;
   String _dropdownValue = 'Option 1';
+  bool _isFavIconPressed = false;
+  bool _isOutlinedButtonPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
           gradient: LinearGradient(
             colors: [
               CommonColor.primaryColorDark,
-              CommonColor.primaryColorLight
+              CommonColor.primaryColorLight,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -65,69 +71,181 @@ class _ButtonScreenState extends State<ButtonScreen> {
               children: [
                 _buildButtonCard(
                   'Elevated Button',
-                  ElevatedButton(
-                    onPressed: () {
-                      _showAlertDialog(context, 'Elevated Button',
-                          "An elevated button has a shadow and is used for primary actions.");
-                    },
-                    child: const Text('Elevated'),
+                  Tooltip(
+                    message:
+                        "An elevated button adds elevation to your button.",
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await _handleElevatedButtonPress(context);
+                      },
+                      child: Text(
+                        'Press me',
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
                   ),
                   iconSize,
                   cardPadding,
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
                   'Text Button',
-                  TextButton(
-                    onPressed: () {
-                      _showAlertDialog(context, 'Text Button',
-                          "A text button is a flat button, often used for less emphasized actions.");
-                    },
-                    child: const Text('Text'),
+                  Tooltip(
+                    message:
+                        "A text button displays only text with no background.",
+                    child: TextButton(
+                      onPressed: () async {
+                        final Uri url = Uri.parse(
+                            'https://www.youtube.com/'); // Use Uri.parse
+                        try {
+                          // Check if the URL can be launched
+                          if (await canLaunchUrl(url)) {
+                            // Launch the URL
+                            await launchUrl(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        } catch (e) {
+                          // Show a snackbar with error message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error occurred: $e')),
+                          );
+                        }
+                      },
+                      child: Text(
+                        'Open youtube',
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
                   ),
                   iconSize,
                   cardPadding,
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
                   'Outlined Button',
-                  OutlinedButton(
-                    onPressed: () {
-                      _showAlertDialog(context, 'Outlined Button',
-                          "An outlined button has a border and is used for medium emphasis actions.");
-                    },
-                    child: const Text('Outlined'),
+                  Tooltip(
+                    message: "An outlined button adds borders to the button.",
+                    child: OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          _isOutlinedButtonPressed = !_isOutlinedButtonPressed;
+                        });
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.resolveWith<Color>((states) {
+                          return _isOutlinedButtonPressed
+                              ? Colors.blue
+                              : Colors.transparent;
+                        }),
+                        side: WidgetStateProperty.resolveWith<BorderSide>(
+                            (states) {
+                          return BorderSide(
+                              color: _isOutlinedButtonPressed
+                                  ? Colors.blue
+                                  : Colors.black);
+                        }),
+                      ),
+                      child: Text(
+                        'Change my color',
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
                   ),
                   iconSize,
                   cardPadding,
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
                   'Icon Button',
-                  IconButton(
-                    onPressed: () {
-                      _showAlertDialog(context, 'Icon Button',
-                          "An icon button contains only an icon and is used for quick actions.");
-                    },
-                    icon: const Icon(Icons.favorite),
-                    iconSize: iconSize,
+                  Tooltip(
+                    message:
+                        "An icon button displays an icon as a clickable button.",
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          // Toggle the color of the icon
+                          _isFavIconPressed = !_isFavIconPressed;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.favorite,
+                        color: _isFavIconPressed
+                            ? Colors.red
+                            : null, // Change color on press
+                      ),
+                      iconSize: iconSize,
+                    ),
                   ),
                   iconSize,
                   cardPadding,
                   titleFontSize,
                   buttonSize,
                 ),
+
+// Declare a boolean variable to track the icon state
+
                 _buildButtonCard(
                   'Floating Action Button',
-                  FloatingActionButton(
-                    onPressed: () {
-                      _showAlertDialog(context, 'Floating Action Button',
-                          "A floating action button is circular and is used for primary floating actions.");
-                    },
-                    child: const Icon(Icons.add),
+                  Tooltip(
+                    message:
+                        "A floating action button is a circular button that floats above the content.",
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        // Show the alert dialog when FAB is pressed
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: const Text(
+                                  'You pressed the floating action button!'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // Close the dialog
+                                  },
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+
+                _buildButtonCard(
+                  'Checkbox Button (Marked)',
+                  Tooltip(
+                    message:
+                        "A checkbox allows users to select multiple options from a set.",
+                    child: Checkbox(
+                      value: _markedCheckboxValue,
+                      onChanged: (bool? newValue) {
+                        setState(() {
+                          _markedCheckboxValue = newValue!;
+                        });
+                      },
+                    ),
                   ),
                   iconSize,
                   cardPadding,
@@ -135,18 +253,18 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
                 _buildButtonCard(
-                  'Checkbox Button',
-                  Checkbox(
-                    value: _checkboxValue,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        _checkboxValue = newValue!;
-                      });
-                      Future.delayed(const Duration(seconds: 1), () {
-                        _showAlertDialog(context, 'Checkbox Button',
-                            "A checkbox allows users to select multiple options from a set.");
-                      });
-                    },
+                  'Checkbox Button (Unmarked)',
+                  Tooltip(
+                    message:
+                        "A checkbox allows users to select multiple options from a set.",
+                    child: Checkbox(
+                      value: _unMarkedCheckboxValue,
+                      onChanged: (bool? newValue) {
+                        setState(() {
+                          _unMarkedCheckboxValue = newValue!;
+                        });
+                      },
+                    ),
                   ),
                   iconSize,
                   cardPadding,
@@ -155,32 +273,32 @@ class _ButtonScreenState extends State<ButtonScreen> {
                 ),
                 _buildButtonCard(
                   'Radio Button',
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Radio<String>(
-                        value: 'Option 1',
-                        groupValue: _radioValue,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _radioValue = newValue!;
-                          });
-                          Future.delayed(const Duration(seconds: 1), () {
-                            _showAlertDialog(context, 'Radio Button',
-                                "A radio button allows selecting one option from a set.");
-                          });
-                        },
-                      ),
-                      Radio<String>(
-                        value: 'Option 2',
-                        groupValue: _radioValue,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _radioValue = newValue!;
-                          });
-                        },
-                      ),
-                    ],
+                  Tooltip(
+                    message:
+                        "A radio button allows selecting one option from a set.",
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Radio<String>(
+                          value: 'Option 1',
+                          groupValue: _radioValue,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _radioValue = newValue!;
+                            });
+                          },
+                        ),
+                        Radio<String>(
+                          value: 'Option 2',
+                          groupValue: _radioValue,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _radioValue = newValue!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   iconSize,
                   cardPadding,
@@ -189,24 +307,23 @@ class _ButtonScreenState extends State<ButtonScreen> {
                 ),
                 _buildButtonCard(
                   'Dropdown Button',
-                  DropdownButton<String>(
-                    value: _dropdownValue,
-                    items: <String>['Option 1', 'Option 2', 'Option 3']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _dropdownValue = newValue!;
-                      });
-                      Future.delayed(const Duration(seconds: 1), () {
-                        _showAlertDialog(context, 'Dropdown Button',
-                            "A dropdown button shows a list of options.");
-                      });
-                    },
+                  Tooltip(
+                    message: "A dropdown button shows a list of options.",
+                    child: DropdownButton<String>(
+                      value: _dropdownValue,
+                      items: <String>['Option 1', 'Option 2', 'Option 3']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _dropdownValue = newValue!;
+                        });
+                      },
+                    ),
                   ),
                   iconSize,
                   cardPadding,
@@ -214,18 +331,37 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
                 _buildButtonCard(
-                  'Toggle Button',
-                  Switch(
-                    value: _toggleValue,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _toggleValue = newValue;
-                      });
-                      Future.delayed(const Duration(seconds: 1), () {
-                        _showAlertDialog(context, 'Toggle Button',
-                            "A toggle switch is used to turn options on or off.");
-                      });
-                    },
+                  'Toggle Button (On)',
+                  Tooltip(
+                    message:
+                        "A toggle switch is used to turn options on or off.",
+                    child: Switch(
+                      value: _ontoggleValue,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          _ontoggleValue = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                  buttonSize,
+                ),
+                _buildButtonCard(
+                  'Toggle Button (Off)',
+                  Tooltip(
+                    message:
+                        "A toggle switch is used to turn options on or off.",
+                    child: Switch(
+                      value: _offtoggleValue,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          _offtoggleValue = newValue;
+                        });
+                      },
+                    ),
                   ),
                   iconSize,
                   cardPadding,
@@ -240,29 +376,14 @@ class _ButtonScreenState extends State<ButtonScreen> {
     );
   }
 
-  void _showAlertDialog(
-      BuildContext context, String buttonName, String description) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(buttonName),
-          content: Text(description),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("OK"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildButtonCard(String title, Widget button, double iconSize,
-      double cardPadding, double titleFontSize, double buttonSize) {
+  Widget _buildButtonCard(
+    String title,
+    Widget button,
+    double iconSize,
+    double cardPadding,
+    double titleFontSize,
+    double buttonSize,
+  ) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -274,6 +395,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               title,
               style: TextStyle(
                 fontSize: titleFontSize,
@@ -293,6 +416,48 @@ class _ButtonScreenState extends State<ButtonScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _handleElevatedButtonPress(BuildContext context) async {
+    // Show the dialog with the circular progress indicator
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent dismissing by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircularProgressIndicator(),
+            ],
+          ),
+        );
+      },
+    );
+
+    // Simulate a 3-second delay before showing the success message
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Close the progress dialog
+    Navigator.of(context).pop();
+
+    // Show the final success message after the progress indicator
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const Text('Elevated button pressed!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Ok"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

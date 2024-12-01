@@ -21,7 +21,7 @@ class MyApplication extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LandingScreen(),
+      home: HomeScreen(),
     );
   }
 }

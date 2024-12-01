@@ -22,6 +22,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/table_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/text_element_screen.dart';
 import 'package:components_automation/features/components/common%20components/pagination_screen.dart';
+import 'package:components_automation/features/home/landing_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -78,6 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+            onPressed: () {
+              // logout and navigate to login screen
+            },
+            icon: Icon(
+              Icons.menu,
+              color: Colors.white,
+            )),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -102,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: screenWidth < 700
                     ? 2
                     : 3, // Set to a fixed number of columns (3)
-                crossAxisSpacing: screenWidth * 0.02,
-                mainAxisSpacing: screenHeight * 0.01,
+                crossAxisSpacing: screenWidth * 0.05,
+                mainAxisSpacing: screenHeight * 0.05,
                 childAspectRatio:
                     screenWidth / 400, // Adjust this ratio for size
               ),
