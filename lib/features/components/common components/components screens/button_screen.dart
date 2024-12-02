@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:components_automation/core/constants.dart';
+import 'package:components_automation/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,9 +23,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
   bool _isHoveringHoverbutton = false;
   bool _firstCheckboxValue = false;
   bool _secondCheckboxValue = false;
-  String? _radioValueMarked = 'Option 1'; // Initially marked
-  String? _radioValueUnmarked = null; // Initially unmarked
-// Initially unmarked
+  String? _radioValueMarked = 'Option 1';
+  String? _radioValueUnmarked = null;
+  String? _selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                         await _handleElevatedButtonPress(context);
                       },
                       child: Text(
-                        'Press me',
+                        'Load data',
                         style: TextStyle(
                           fontSize: 30,
                         ),
@@ -239,18 +240,15 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
 
+                // Checkbox Button (Marked)
                 _buildButtonCard(
                   'Checkbox Button (Marked)',
                   Tooltip(
                     message:
                         "A checkbox allows users to select multiple options from a set.",
                     child: Checkbox(
-                      value: _markedCheckboxValue,
-                      onChanged: (bool? newValue) {
-                        setState(() {
-                          _markedCheckboxValue = newValue!;
-                        });
-                      },
+                      value: true, // Set to true to make it marked
+                      onChanged: null, // No state change on tap (static)
                     ),
                   ),
                   iconSize,
@@ -258,18 +256,16 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
+// Checkbox Button (Unmarked)
                 _buildButtonCard(
                   'Checkbox Button (Unmarked)',
                   Tooltip(
                     message:
                         "A checkbox allows users to select multiple options from a set.",
                     child: Checkbox(
-                      value: _unMarkedCheckboxValue,
-                      onChanged: (bool? newValue) {
-                        setState(() {
-                          _unMarkedCheckboxValue = newValue!;
-                        });
-                      },
+                      value: false, // Set to false to make it unmarked
+                      onChanged: null, // No state change on tap (static)
                     ),
                   ),
                   iconSize,
@@ -279,36 +275,71 @@ class _ButtonScreenState extends State<ButtonScreen> {
                 ),
 
                 _buildButtonCard(
-                  'Checkbox Button (Combined)',
+                  'Combined checkbox',
                   Column(
                     children: [
+                      // Title at the top
+                      Text(
+                        'Favourite foods:',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
                       // First Row with two checkboxes side by side
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment
                             .spaceEvenly, // Space between checkboxes
                         children: [
+                          // Apple Checkbox
                           Tooltip(
                             message:
                                 "A checkbox allows users to select multiple options from a set.",
-                            child: Checkbox(
-                              value: _firstCheckboxValue, // Initially unticked
-                              onChanged: (bool? newValue) {
-                                setState(() {
-                                  _firstCheckboxValue = newValue!;
-                                });
-                              },
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Apple',
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                                Checkbox(
+                                  value:
+                                      _firstCheckboxValue, // Initially unticked
+                                  onChanged: (bool? newValue) {
+                                    setState(() {
+                                      _firstCheckboxValue = newValue!;
+                                    });
+                                    if (_firstCheckboxValue) {
+                                      _showFunFactDialog('Apple',
+                                          'Apples are a great source of fiber and vitamin C!');
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
                           ),
+
+                          // Banana Checkbox
                           Tooltip(
                             message:
                                 "A checkbox allows users to select multiple options from a set.",
-                            child: Checkbox(
-                              value: _secondCheckboxValue, // Initially unticked
-                              onChanged: (bool? newValue) {
-                                setState(() {
-                                  _secondCheckboxValue = newValue!;
-                                });
-                              },
+                            child: Row(
+                              children: [
+                                Text('Banana', style: TextStyle(fontSize: 25)),
+                                Checkbox(
+                                  value:
+                                      _secondCheckboxValue, // Initially unticked
+                                  onChanged: (bool? newValue) {
+                                    setState(() {
+                                      _secondCheckboxValue = newValue!;
+                                    });
+                                    if (_secondCheckboxValue) {
+                                      _showFunFactDialog('Banana',
+                                          'Bananas are rich in potassium and help maintain heart health!');
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -320,7 +351,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
-                // Radio Button Component (Marked)
+
                 _buildButtonCard(
                   'Radio Button (Marked)',
                   Tooltip(
@@ -367,39 +398,70 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
 
+
+
                 _buildButtonCard(
-                  'Radio Button (Combined)',
-                  Tooltip(
-                    message:
-                        "A radio button allows selecting one option from a set.",
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .center, // Align radio buttons in the center
-                      children: [
-                        // Radio Button 1
-                        Radio<String>(
-                          value: 'Option 1',
-                          groupValue:
-                              _radioValue, // Initially null, so both are unmarked
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _radioValue = newValue;
-                            });
-                          },
+                  'Combined radio button',
+                  Column(
+                    children: [
+                      // Title at the top
+                      Text(
+                        'Select your gender:',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
-                        // Radio Button 2
-                        Radio<String>(
-                          value: 'Option 2',
-                          groupValue:
-                              _radioValue, // Initially null, so both are unmarked
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _radioValue = newValue;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+
+                      // First Row with two radio buttons side by side
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceEvenly, // Space between radio buttons
+                        children: [
+                          // Male Radio Button
+                          Tooltip(
+                            message:
+                                "A radio button allows selecting one option from a set.",
+                            child: Row(
+                              children: [
+                                Text('Male', style: TextStyle(fontSize: 25)),
+                                Radio<String>(
+                                  value: 'Male', // Option value for Male
+                                  groupValue:
+                                      _selectedGender, // Current selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      _selectedGender = newValue!;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Female Radio Button
+                          Tooltip(
+                            message:
+                                "A radio button allows selecting one option from a set.",
+                            child: Row(
+                              children: [
+                                Text('Female', style: TextStyle(fontSize: 25)),
+                                Radio<String>(
+                                  value: 'Female', // Option value for Female
+                                  groupValue:
+                                      _selectedGender, // Current selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      _selectedGender = newValue!;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   iconSize,
                   cardPadding,
@@ -471,6 +533,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
 
+         
+
                 _buildButtonCard(
                   'Popup Menu Button',
                   Tooltip(
@@ -480,15 +544,15 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       onSelected: (String value) {
                         // Handle the selected value
                         print('Selected option: $value');
+
+                        // Show the dialog after a menu item is selected
+                        _showSelectionDialog(value);
                       },
                       itemBuilder: (BuildContext context) {
                         return [
-                          PopupMenuItem(
-                              value: 'Menu 1', child: Text('Option 1')),
-                          PopupMenuItem(
-                              value: 'Menu 2', child: Text('Option 2')),
-                          PopupMenuItem(
-                              value: 'Menu 3', child: Text('Option 3')),
+                          PopupMenuItem(value: 'Menu 1', child: Text('Menu 1')),
+                          PopupMenuItem(value: 'Menu 2', child: Text('Menu 2')),
+                          PopupMenuItem(value: 'Menu 3', child: Text('Menu 3')),
                         ];
                       },
                       child: Icon(Icons.menu),
@@ -499,35 +563,29 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
-                  'Double Tap Button',
+                  'Double tap button',
                   Tooltip(
                     message: "Performs action on double tap.",
                     child: GestureDetector(
                       onDoubleTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
+                        // Delay the snackbar display by 2 seconds
+                        Future.delayed(Duration(seconds: 2), () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
                               content: const Text(
-                                  'You just double click the button!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context); // Close the dialog
-                                  },
-                                  child: const Text('Ok'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                  'You just double-tapped the button!'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        });
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         color: Colors.blue,
                         child: Text(
-                          'Double Tap Me',
+                          'Show delayed snackbar',
                           style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
                       ),
@@ -538,27 +596,51 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
                 _buildButtonCard(
                   'Long Press Button',
                   Tooltip(
                     message: "Performs action on long press.",
                     child: GestureDetector(
                       onLongPress: () {
-                        // Displaying a SnackBar on long press
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Long Pressed!'),
-                            duration: Duration(
-                                seconds:
-                                    2), // Optional: Set how long the SnackBar stays
-                          ),
+                        // Show the prompt dialog on long press
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            TextEditingController _controller =
+                                TextEditingController();
+                            return AlertDialog(
+                              title: Text('Enter Your Name:'),
+                              content: TextField(
+                                controller: _controller,
+                                decoration: InputDecoration(
+                                    hintText: 'Enter your name'),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    // Retrieve the input and display it in the SnackBar
+                                    String result = _controller.text;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Hello $result'),
+                                        duration: Duration(seconds: 2),
+                                      ),
+                                    );
+                                    Navigator.pop(context); // Close the dialog
+                                  },
+                                  child: Text('Submit'),
+                                ),
+                              ],
+                            );
+                          },
                         );
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
                         color: Colors.blue,
                         child: Text(
-                          'Long Press Me',
+                          'Open prompt box',
                           style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
                       ),
@@ -613,7 +695,26 @@ class _ButtonScreenState extends State<ButtonScreen> {
                               : Colors.blue,
                         ),
                         onPressed: () {
-                          // Perform action
+                          // Show Alert Dialog when button is pressed
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Button Pressed'),
+                                content:
+                                    Text('You have clicked the Hover Button!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context); // Close the dialog
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                           print('Hovered Button Pressed');
                         },
                         child: Text(
@@ -628,14 +729,19 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
-
                 _buildButtonCard(
                   'Customised Button',
                   Tooltip(
                     message: "A button with personalised design and behaviour",
                     child: InkWell(
                       onTap: () {
-                        print('Beautiful Button Pressed');
+                        // Navigate to the home page on button press
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HomeScreen()), // Replace 'HomePage' with your actual home page widget
+                        );
                       },
                       splashColor: Colors.pinkAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(15),
@@ -666,7 +772,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                             EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                         child: Center(
                           child: Text(
-                            'Customised button',
+                            'Go to HomeScreen',
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.white,
@@ -689,6 +795,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
+
+        
               ],
             ),
           ),
@@ -740,6 +848,45 @@ class _ButtonScreenState extends State<ButtonScreen> {
     );
   }
 
+  // Function to display the fun fact dialog
+  void _showFunFactDialog(String food, String fact) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('$food Fun Fact'),
+          content: Text(fact),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to show the dialog
+  void _showSelectionDialog(String selectedMenu) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Selected Menu'),
+          content: Text('You selected: $selectedMenu'),
+        );
+      },
+    );
+
+    // Automatically close the dialog after 1 second
+    Future.delayed(Duration(seconds: 1), () {
+      Navigator.of(context).pop(); // Close the dialog
+    });
+  }
+
   Future<void> _handleElevatedButtonPress(BuildContext context) async {
     // Show the dialog with the circular progress indicator
     showDialog(
@@ -768,7 +915,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: const Text('Elevated button pressed!'),
+          content: const Text('Data loaded successfully!'),
           actions: [
             TextButton(
               onPressed: () {
