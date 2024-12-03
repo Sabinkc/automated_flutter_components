@@ -1,3 +1,4 @@
+import 'package:components_automation/core/constants.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_detail_scree.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
         title: const Text("Charts & Graphs",
             style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: CommonColor.primaryColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -32,7 +33,10 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blueAccent, Colors.lightBlueAccent],
+            colors: [
+              CommonColor.primaryColorDark,
+              CommonColor.primaryColorLight
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -101,6 +105,20 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
                       titleFontSize,
                       context,
                       'Gauge charts show data on a circular scale, commonly used for measuring performance.'),
+                  _buildChartCard(
+                      'Scatter Chart',
+                      Icons.scatter_plot,
+                      cardPadding,
+                      titleFontSize,
+                      context,
+                      'Scatter charts display data points on a two-dimensional graph, useful for showing relationships between variables.'),
+                  _buildChartCard(
+                      'Stacked Bar Chart',
+                      Icons.stacked_bar_chart,
+                      cardPadding,
+                      titleFontSize,
+                      context,
+                      'Stacked bar charts are used to display data that is divided into multiple categories, allowing for comparison across categories.'),
                 ],
               ),
             ),

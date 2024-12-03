@@ -33,9 +33,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
     double height = MediaQuery.of(context).size.height;
 
     double iconSize = width > 800 ? height * 0.06 : height * 0.05;
-    double cardPadding = width > 800 ? 6.0 : 12.0;
+    double cardPadding = 5;
     double titleFontSize = width > 800 ? 18 : 16;
-    double buttonSize = width > 800 ? 22 : 18;
+    double buttonSize = 30;
 
     return Scaffold(
       appBar: AppBar(
@@ -71,7 +71,11 @@ class _ButtonScreenState extends State<ButtonScreen> {
             thickness: 4,
             radius: Radius.circular(8),
             child: GridView.count(
-              crossAxisCount: width > 800 ? 5 : (width > 600 ? 3 : 2),
+              crossAxisCount: width > 1000
+                  ? 5
+                  : width > 800
+                      ? 4
+                      : (width > 600 ? 3 : 2),
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               childAspectRatio: 1,
@@ -88,8 +92,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       child: Text(
                         'Load data',
                         style: TextStyle(
-                          fontSize: 30,
-                        ),
+                            // fontSize: 30,
+                            ),
                       ),
                     ),
                   ),
@@ -126,8 +130,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       child: Text(
                         'Open youtube',
                         style: TextStyle(
-                          fontSize: 30,
-                        ),
+                            // fontSize: 30,
+                            ),
                       ),
                     ),
                   ),
@@ -300,7 +304,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                               children: [
                                 Text(
                                   'Apple',
-                                  style: TextStyle(fontSize: 25),
+                                  style: TextStyle(fontSize: 30),
                                 ),
                                 Checkbox(
                                   value:
@@ -325,7 +329,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                 "A checkbox allows users to select multiple options from a set.",
                             child: Row(
                               children: [
-                                Text('Banana', style: TextStyle(fontSize: 25)),
+                                Text('Banana', style: TextStyle(fontSize: 30)),
                                 Checkbox(
                                   value:
                                       _secondCheckboxValue, // Initially unticked
@@ -347,9 +351,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
                     ],
                   ),
                   iconSize,
-                  cardPadding,
+                  2,
                   titleFontSize,
-                  buttonSize,
+                  buttonSize * 1.4,
                 ),
 
                 _buildButtonCard(
@@ -398,15 +402,13 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   buttonSize,
                 ),
 
-
-
                 _buildButtonCard(
                   'Combined radio button',
                   Column(
                     children: [
                       // Title at the top
                       Text(
-                        'Select your gender:',
+                        'Your gender:',
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -464,9 +466,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
                     ],
                   ),
                   iconSize,
-                  cardPadding,
+                  2,
                   titleFontSize,
-                  buttonSize,
+                  buttonSize * 1.4,
                 ),
 
                 _buildButtonCard(
@@ -532,8 +534,6 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
-
-         
 
                 _buildButtonCard(
                   'Popup Menu Button',
@@ -795,8 +795,6 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   titleFontSize,
                   buttonSize,
                 ),
-
-        
               ],
             ),
           ),
@@ -833,7 +831,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             SizedBox(
               width: buttonSize * 4,
               height: buttonSize * 2.5,
