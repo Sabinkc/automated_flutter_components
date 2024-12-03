@@ -9,7 +9,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/grid_and_layout_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/images_and_media_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/input_and_form_screen.dart';
+import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/list_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
@@ -19,7 +19,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/slider_and_progress_indicator_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/specialized_ui_component_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/table_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/tables%20and%20screen/table_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/text_element_screen.dart';
 import 'package:components_automation/features/components/common%20components/pagination_screen.dart';
 import 'package:components_automation/features/home/landing_screen.dart';
