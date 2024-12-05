@@ -178,12 +178,12 @@ class _TablesAndGridsScreenState extends State<TableScreen> {
                 );
                 break;
               case 'Data Grid':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DataGridScreen(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   // MaterialPageRoute(
+                //   //   builder: (context) => const DataGridScreen(),
+                //   // ),
+                // );
                 break;
             }
           },

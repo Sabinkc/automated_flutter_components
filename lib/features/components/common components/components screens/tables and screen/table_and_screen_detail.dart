@@ -112,7 +112,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 
 class BasicTableScreen extends StatelessWidget {
@@ -210,14 +209,15 @@ class SortableTableScreen extends StatefulWidget {
 class _SortableTableScreenState extends State<SortableTableScreen> {
   bool sortAscending = true;
   int sortColumnIndex = 0;
-  
+
   List<Map<String, dynamic>> data = [
     {'ID': 1, 'Name': 'John Doe', 'Age': 28},
     {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
     {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
   ];
 
-  void sort<T>(Comparable<T> Function(Map<String, dynamic>) getField, int columnIndex, bool ascending) {
+  void sort<T>(Comparable<T> Function(Map<String, dynamic>) getField,
+      int columnIndex, bool ascending) {
     data.sort((a, b) {
       if (!ascending) {
         final temp = a;
@@ -291,7 +291,7 @@ class _FilterableTableScreenState extends State<FilterableTableScreen> {
     {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
   ];
 
-  List<Map<String, dynamic>> filteredData;
+  List<Map<String, dynamic>>? filteredData;
 
   @override
   void initState() {
@@ -333,7 +333,7 @@ class _FilterableTableScreenState extends State<FilterableTableScreen> {
                     DataColumn(label: Text('Name')),
                     DataColumn(label: Text('Age')),
                   ],
-                  rows: filteredData
+                  rows: filteredData!
                       .map((e) => DataRow(cells: [
                             DataCell(Text(e['ID'].toString())),
                             DataCell(Text(e['Name'])),
