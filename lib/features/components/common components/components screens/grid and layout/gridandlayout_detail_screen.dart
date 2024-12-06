@@ -3,18 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class GridAndLayoutDetailScreen extends StatelessWidget {
+class GridAndLayoutDetailScreen extends StatefulWidget {
   final String title;
   final IconData icon;
 
-  const GridAndLayoutDetailScreen(
+  GridAndLayoutDetailScreen(
       {super.key, required this.title, required this.icon});
+
+  @override
+  State<GridAndLayoutDetailScreen> createState() =>
+      _GridAndLayoutDetailScreenState();
+}
+
+class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
+  int _selectedIndex = 0;
+
+  // List of widgets for each tab's content
+  static const List<Widget> _widgetOptions = <Widget>[
+    Center(child: Text('Home Screen')),
+    Center(child: Text('Search Screen')),
+    Center(child: Text('Settings Screen')),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: TextStyle(color: Colors.white)),
+        title: Text(widget.title, style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
         leading: IconButton(
@@ -29,7 +44,7 @@ class GridAndLayoutDetailScreen extends StatelessWidget {
   }
 
   Widget _getDetailLayout() {
-    switch (title) {
+    switch (widget.title) {
       case 'Grid Layout':
         return _buildGridLayout();
       case 'Masonry Layout(Staggered)':
@@ -39,9 +54,21 @@ class GridAndLayoutDetailScreen extends StatelessWidget {
       case 'Scrollable Layout':
         return _buildScrollableLayout();
       case 'Absolute Positioning':
-        return _buildAbsolutePositioning();
+        return _buildAbsolutePositioningLayout();
       case 'Sticky Headers':
         return _buildStickyHeaders();
+      case 'Masonry Layout(Staggered)':
+        return _buildMasonryLayout();
+      case 'Vertical ListView':
+        return _buildVerticalListView();
+      case 'Horizontal ListView':
+        return _buildHorizontalListView();
+      case 'PageView Layout':
+        return _buildPageViewLayout();
+      case 'Bottom Navigation Bar':
+        return _buildBottomNavigationBarLayout();
+      case 'Tab Bar Layout':
+        return _buildTabBarLayout();
       default:
         return Center(child: Text('Unknown Layout'));
     }
@@ -51,10 +78,11 @@ class GridAndLayoutDetailScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         crossAxisSpacing: 8.0,
         mainAxisSpacing: 8.0,
-        children: List.generate(6, (index) {
+        childAspectRatio: 2,
+        children: List.generate(10, (index) {
           return Card(
             elevation: 6,
             shape: RoundedRectangleBorder(
@@ -196,38 +224,73 @@ class GridAndLayoutDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAbsolutePositioning() {
-    return Stack(
-      children: [
-        Positioned(
-          top: 100,
-          left: 50,
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Positioned Item', textAlign: TextAlign.center),
+  Widget _buildAbsolutePositioningLayout() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Stack(
+        children: [
+          // Background element
+          Container(
+            color: Colors.blue[100],
+            width: double.infinity,
+            height: 300,
+            child: Center(
+                child: Text('Background',
+                    style: TextStyle(color: Colors.white, fontSize: 20))),
+          ),
+          // Positioned element 1
+          Positioned(
+            top: 50,
+            left: 100,
+            child: Container(
+              color: Colors.red,
+              width: 90,
+              height: 90,
+              child: Center(
+                child: Text(
+                  'Top: 50\nLeft: 100',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ),
-        ),
-        Positioned(
-          top: 250,
-          right: 50,
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Another Item', textAlign: TextAlign.center),
+          // Positioned element 2
+          Positioned(
+            bottom: 30,
+            right: 20,
+            child: Container(
+              color: Colors.green,
+              width: 60,
+              height: 60,
+              child: Center(
+                child: Text(
+                  'Bottom: 30\nRight: 20',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+          // Positioned element 3
+          Positioned(
+            top: 120,
+            left: 10,
+            child: Container(
+              color: Colors.orange,
+              width: 100,
+              height: 100,
+              child: Center(
+                child: Text(
+                  'Top: 150\nLeft: 10',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -262,6 +325,142 @@ class GridAndLayoutDetailScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildVerticalListView() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 6,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Item $index', textAlign: TextAlign.center),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildHorizontalListView() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 50,
+          itemBuilder: (context, index) {
+            return Card(
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Item $index', textAlign: TextAlign.center),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPageViewLayout() {
+    List _colors = [
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+    ];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PageView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Scaffold(
+            backgroundColor: _colors[index],
+            body: Center(
+              child: Card(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text('Page $index', textAlign: TextAlign.center),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildBottomNavigationBarLayout() {
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex, // Keep track of the selected index
+        selectedItemColor: Colors.blue, // Set the color for the selected item
+        unselectedItemColor:
+            Colors.grey, // Set the color for the unselected items
+        selectedFontSize: 14.0, // Set font size for the selected item
+        unselectedFontSize: 12.0, // Set font size for the unselected items
+        iconSize: 30.0, // Set icon size for both selected and unselected items
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index; // Update the selected index
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildTabBarLayout() {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Tab 1'),
+              Tab(text: 'Tab 2'),
+              Tab(text: 'Tab 3'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Center(child: Text('Content of Tab 1')),
+            Center(child: Text('Content of Tab 2')),
+            Center(child: Text('Content of Tab 3')),
+          ],
+        ),
+      ),
     );
   }
 }
