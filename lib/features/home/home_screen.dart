@@ -7,7 +7,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_and_graph_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/grid_and_layout_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/grid%20and%20layout/grid_and_layout_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/images_and_media_screen.dart';
 import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
