@@ -279,23 +279,23 @@ class _FormScreenState extends State<FormScreen> {
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: _submitForm,
-                    child: const Text('Submit'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue, // Set button color
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
                       textStyle: const TextStyle(fontSize: 16),
                     ),
+                    child: const Text('Submit'),
                   ),
                   ElevatedButton(
                     onPressed: _resetForm,
-                    child: const Text('Reset'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey, // Set button color
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
                       textStyle: const TextStyle(fontSize: 16),
                     ),
+                    child: const Text('Reset'),
                   ),
                 ],
               ),

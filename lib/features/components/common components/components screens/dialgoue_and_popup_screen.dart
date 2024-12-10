@@ -48,7 +48,7 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: GridView.count(
               crossAxisCount: width > 800 ? 5 : (width > 600 ? 3 : 2),
               crossAxisSpacing: 8.0,
@@ -329,7 +329,7 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
         Overlay.of(context).context.findRenderObject() as RenderBox;
     showMenu(
       context: context,
-      position: RelativeRect.fromLTRB(100, 100, 100, 100),
+      position: const RelativeRect.fromLTRB(100, 100, 100, 100),
       items: [
         const PopupMenuItem<String>(
           value: 'Option 1',

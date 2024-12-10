@@ -7,8 +7,7 @@ class ChartDetailScreen extends StatelessWidget {
   final String title;
   final IconData icon;
 
-  const ChartDetailScreen({Key? key, required this.title, required this.icon})
-      : super(key: key);
+  const ChartDetailScreen({super.key, required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,7 @@ class ChartDetailScreen extends StatelessWidget {
             ],
             isCurved: true,
             barWidth: 4,
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [Colors.blue, Colors.blueAccent],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -179,18 +178,18 @@ class ChartDetailScreen extends StatelessWidget {
         dataSets: [
           RadarDataSet(
             dataEntries: [
-              RadarEntry(value: 3),
-              RadarEntry(value: 2),
-              RadarEntry(value: 4),
-              RadarEntry(value: 1),
-              RadarEntry(value: 5),
+              const RadarEntry(value: 3),
+              const RadarEntry(value: 2),
+              const RadarEntry(value: 4),
+              const RadarEntry(value: 1),
+              const RadarEntry(value: 5),
             ],
             borderColor: Colors.blue,
             fillColor: Colors.blue.withOpacity(0.3),
             borderWidth: 2,
           ),
         ],
-        gridBorderData: BorderSide(color: Colors.blue, width: 1),
+        gridBorderData: const BorderSide(color: Colors.blue, width: 1),
         // gridLineData: const GridLineData(show: true),
         titleTextStyle: const TextStyle(color: Colors.blue, fontSize: 14),
       ),
@@ -198,7 +197,7 @@ class ChartDetailScreen extends StatelessWidget {
   }
 
   Widget _buildGaugeChart() {
-    return Container(
+    return SizedBox(
       height: 200,
       width: 200,
       child: CustomPaint(

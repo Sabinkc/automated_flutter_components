@@ -23,7 +23,7 @@ class CommonButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           buttonName,
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ));
   }
 }

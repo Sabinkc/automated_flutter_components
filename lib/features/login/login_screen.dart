@@ -10,9 +10,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 800) {
-        return LoginScreenWeb();
+        return const LoginScreenWeb();
       } else {
-        return LoginScreenMobile();
+        return const LoginScreenMobile();
       }
     });
   }

@@ -48,7 +48,7 @@ class _TablesAndGridsScreenState extends State<TableScreen> {
             thumbColor: Colors.blueGrey,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: SingleChildScrollView(
               child: GridView.count(
                 shrinkWrap: true,

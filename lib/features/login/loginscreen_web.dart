@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                             BoxShadow(
                               color: Colors.black.withOpacity(0.5),
                               blurRadius: 10,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                             ),
                           ],
                           borderRadius:
@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                                       color: CommonColor.secondaryColor,
                                     ),
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       " Enter username and password from below data",
                                       style: TextStyle(color: Colors.grey),
@@ -221,11 +221,11 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                                     verticalPadding: screenHeight * 0.015,
                                   ),
                                   if (_isLoading)
-                                    Positioned(
+                                    const Positioned(
                                       child: SizedBox(
                                         height: 24,
                                         width: 24,
-                                        child: const CircularProgressIndicator(
+                                        child: CircularProgressIndicator(
                                           color: Colors.white,
                                           strokeWidth: 2,
                                         ),
@@ -266,7 +266,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
                                               fontSize: screenHeight * 0.02,
                                             ),
                                           );
-                                        }).toList(),
+                                        }),
                                       ],
                                     ),
                                     Column(
@@ -304,7 +304,7 @@ class _LoginScreenState extends State<LoginScreenWeb> {
           top: screenHeight * 0.02,
           left: screenWidth * 0.02,
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
             onPressed: () {
               Navigator.pop(context); // Navigate back to the previous screen
             },

@@ -8,7 +8,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/grid%20and%20layout/grid_and_layout_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/images_and_media_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/image%20and%20media/images_and_media_screen.dart';
 import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/list_screen.dart';
@@ -30,7 +30,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               // logout and navigate to login screen
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.white,
             )),
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
           thumbColor: CommonColor.secondaryColor,
           thumbVisibility: true,
           thickness: 8,
-          radius: Radius.circular(8),
+          radius: const Radius.circular(8),
           child: Padding(
             padding: EdgeInsets.all(screenHeight * 0.02),
             child: GridView.builder(
@@ -132,43 +132,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: GestureDetector(
                     onTap: () {
                       List<Widget> destinations = [
-                        ButtonScreen(),
-                        InputAndFormScreen(),
-                        SelectionControlScreen(),
-                        NavigationalComponentsScreen(),
-                        PaginationScreen(),
-                        ListScreen(),
-                        TableScreen(),
+                        const ButtonScreen(),
+                        const InputAndFormScreen(),
+                        const SelectionControlScreen(),
+                        const NavigationalComponentsScreen(),
+                        const PaginationScreen(),
+                        const ListScreen(),
+                        const TableScreen(),
                         SliderAndProgressIndicatorScreen(),
-                        DialgoueAndPopupScreen(),
-                        ImagesAndMediaScreen(),
-                        CardAndContainerScreen(),
-                        ChartAndGraphScreen(),
-                        InteractiveWidgetsScreen(),
-                        TextElementScreen(),
-                        MenusAndNavigationScreen(),
-                        FileHandlingAndDownloadScreen(),
-                        GridAndLayoutScreen(),
-                        RealTimeFeatureScreen(),
-                        AuthenticationAndSecurityScreen(),
-                        AdvancedComponentScreen(),
-                        AccessibilityFeatureScreen(),
-                        SpecializedUiComponentScreen(),
-                        MiscellaneousScreen(),
+                        const DialgoueAndPopupScreen(),
+                        const ImagesAndMediaScreen(),
+                        const CardAndContainerScreen(),
+                        const ChartAndGraphScreen(),
+                        const InteractiveWidgetsScreen(),
+                        const TextElementScreen(),
+                        const MenusAndNavigationScreen(),
+                        const FileHandlingAndDownloadScreen(),
+                        const GridAndLayoutScreen(),
+                        const RealTimeFeatureScreen(),
+                        const AuthenticationAndSecurityScreen(),
+                        const AdvancedComponentScreen(),
+                        const AccessibilityFeatureScreen(),
+                        const SpecializedUiComponentScreen(),
+                        const MiscellaneousScreen(),
                       ];
                       Navigator.of(context).push(CupertinoPageRoute(
                         builder: (context) => destinations[index],
                       ));
                     },
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 200),
                       decoration: BoxDecoration(
                         color: hoveredIndex == index
                             ? CommonColor.primaryColorLight
                             : Colors.white, // Change color on hover
                         borderRadius:
                             BorderRadius.circular(screenHeight * 0.02),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black26,
                             blurRadius: 8,
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(

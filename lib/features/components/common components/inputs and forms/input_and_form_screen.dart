@@ -16,11 +16,11 @@ class InputAndFormScreen extends StatefulWidget {
 }
 
 class _InputAndFormScreenState extends State<InputAndFormScreen> {
-  TextEditingController _textController = TextEditingController();
-  TextEditingController _multiLineTextController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _numberController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _multiLineTextController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordObscured = true;
   bool isTypingInSingleLine = false;
 
@@ -54,8 +54,8 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: const Text("Textfield Line should not exceed 3"),
+          return const AlertDialog(
+            title: Text("Textfield Line should not exceed 3"),
           );
         },
       );
@@ -63,8 +63,8 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: const Text("Description noted"),
+          return const AlertDialog(
+            title: Text("Description noted"),
           );
         },
       );
@@ -110,7 +110,7 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
           thumbColor: CommonColor.secondaryColor,
           thumbVisibility: true,
           thickness: 4,
-          radius: Radius.circular(8),
+          radius: const Radius.circular(8),
           child: GridView.count(
             crossAxisCount: screenWidth > 900 ? 3 : (screenWidth > 600 ? 2 : 1),
             crossAxisSpacing: 8.0,
@@ -142,7 +142,7 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AlertDialog(
+                                  return const AlertDialog(
                                     title: Text(
                                         "Name length should be less than 20"),
                                   );
@@ -354,21 +354,21 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
               _buildInputCardWithIcon("Autocomplete input", Icons.edit_note,
                   onPressed: () {
                 Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => AutocompleteScreen()));
+                    builder: (context) => const AutocompleteScreen()));
               }),
               _buildInputCardWithIcon("File upload", Icons.file_download,
                   onPressed: () {
                 Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => FileUploadScreen()));
+                    builder: (context) => const FileUploadScreen()));
               }),
               _buildInputCardWithIcon("Search box", Icons.search,
                   onPressed: () {
                 Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) => SearchScreen()));
+                    CupertinoPageRoute(builder: (context) => const SearchScreen()));
               }),
               _buildInputCardWithIcon("Form", Icons.copy, onPressed: () {
                 Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) => FormScreen()));
+                    CupertinoPageRoute(builder: (context) => const FormScreen()));
               }),
             ],
           ),
@@ -388,14 +388,14 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
       BuildContext context, String title, String content, bool isValid) {
     // Random delay between 0 to 4 seconds
     int randomValue =
-        (0 + (4 - 0) * (new DateTime.now().millisecondsSinceEpoch % 100) / 100)
+        (0 + (4 - 0) * (DateTime.now().millisecondsSinceEpoch % 100) / 100)
             .toInt();
 
     // Show the dialog with loading
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
+        return const AlertDialog(
           content: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -498,7 +498,7 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

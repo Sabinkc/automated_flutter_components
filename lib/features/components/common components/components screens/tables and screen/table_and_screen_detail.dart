@@ -162,17 +162,17 @@ class EditableTableScreen extends StatefulWidget {
 
 class _EditableTableScreenState extends State<EditableTableScreen> {
   List<DataRow> rows = [
-    DataRow(cells: [
+    const DataRow(cells: [
       DataCell(Text('1')),
       DataCell(Text('John Doe')),
       DataCell(Text('28')),
     ]),
-    DataRow(cells: [
+    const DataRow(cells: [
       DataCell(Text('2')),
       DataCell(Text('Jane Smith')),
       DataCell(Text('34')),
     ]),
-    DataRow(cells: [
+    const DataRow(cells: [
       DataCell(Text('3')),
       DataCell(Text('Sam Brown')),
       DataCell(Text('45')),

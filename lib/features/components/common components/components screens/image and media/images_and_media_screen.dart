@@ -1,4 +1,6 @@
 import 'package:components_automation/core/constants.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/image%20and%20media/image_and_media_detail_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class ImagesAndMediaScreen extends StatefulWidget {
@@ -170,9 +172,13 @@ class _ImageAndMediaScreenState extends State<ImagesAndMediaScreen> {
         ),
         child: InkWell(
           onTap: () {
-            // Placeholder for navigation logic
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('$title selected!')),
+            // Navigate to the specific detail screen for the selected media
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ImageAndMediaDetailScreen(title: title, icon: icon),
+              ),
             );
           },
           child: Padding(

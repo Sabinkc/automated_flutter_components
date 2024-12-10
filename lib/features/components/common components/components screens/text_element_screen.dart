@@ -11,10 +11,9 @@ class TextElementScreen extends StatefulWidget {
 }
 
 class _TextElementScreenState extends State<TextElementScreen> {
-  String _dynamicText = "Hello, this is dynamic text!";
-  int _clickCount = 0;
-  String dynamicText =
-      "This is dynamic content that can change based on state or input.";
+  final String _dynamicText = "Hello, this is dynamic text!";
+  final int _clickCount = 0;
+  String dynamicText = "Dynamic content";
 
   @override
   Widget build(BuildContext context) {
@@ -58,48 +57,48 @@ class _TextElementScreenState extends State<TextElementScreen> {
             children: [
               _buildTextCard(
                   "Header (H1)",
-                  Text("This is H1",
+                  const Text("This is H1",
                       style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                   "Header (H1) is used for the largest and most important heading."),
               _buildTextCard(
                 "Header (H2)",
-                Text("This is H2",
+                const Text("This is H2",
                     style:
-                        TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 "Header (H2) is used for second-level headings, slightly smaller than H1.",
               ),
               _buildTextCard(
                 "Header (H3)",
-                Text("This is H3",
+                const Text("This is H3",
                     style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
                 "Header (H3) is used for third-level headings, smaller than H2.",
               ),
               _buildTextCard(
                 "Header (H4)",
-                Text("This is H4",
+                const Text("This is H4",
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
                 "Header (H4) is used for fourth-level headings, smaller than H3.",
               ),
               _buildTextCard(
                 "Header (H5)",
-                Text("This is H5",
+                const Text("This is H5",
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 "Header (H5) is used for fifth-level headings, smaller than H4.",
               ),
               _buildTextCard(
                 "Header (H6)",
-                Text("This is H6",
+                const Text("This is H6",
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 "Header (H6) is used for the smallest heading, often for minor labels.",
               ),
               _buildTextCard(
                 "Labels",
-                Text(
+                const Text(
                   "This is a Label",
                   style: TextStyle(
                       fontSize: 16,
@@ -110,7 +109,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
               ),
               _buildTextCard(
                 "Tooltips",
-                Tooltip(
+                const Tooltip(
                   message: "This is a Tooltip",
                   child: Icon(Icons.info, size: 28, color: Colors.blue),
                 ),
@@ -138,7 +137,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
                       );
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Click Me",
                     style: TextStyle(
                       fontSize: 16,
@@ -159,20 +158,20 @@ class _TextElementScreenState extends State<TextElementScreen> {
                       children: [
                         Text(
                           dynamicText,
-                          style: TextStyle(fontSize: 16, color: Colors.black87),
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black87),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () {
                             // Toggle the text dynamically
                             setState(() {
-                              dynamicText = dynamicText ==
-                                      "This is dynamic content that can change based on state or input."
-                                  ? "The dynamic content has changed!"
-                                  : "This is dynamic content that can change based on state or input.";
+                              dynamicText = dynamicText == "Dynamic content"
+                                  ? "Content changed!"
+                                  : "Dynamic content";
                             });
                           },
-                          child: Text("Change Text"),
+                          child: const Text("Change Text"),
                         ),
                       ],
                     );
@@ -182,7 +181,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
               ),
               _buildTextCard(
                   "Paragraph",
-                  Text(
+                  const Text(
                       "This is a sample paragraph. It contains longer text for descriptive purposes.",
                       textAlign: TextAlign.justify),
                   "Paragraphs are used for blocks of text that contain more detailed information."),
@@ -190,21 +189,21 @@ class _TextElementScreenState extends State<TextElementScreen> {
                   "Blockquote",
                   Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               left:
                                   BorderSide(color: Colors.blue, width: 4.0))),
-                      child:
-                          Text("This is a blockquote used for quoting text.")),
+                      child: const Text(
+                          "This is a blockquote used for quoting text.")),
                   "Blockquotes highlight quoted text."),
               _buildTextCard(
                   "Subtitle",
-                  Text("This is a subtitle.",
+                  const Text("This is a subtitle.",
                       style: TextStyle(fontSize: 18, color: Colors.grey)),
                   "Subtitles provide additional context for headers."),
               _buildTextCard(
                   "Caption",
-                  Text("This is a caption.",
+                  const Text("This is a caption.",
                       style: TextStyle(fontSize: 12, color: Colors.grey)),
                   "Captions describe images or tables."),
 
@@ -214,7 +213,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.message,
                       size: 40,
                       color: Colors.blue,
@@ -229,7 +228,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Badge", // Number of messages
                           style: TextStyle(color: Colors.white, fontSize: 10),
                         ),
@@ -246,8 +245,8 @@ class _TextElementScreenState extends State<TextElementScreen> {
                 TextField(
                   decoration: InputDecoration(
                     hintText:
-                        "This is an hint text", // Showing hint text inside the TextField
-                    hintStyle: TextStyle(color: Colors.grey),
+                        "hint text", // Showing hint text inside the TextField
+                    hintStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
@@ -258,34 +257,35 @@ class _TextElementScreenState extends State<TextElementScreen> {
 
               _buildTextCard(
                   "Highlighted Text",
-                  Text("This is highlighted text.",
+                  const Text("This is highlighted text.",
                       style: TextStyle(backgroundColor: Colors.yellow)),
                   "Highlighted text draws attention to specific content."),
               _buildTextCard(
                   "Breadcrumbs",
-                  Text("Home > Category > Item",
+                  const Text("Home > Category > Item",
                       style: TextStyle(fontSize: 14, color: Colors.blue)),
                   "Breadcrumbs show the user's navigation path."),
               _buildTextCard(
                   "Accordion Text",
-                  ExpansionTile(
+                  const ExpansionTile(
                       title: Text("Accordion Title"),
                       children: [Text("This is the expanded accordion text.")]),
                   "Accordion text expands/collapses to show more content."),
               _buildTextCard(
                   "Strike-through Text",
-                  Text("This is strike-through text.",
+                  const Text("This is strike-through text.",
                       style: TextStyle(decoration: TextDecoration.lineThrough)),
                   "Strike-through text indicates deleted or irrelevant text."),
               _buildTextCard(
                   "Superscript",
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "X", style: TextStyle(color: Colors.black)),
+                    const TextSpan(
+                        text: "X", style: TextStyle(color: Colors.black)),
                     WidgetSpan(
                         child: Transform.translate(
-                            offset: Offset(0, -8),
-                            child: Text("2",
+                            offset: const Offset(0, -8),
+                            child: const Text("2",
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.black))))
                   ])),
@@ -294,18 +294,19 @@ class _TextElementScreenState extends State<TextElementScreen> {
                   "Subscript",
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "H", style: TextStyle(color: Colors.black)),
+                    const TextSpan(
+                        text: "H", style: TextStyle(color: Colors.black)),
                     WidgetSpan(
                         child: Transform.translate(
-                            offset: Offset(0, 6),
-                            child: Text("2",
+                            offset: const Offset(0, 6),
+                            child: const Text("2",
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.black))))
                   ])),
                   "Subscript is used for chemical formulas."),
               _buildTextCard(
                   "Scrollable Text",
-                  SingleChildScrollView(
+                  const SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
                           "This is a long text that scrolls horizontally.")),
@@ -324,15 +325,15 @@ class _TextElementScreenState extends State<TextElementScreen> {
               _buildTextCard(
                   "Gradient Text",
                   ShaderMask(
-                      shaderCallback: (bounds) =>
-                          LinearGradient(colors: [Colors.blue, Colors.green])
-                              .createShader(bounds),
-                      child: Text("Gradient Text",
+                      shaderCallback: (bounds) => const LinearGradient(
+                              colors: [Colors.blue, Colors.green])
+                          .createShader(bounds),
+                      child: const Text("Gradient Text",
                           style: TextStyle(color: Colors.white, fontSize: 18))),
                   "Gradient text displays text with a color gradient."),
               _buildTextCard(
                   "Outlined Text",
-                  Text("Outlined Text",
+                  const Text("Outlined Text",
                       style: TextStyle(shadows: [
                         Shadow(offset: Offset(-1.5, -1.5), color: Colors.black),
                         Shadow(offset: Offset(1.5, -1.5), color: Colors.black),
@@ -342,7 +343,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
                   "Outlined text has a stroke around it."),
               _buildTextCard(
                   "Shadowed Text",
-                  Text("Shadowed Text",
+                  const Text("Shadowed Text",
                       style: TextStyle(fontSize: 18, shadows: [
                         Shadow(
                             blurRadius: 3.0,
@@ -352,10 +353,9 @@ class _TextElementScreenState extends State<TextElementScreen> {
                   "Shadowed text adds a shadow effect."),
               _buildTextCard(
                   "Selectable Text",
-                  SelectableText("This text can be selected.",
+                  const SelectableText("This text can be selected.",
                       style: TextStyle(fontSize: 16)),
                   "Selectable text allows copying by user."),
-   
             ],
           ),
         ),
@@ -373,7 +373,8 @@ class _TextElementScreenState extends State<TextElementScreen> {
           Tooltip(
               message: tooltip,
               child: Text(title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center)),
           const SizedBox(height: 10),
           Expanded(child: Center(child: content))

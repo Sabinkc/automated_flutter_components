@@ -28,7 +28,7 @@ class LandingScreen extends StatelessWidget {
             indicatorColor: CommonColor.secondaryColor,
             unselectedLabelColor: Colors.white,
             labelColor: Colors.white,
-            tabs: [
+            tabs: const [
               Tab(text: 'Home'),
               Tab(text: 'About'),
               Tab(text: 'GitHub'),
@@ -78,7 +78,7 @@ class HomeTab extends StatelessWidget {
                 CommonButton(
                     onPressed: () {
                       Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => LoginScreen()));
+                          builder: (context) => const LoginScreen()));
                     },
                     buttonName: "Get Started",
                     horizontalPadding: 50,
@@ -148,10 +148,10 @@ class AboutTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: const Text(
+        padding: EdgeInsets.all(20.0),
+        child: Text(
           'This platform aims to help users practice UI automation using modern tools and frameworks. You can explore various components and test automation features tailored for different environments.',
           style: TextStyle(fontSize: 18),
           textAlign: TextAlign.center,

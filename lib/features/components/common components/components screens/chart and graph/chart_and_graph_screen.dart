@@ -44,13 +44,14 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RawScrollbar(
-            thumbColor: Colors.blueGrey,
+            thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: SingleChildScrollView(
               child: GridView.count(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: width > 1000 ? 5 : (width > 600 ? 3 : 2),
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,

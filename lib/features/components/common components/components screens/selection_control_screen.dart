@@ -13,7 +13,7 @@ class _SelectionControlsScreenState extends State<SelectionControlScreen> {
   bool _checkboxValue = true;
   String? _radioValue = 'Option 1';
   bool _toggleValue = true;
-  List<String> _selectedItems = [];
+  final List<String> _selectedItems = [];
   double _sliderValue = 50;
   String _segmentedControlValue = 'Option 1';
 
@@ -56,7 +56,7 @@ class _SelectionControlsScreenState extends State<SelectionControlScreen> {
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: GridView.count(
               crossAxisCount: width > 800 ? 5 : (width > 600 ? 3 : 2),
               crossAxisSpacing: 8.0,

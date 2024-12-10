@@ -944,9 +944,9 @@ class ButtonScreen extends StatefulWidget {
 }
 
 class _ButtonScreenState extends State<ButtonScreen> {
-  bool _markedCheckboxValue = true;
-  bool _unMarkedCheckboxValue = false;
-  String? _radioValue = 'Option 1';
+  final bool _markedCheckboxValue = true;
+  final bool _unMarkedCheckboxValue = false;
+  final String? _radioValue = 'Option 1';
   bool _ontoggleValue = true;
   bool _offtoggleValue = false;
   String _dropdownValue = 'Option 1';
@@ -955,8 +955,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
   bool _isHoveringHoverbutton = false;
   bool _firstCheckboxValue = false;
   bool _secondCheckboxValue = false;
-  String? _radioValueMarked = 'Option 1';
-  String? _radioValueUnmarked = null;
+  final String? _radioValueMarked = 'Option 1';
   String? _selectedGender;
 
   @override
@@ -1001,7 +1000,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: GridView.count(
               crossAxisCount: width > 1000
                   ? 5
@@ -1021,7 +1020,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       onPressed: () async {
                         await _handleElevatedButtonPress(context);
                       },
-                      child: Text(
+                      child: const Text(
                         'Load data',
                         style: TextStyle(
                             // fontSize: 30,
@@ -1033,7 +1032,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('elevated_button'),
+                  const Key('elevated_button'),
                 ),
 
                 _buildButtonCard(
@@ -1060,7 +1059,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                           );
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Open youtube',
                         style: TextStyle(
                             // fontSize: 30,
@@ -1072,7 +1071,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('text_button'),
+                  const Key('text_button'),
                 ),
 
                 _buildButtonCard(
@@ -1100,7 +1099,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                   : Colors.black);
                         }),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Change my color',
                         style: TextStyle(
                           fontSize: 30,
@@ -1112,7 +1111,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('outlined_button'),
+                  const Key('outlined_button'),
                 ),
 
                 _buildButtonCard(
@@ -1140,7 +1139,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('icon_button'),
+                  const Key('icon_button'),
                 ),
 
 // Declare a boolean variable to track the icon state
@@ -1178,13 +1177,13 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('floating_action_button'),
+                  const Key('floating_action_button'),
                 ),
 
                 // Checkbox Button (Marked)
                 _buildButtonCard(
                   'Checkbox Button (Marked)',
-                  Tooltip(
+                  const Tooltip(
                     message:
                         "A checkbox allows users to select multiple options from a set.",
                     child: Checkbox(
@@ -1196,13 +1195,13 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('marked_checkbox_button'),
+                  const Key('marked_checkbox_button'),
                 ),
 
 // Checkbox Button (Unmarked)
                 _buildButtonCard(
                   'Checkbox Button (Unmarked)',
-                  Tooltip(
+                  const Tooltip(
                     message:
                         "A checkbox allows users to select multiple options from a set.",
                     child: Checkbox(
@@ -1214,7 +1213,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('unmarked_checkbox_button'),
+                  const Key('unmarked_checkbox_button'),
                 ),
 
                 _buildButtonCard(
@@ -1222,7 +1221,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   Column(
                     children: [
                       // Title at the top
-                      Text(
+                      const Text(
                         'Favourite foods:',
                         style: TextStyle(
                           fontSize: 25,
@@ -1241,7 +1240,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                 "A checkbox allows users to select multiple options from a set.",
                             child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Apple',
                                   style: TextStyle(fontSize: 30),
                                 ),
@@ -1268,7 +1267,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                 "A checkbox allows users to select multiple options from a set.",
                             child: Row(
                               children: [
-                                Text('Banana', style: TextStyle(fontSize: 30)),
+                                const Text('Banana', style: TextStyle(fontSize: 30)),
                                 Checkbox(
                                   value:
                                       _secondCheckboxValue, // Initially unticked
@@ -1293,12 +1292,12 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   2,
                   titleFontSize,
                   buttonSize * 1.4,
-                  Key('combined_checkbox_button'),
+                  const Key('combined_checkbox_button'),
                 ),
 
                 _buildButtonCard(
                   'Radio Button (Marked)',
-                  Tooltip(
+                  const Tooltip(
                     message:
                         "A radio button allows selecting one option from a set.",
                     child: Row(
@@ -1317,13 +1316,13 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('marked_radio_button'),
+                  const Key('marked_radio_button'),
                 ),
 
 // Radio Button Component (Unmarked)
                 _buildButtonCard(
                   'Radio Button (Unmarked)',
-                  Tooltip(
+                  const Tooltip(
                     message:
                         "A radio button allows selecting one option from a set.",
                     child: Row(
@@ -1341,7 +1340,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('unmarkedradio_button'),
+                  const Key('unmarkedradio_button'),
                 ),
 
                 _buildButtonCard(
@@ -1349,7 +1348,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   Column(
                     children: [
                       // Title at the top
-                      Text(
+                      const Text(
                         'Your gender:',
                         style: TextStyle(
                           fontSize: 25,
@@ -1368,7 +1367,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                 "A radio button allows selecting one option from a set.",
                             child: Row(
                               children: [
-                                Text('Male', style: TextStyle(fontSize: 25)),
+                                const Text('Male', style: TextStyle(fontSize: 25)),
                                 Radio<String>(
                                   value: 'Male', // Option value for Male
                                   groupValue:
@@ -1389,7 +1388,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                                 "A radio button allows selecting one option from a set.",
                             child: Row(
                               children: [
-                                Text('Female', style: TextStyle(fontSize: 25)),
+                                const Text('Female', style: TextStyle(fontSize: 25)),
                                 Radio<String>(
                                   value: 'Female', // Option value for Female
                                   groupValue:
@@ -1411,7 +1410,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   2,
                   titleFontSize,
                   buttonSize * 1.4,
-                  Key('combinedradio_button'),
+                  const Key('combinedradio_button'),
                 ),
 
                 _buildButtonCard(
@@ -1438,7 +1437,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('dropdown_button'),
+                  const Key('dropdown_button'),
                 ),
                 _buildButtonCard(
                   'Toggle Button (On)',
@@ -1458,7 +1457,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('toogleon_button'),
+                  const Key('toogleon_button'),
                 ),
                 _buildButtonCard(
                   'Toggle Button (Off)',
@@ -1478,7 +1477,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('toogleoff_button'),
+                  const Key('toogleoff_button'),
                 ),
 
                 _buildButtonCard(
@@ -1496,19 +1495,19 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       },
                       itemBuilder: (BuildContext context) {
                         return [
-                          PopupMenuItem(value: 'Menu 1', child: Text('Menu 1')),
-                          PopupMenuItem(value: 'Menu 2', child: Text('Menu 2')),
-                          PopupMenuItem(value: 'Menu 3', child: Text('Menu 3')),
+                          const PopupMenuItem(value: 'Menu 1', child: Text('Menu 1')),
+                          const PopupMenuItem(value: 'Menu 2', child: Text('Menu 2')),
+                          const PopupMenuItem(value: 'Menu 3', child: Text('Menu 3')),
                         ];
                       },
-                      child: Icon(Icons.menu),
+                      child: const Icon(Icons.menu),
                     ),
                   ),
                   iconSize,
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('popup_button'),
+                  const Key('popup_button'),
                 ),
 
                 _buildButtonCard(
@@ -1518,10 +1517,10 @@ class _ButtonScreenState extends State<ButtonScreen> {
                     child: GestureDetector(
                       onDoubleTap: () {
                         // Delay the snackbar display by 2 seconds
-                        Future.delayed(Duration(seconds: 2), () {
+                        Future.delayed(const Duration(seconds: 2), () {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text(
+                            const SnackBar(
+                              content: Text(
                                   'You just double-tapped the button!'),
                               duration: Duration(seconds: 2),
                             ),
@@ -1529,9 +1528,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         color: Colors.blue,
-                        child: Text(
+                        child: const Text(
                           'Show delayed snackbar',
                           style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
@@ -1542,7 +1541,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('doubletap_button'),
+                  const Key('doubletap_button'),
                 ),
 
                 _buildButtonCard(
@@ -1555,29 +1554,29 @@ class _ButtonScreenState extends State<ButtonScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            TextEditingController _controller =
+                            TextEditingController controller =
                                 TextEditingController();
                             return AlertDialog(
-                              title: Text('Enter Your Name:'),
+                              title: const Text('Enter Your Name:'),
                               content: TextField(
-                                controller: _controller,
-                                decoration: InputDecoration(
+                                controller: controller,
+                                decoration: const InputDecoration(
                                     hintText: 'Enter your name'),
                               ),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     // Retrieve the input and display it in the SnackBar
-                                    String result = _controller.text;
+                                    String result = controller.text;
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text('Hello $result'),
-                                        duration: Duration(seconds: 2),
+                                        duration: const Duration(seconds: 2),
                                       ),
                                     );
                                     Navigator.pop(context); // Close the dialog
                                   },
-                                  child: Text('Submit'),
+                                  child: const Text('Submit'),
                                 ),
                               ],
                             );
@@ -1585,9 +1584,9 @@ class _ButtonScreenState extends State<ButtonScreen> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         color: Colors.blue,
-                        child: Text(
+                        child: const Text(
                           'Open prompt box',
                           style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
@@ -1598,12 +1597,12 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('long_press_button'),
+                  const Key('long_press_button'),
                 ),
 
                 _buildButtonCard(
                   'Disabled Button',
-                  Tooltip(
+                  const Tooltip(
                     message: "A button that is disabled and unclickable.",
                     child: ElevatedButton(
                       onPressed: null, // Disabled button
@@ -1617,7 +1616,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('disabled_button'),
+                  const Key('disabled_button'),
                 ),
                 _buildButtonCard(
                   'Hover Button',
@@ -1650,16 +1649,16 @@ class _ButtonScreenState extends State<ButtonScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Button Pressed'),
+                                title: const Text('Button Pressed'),
                                 content:
-                                    Text('You have clicked the Hover Button!'),
+                                    const Text('You have clicked the Hover Button!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(
                                           context); // Close the dialog
                                     },
-                                    child: Text('OK'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               );
@@ -1667,7 +1666,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                           );
                           print('Hovered Button Pressed');
                         },
-                        child: Text(
+                        child: const Text(
                           'Hover Me',
                           style: TextStyle(fontSize: 30, color: Colors.white),
                         ),
@@ -1678,7 +1677,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('hover_button'),
+                  const Key('hover_button'),
                 ),
                 _buildButtonCard(
                   'Customised Button',
@@ -1698,7 +1697,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [Colors.blueAccent, Colors.purpleAccent],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -1707,20 +1706,20 @@ class _ButtonScreenState extends State<ButtonScreen> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                               blurRadius: 10,
                               spreadRadius: 1,
                             ),
                             BoxShadow(
                               color: Colors.white.withOpacity(0.1),
-                              offset: Offset(-4, -4),
+                              offset: const Offset(-4, -4),
                               blurRadius: 10,
                               spreadRadius: 1,
                             ),
                           ],
                         ),
                         padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                            const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                         child: Center(
                           child: Text(
                             'Go to HomeScreen',
@@ -1731,7 +1730,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                               shadows: [
                                 Shadow(
                                   color: Colors.black.withOpacity(0.3),
-                                  offset: Offset(2, 2),
+                                  offset: const Offset(2, 2),
                                   blurRadius: 5,
                                 ),
                               ],
@@ -1745,7 +1744,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                   cardPadding,
                   titleFontSize,
                   buttonSize,
-                  Key('customised_button'),
+                  const Key('customised_button'),
                 ),
               ],
             ),
@@ -1809,7 +1808,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
           content: Text(fact),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -1826,14 +1825,14 @@ class _ButtonScreenState extends State<ButtonScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Selected Menu'),
+          title: const Text('Selected Menu'),
           content: Text('You selected: $selectedMenu'),
         );
       },
     );
 
     // Automatically close the dialog after 1 second
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pop(); // Close the dialog
     });
   }
@@ -1844,10 +1843,10 @@ class _ButtonScreenState extends State<ButtonScreen> {
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           content: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               CircularProgressIndicator(),
             ],
           ),
@@ -1872,7 +1871,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Ok"),
+              child: const Text("Ok"),
             ),
           ],
         );

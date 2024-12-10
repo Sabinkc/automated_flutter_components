@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                                       color: CommonColor.secondaryColor,
                                     ),
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       " Enter username and password from below data",
                                       style: TextStyle(color: Colors.grey),
@@ -190,11 +190,11 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                                     verticalPadding: screenHeight * 0.015,
                                   ),
                                   if (_isLoading)
-                                    Positioned(
+                                    const Positioned(
                                       child: SizedBox(
                                         height: 24,
                                         width: 24,
-                                        child: const CircularProgressIndicator(
+                                        child: CircularProgressIndicator(
                                           color: Colors.white,
                                           strokeWidth: 2,
                                         ),
@@ -212,7 +212,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.5),
                                       blurRadius: 5,
-                                      offset: Offset(4, 4),
+                                      offset: const Offset(4, 4),
                                     ),
                                   ],
                                   color:
@@ -238,7 +238,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
                                           fontSize: screenHeight * 0.02,
                                         ),
                                       );
-                                    }).toList(),
+                                    }),
                                     SizedBox(height: screenHeight * 0.01),
                                     Text(
                                       "Password for all users:",
@@ -271,7 +271,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
           top: screenHeight * 0.04,
           left: screenWidth * 0.03,
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 25),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 25),
             onPressed: () {
               Navigator.pop(context); // Navigate back to the previous screen
             },

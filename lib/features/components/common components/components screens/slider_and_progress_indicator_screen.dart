@@ -3,6 +3,8 @@ import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 
 class SliderAndProgressIndicatorScreen extends StatefulWidget {
+  const SliderAndProgressIndicatorScreen({super.key});
+
   @override
   _SliderAndProgressIndicatorScreenState createState() =>
       _SliderAndProgressIndicatorScreenState();
@@ -12,7 +14,7 @@ class _SliderAndProgressIndicatorScreenState
     extends State<SliderAndProgressIndicatorScreen> {
   double _horizontalSliderValue = 0.5;
   double _verticalSliderValue = 0.5;
-  RangeValues _rangeSliderValues = RangeValues(20, 80);
+  RangeValues _rangeSliderValues = const RangeValues(20, 80);
   double _linearProgressValue = 0.0;
   double _circularProgressValue = 0.0;
   Timer? _timer;
@@ -49,9 +51,9 @@ class _SliderAndProgressIndicatorScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Sliders and Progress Indicators",
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
@@ -233,7 +235,7 @@ class _SliderAndProgressIndicatorScreenState
   }
 
   Widget _buildLinearProgressBarWithoutPercentage() {
-    return Tooltip(
+    return const Tooltip(
       message:
           "Linear Progress Bar: Displays the progress of an operation in a straight line.",
       child: SizedBox(
@@ -244,7 +246,7 @@ class _SliderAndProgressIndicatorScreenState
   }
 
   Widget _buildCircularProgressIndicatorWithoutPercentage() {
-    return Tooltip(
+    return const Tooltip(
       message:
           "Circular Progress Indicator: Shows the progress of an operation in a circular motion.",
       child: SizedBox(
@@ -257,8 +259,8 @@ class _SliderAndProgressIndicatorScreenState
   }
 
   Widget _buildSpinnerContent() {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         SizedBox(
           height: 40,
           width: 40,

@@ -32,7 +32,7 @@ class _CardsAndContainersScreenState extends State<CardAndContainerScreen> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blueAccent, Colors.lightBlueAccent],
             begin: Alignment.topLeft,
@@ -45,7 +45,7 @@ class _CardsAndContainersScreenState extends State<CardAndContainerScreen> {
             thumbColor: Colors.blueGrey,
             thumbVisibility: true,
             thickness: 4,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: SingleChildScrollView(
               // Added SingleChildScrollView
               child: GridView.count(
@@ -196,7 +196,7 @@ class _CardsAndContainersScreenState extends State<CardAndContainerScreen> {
                                       width: 30,
                                       color: Colors.blue,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     Container(
@@ -206,7 +206,7 @@ class _CardsAndContainersScreenState extends State<CardAndContainerScreen> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Row(
@@ -216,7 +216,7 @@ class _CardsAndContainersScreenState extends State<CardAndContainerScreen> {
                                       width: 30,
                                       color: Colors.blue,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     Container(
@@ -294,7 +294,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
         padding: EdgeInsets.all(widget.cardPadding),
         child: Column(
           children: [
-            Text('Expandable Card', style: TextStyle(fontSize: 16)),
+            const Text('Expandable Card', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 10),
             _expanded
                 ? const Text('This is the expanded content of the card.')
@@ -338,7 +338,7 @@ class _CollapsibleCardState extends State<CollapsibleCard> {
         padding: EdgeInsets.all(widget.cardPadding),
         child: Column(
           children: [
-            Text('Collapsible Card', style: TextStyle(fontSize: 16)),
+            const Text('Collapsible Card', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 10),
             _collapsed
                 ? const Text('This is the collapsed content of the card.')

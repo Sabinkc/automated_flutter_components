@@ -7,7 +7,7 @@ class GridAndLayoutDetailScreen extends StatefulWidget {
   final String title;
   final IconData icon;
 
-  GridAndLayoutDetailScreen(
+  const GridAndLayoutDetailScreen(
       {super.key, required this.title, required this.icon});
 
   @override
@@ -29,7 +29,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.white)),
+        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
         leading: IconButton(
@@ -70,7 +70,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
       case 'Tab Bar Layout':
         return _buildTabBarLayout();
       default:
-        return Center(child: Text('Unknown Layout'));
+        return const Center(child: Text('Unknown Layout'));
     }
   }
 
@@ -92,7 +92,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
               child: Text(
                 'Grid ${index + 1}', // Updated text to show 'Grid 1', 'Grid 2', etc.
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           );
@@ -160,7 +160,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
           if (constraints.maxWidth > 600) {
             // Large screens (width > 600px): Two-column grid layout
             return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, // Two columns for larger screens
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
@@ -171,7 +171,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
                   color: Colors.blueAccent,
                   child: Center(
                     child: Text('Item $index',
-                        style: TextStyle(color: Colors.white)),
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 );
               },
@@ -206,7 +206,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
                 vertical: 8.0), // Adds spacing between items
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -214,7 +214,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
                 child: Text(
                   'Item $index',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -234,7 +234,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
             color: Colors.blue[100],
             width: double.infinity,
             height: 300,
-            child: Center(
+            child: const Center(
                 child: Text('Background',
                     style: TextStyle(color: Colors.white, fontSize: 20))),
           ),
@@ -246,7 +246,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
               color: Colors.red,
               width: 90,
               height: 90,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Top: 50\nLeft: 100',
                   textAlign: TextAlign.center,
@@ -263,7 +263,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
               color: Colors.green,
               width: 60,
               height: 60,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Bottom: 30\nRight: 20',
                   textAlign: TextAlign.center,
@@ -280,7 +280,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
               color: Colors.orange,
               width: 100,
               height: 100,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Top: 150\nLeft: 10',
                   textAlign: TextAlign.center,
@@ -303,7 +303,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
           automaticallyImplyLeading: false, // Removes the back button
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
-            title: Text('Sticky Header', style: TextStyle(color: Colors.white)),
+            title: const Text('Sticky Header', style: TextStyle(color: Colors.white)),
             background: Container(color: Colors.blueAccent),
           ),
         ),
@@ -352,7 +352,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
   Widget _buildHorizontalListView() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
+      child: SizedBox(
         height: 200,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -375,7 +375,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
   }
 
   Widget _buildPageViewLayout() {
-    List _colors = [
+    List colors = [
       Colors.red,
       Colors.blue,
       Colors.green,
@@ -386,7 +386,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
         itemCount: 3,
         itemBuilder: (context, index) {
           return Scaffold(
-            backgroundColor: _colors[index],
+            backgroundColor: colors[index],
             body: Center(
               child: Card(
                 elevation: 6,
@@ -445,7 +445,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(text: 'Tab 1'),
               Tab(text: 'Tab 2'),
@@ -453,7 +453,7 @@ class _GridAndLayoutDetailScreenState extends State<GridAndLayoutDetailScreen> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             Center(child: Text('Content of Tab 1')),
             Center(child: Text('Content of Tab 2')),

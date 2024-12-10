@@ -37,12 +37,12 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListControlsScreenState extends State<ListScreen> {
-  bool _isExpanded = false;
-  List<String> _allItems = List<String>.generate(20, (index) => 'Item $index');
+  final bool _isExpanded = false;
+  final List<String> _allItems = List<String>.generate(20, (index) => 'Item $index');
   List<String> _filteredItems = [];
-  bool _isFiltering = false;
+  final bool _isFiltering = false;
   final ScrollController _scrollController = ScrollController();
-  List<String> _dragItems = ['Drag 1', 'Drag 2', 'Drag 3', 'Drag 4', 'Drag 5'];
+  final List<String> _dragItems = ['Drag 1', 'Drag 2', 'Drag 3', 'Drag 4', 'Drag 5'];
 
   @override
   void initState() {
