@@ -11,7 +11,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/image%20and%20media/images_and_media_screen.dart';
 import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/list_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/navigational_components_screen.dart';

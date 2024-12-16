@@ -1,15 +1,16 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_detail_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_detail_screen.dart';
 import 'package:flutter/material.dart';
 
-class ChartAndGraphScreen extends StatefulWidget {
-  const ChartAndGraphScreen({super.key});
+class ListScreen extends StatefulWidget {
+  const ListScreen({super.key});
 
   @override
   _ChartsAndGraphsScreenState createState() => _ChartsAndGraphsScreenState();
 }
 
-class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
+class _ChartsAndGraphsScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -19,8 +20,7 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Charts & Graphs",
-            style: TextStyle(color: Colors.white)),
+        title: const Text("Lists", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
         leading: IconButton(
@@ -57,69 +57,85 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
                 mainAxisSpacing: 8.0,
                 childAspectRatio: 1,
                 children: [
-                  _buildChartCard(
-                      'Line Chart',
-                      Icons.show_chart,
+                  _buildListCard(
+                      'Basic list',
+                      Icons.list, // Updated icon for a basic list
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Line charts display data trends over time.'),
-                  _buildChartCard(
-                      'Bar Chart',
-                      Icons.bar_chart,
+                      'A simple list to display items in a vertical format.'),
+                  _buildListCard(
+                      'Expandable list',
+                      Icons.expand_more, // Updated icon for expandable lists
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Bar charts compare quantities of different categories.'),
-                  _buildChartCard(
-                      'Pie Chart',
-                      Icons.pie_chart,
+                      'A list where items can expand to show more details.'),
+                  _buildListCard(
+                      'Grouped list',
+                      Icons.folder, // Icon representing grouped items
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Pie charts show the proportions of different categories.'),
-                  _buildChartCard(
-                      'Doughnut Chart',
-                      Icons.donut_small,
+                      'A list with grouped items, often organized under headers.'),
+                  _buildListCard(
+                      'Filterable list',
+                      Icons.filter_list, // Updated icon for filtering
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Doughnut charts are similar to pie charts but with a hole in the center.'),
-                  _buildChartCard(
-                      'Area Chart',
-                      Icons.area_chart,
+                      'A list that allows filtering items based on conditions.'),
+                  _buildListCard(
+                      'Virtualised list',
+                      Icons.memory, // Icon for performance or virtualization
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Area charts display quantities over time with shaded areas.'),
-                  _buildChartCard(
-                      'Radar Chart',
-                      Icons.radar,
+                      'A list optimized for performance when displaying a large number of items.'),
+                  _buildListCard(
+                      'Drag and drop list',
+                      Icons
+                          .drag_handle, // Icon representing drag-and-drop functionality
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Radar charts visualize multivariable data in a circular layout.'),
-                  _buildChartCard(
-                      'Gauge Chart',
-                      Icons.speed,
+                      'A list where items can be rearranged using drag-and-drop gestures.'),
+                  _buildListCard(
+                      'Infinite scroll list',
+                      Icons
+                          .motion_photos_auto, // Icon representing infinite scrolling
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Gauge charts show data on a circular scale, commonly used for measuring performance.'),
-                  _buildChartCard(
-                      'Scatter Chart',
-                      Icons.scatter_plot,
+                      'A list that loads more items as the user scrolls.'),
+                  _buildListCard(
+                      'Selectable list',
+                      Icons.check_box, // Icon representing selection
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Scatter charts display data points on a two-dimensional graph, useful for showing relationships between variables.'),
-                  _buildChartCard(
-                      'Stacked Bar Chart',
-                      Icons.stacked_bar_chart,
+                      'A list where users can select one or multiple items.'),
+                  _buildListCard(
+                      'Reorderable list',
+                      Icons.swap_vert, // Icon representing reordering
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Stacked bar charts are used to display data that is divided into multiple categories, allowing for comparison across categories.'),
+                      'A list where items can be reordered by the user.'),
+                  _buildListCard(
+                      'Swipable list',
+                      Icons.swipe, // Icon for swipeable interactions
+                      cardPadding,
+                      titleFontSize,
+                      context,
+                      'A list where items can be swiped for additional actions like delete or archive.'),
+                  _buildListCard(
+                      'Interactive list',
+                      Icons.touch_app, // Icon for interactivity
+                      cardPadding,
+                      titleFontSize,
+                      context,
+                      'A list with interactive elements like buttons or checkboxes.'),
                 ],
               ),
             ),
@@ -130,7 +146,7 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
   }
 
   // Helper function to build chart cards with tooltips
-  Widget _buildChartCard(String title, IconData icon, double cardPadding,
+  Widget _buildListCard(String title, IconData icon, double cardPadding,
       double titleFontSize, BuildContext context, String tooltipMessage) {
     return Tooltip(
       message: tooltipMessage, // Tooltip message explaining the chart
@@ -146,7 +162,7 @@ class _ChartsAndGraphsScreenState extends State<ChartAndGraphScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    ChartDetailScreen(title: title, icon: icon),
+                    ListDetailScreen(title: title, icon: icon),
               ),
             );
           },
