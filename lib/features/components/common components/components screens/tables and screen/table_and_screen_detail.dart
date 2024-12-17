@@ -1,117 +1,4 @@
-// import 'package:flutter/material.dart';
-
-// class BasicTableScreen extends StatelessWidget {
-//   const BasicTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Basic Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Basic Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class EditableTableScreen extends StatelessWidget {
-//   const EditableTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Editable Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Editable Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class SortableTableScreen extends StatelessWidget {
-//   const SortableTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Sortable Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Sortable Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class FilterableTableScreen extends StatelessWidget {
-//   const FilterableTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Filterable Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Filterable Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class PaginatedTableScreen extends StatelessWidget {
-//   const PaginatedTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Paginated Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Paginated Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class DynamicColumnTableScreen extends StatelessWidget {
-//   const DynamicColumnTableScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Dynamic Column Table'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Dynamic Column Table screen.'),
-//       ),
-//     );
-//   }
-// }
-
-// class DataGridScreen extends StatelessWidget {
-//   const DataGridScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Data Grid'),
-//       ),
-//       body: Center(
-//         child: const Text('This is the Data Grid screen.'),
-//       ),
-//     );
-//   }
-// }
-
+import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 
 class BasicTableScreen extends StatelessWidget {
@@ -121,32 +8,61 @@ class BasicTableScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Basic Table'),
+        title: const Text("Basic Table", style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Age')),
-          ],
-          rows: const [
-            DataRow(cells: [
-              DataCell(Text('1')),
-              DataCell(Text('John Doe')),
-              DataCell(Text('28')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('2')),
-              DataCell(Text('Jane Smith')),
-              DataCell(Text('34')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('3')),
-              DataCell(Text('Sam Brown')),
-              DataCell(Text('45')),
-            ]),
-          ],
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DataTable(
+                border: TableBorder.all(
+                  // Adds borders to the table
+                  color: Colors.grey,
+                  width: 1,
+                ),
+                columns: const [
+                  DataColumn(
+                      label: Text('ID',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Name',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Age',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                ],
+                rows: const [
+                  DataRow(cells: [
+                    DataCell(Text('1')),
+                    DataCell(Text('John Doe')),
+                    DataCell(Text('28')),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('2')),
+                    DataCell(Text('Jane Smith')),
+                    DataCell(Text('34')),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('3')),
+                    DataCell(Text('Sam Brown')),
+                    DataCell(Text('45')),
+                  ]),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -161,38 +77,206 @@ class EditableTableScreen extends StatefulWidget {
 }
 
 class _EditableTableScreenState extends State<EditableTableScreen> {
-  List<DataRow> rows = [
-    const DataRow(cells: [
-      DataCell(Text('1')),
-      DataCell(Text('John Doe')),
-      DataCell(Text('28')),
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('2')),
-      DataCell(Text('Jane Smith')),
-      DataCell(Text('34')),
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('3')),
-      DataCell(Text('Sam Brown')),
-      DataCell(Text('45')),
-    ]),
+  // Table data stored as a list of maps
+  List<Map<String, dynamic>> tableData = [
+    {"id": "1", "name": "John Doe", "age": "28"},
+    {"id": "2", "name": "Jane Smith", "age": "34"},
+    {"id": "3", "name": "Sam Brown", "age": "45"},
   ];
+
+  // Controllers for editing existing rows
+  late List<TextEditingController> nameControllers;
+  late List<TextEditingController> ageControllers;
+
+  // Controllers for adding new rows
+  final TextEditingController newNameController = TextEditingController();
+  final TextEditingController newAgeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeControllers();
+  }
+
+  void _initializeControllers() {
+    // Initialize controllers for each row
+    nameControllers = tableData
+        .map((row) => TextEditingController(text: row["name"]))
+        .toList();
+    ageControllers = tableData
+        .map((row) => TextEditingController(text: row["age"]))
+        .toList();
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers
+    for (var controller in nameControllers) {
+      controller.dispose();
+    }
+    for (var controller in ageControllers) {
+      controller.dispose();
+    }
+    newNameController.dispose();
+    newAgeController.dispose();
+    super.dispose();
+  }
+
+  // Function to add a new row
+  void _addNewRow() {
+    if (newNameController.text.isNotEmpty && newAgeController.text.isNotEmpty) {
+      setState(() {
+        tableData.add({
+          "id": (tableData.length + 1).toString(),
+          "name": newNameController.text,
+          "age": newAgeController.text,
+        });
+        nameControllers
+            .add(TextEditingController(text: newNameController.text));
+        ageControllers.add(TextEditingController(text: newAgeController.text));
+        newNameController.clear();
+        newAgeController.clear();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(milliseconds: 100),
+            content: Text("Row added successfully!")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(milliseconds: 100),
+            content: Text("Please fill in all fields!")),
+      );
+    }
+  }
+
+  // Function to delete a row
+  void _deleteRow(int index) {
+    setState(() {
+      tableData.removeAt(index);
+      nameControllers.removeAt(index);
+      ageControllers.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editable Table'),
+        title:
+            const Text("Editable Table", style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Age')),
-          ],
-          rows: rows,
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            child: Card(
+              margin: const EdgeInsets.all(16.0),
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150,
+                          child: TextField(
+                            controller: newNameController,
+                            decoration: const InputDecoration(
+                              labelText: "Name",
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        SizedBox(
+                          width: 100,
+                          child: TextField(
+                            controller: newAgeController,
+                            decoration: const InputDecoration(
+                              labelText: "Age",
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        ElevatedButton.icon(
+                          onPressed: _addNewRow,
+                          icon: const Icon(Icons.add),
+                          label: const Text("Add Row"),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Table UI
+                    DataTable(
+                      border: TableBorder.all(color: Colors.grey, width: 1),
+                      columns: const [
+                        DataColumn(
+                            label: Text('ID',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Name',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Age',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Actions',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                      ],
+                      rows: List<DataRow>.generate(
+                        tableData.length,
+                        (index) => DataRow(
+                          cells: [
+                            DataCell(Text(tableData[index]["id"])),
+                            DataCell(
+                              TextField(
+                                controller: nameControllers[index],
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            DataCell(
+                              TextField(
+                                controller: ageControllers[index],
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                            DataCell(
+                              IconButton(
+                                icon:
+                                    const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _deleteRow(index),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Add new row UI
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -207,28 +291,100 @@ class SortableTableScreen extends StatefulWidget {
 }
 
 class _SortableTableScreenState extends State<SortableTableScreen> {
-  bool sortAscending = true;
-  int sortColumnIndex = 0;
-
-  List<Map<String, dynamic>> data = [
-    {'ID': 1, 'Name': 'John Doe', 'Age': 28},
-    {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
-    {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
+  // Table data stored as a list of maps
+  List<Map<String, dynamic>> tableData = [
+    {"id": "1", "name": "John Doe", "age": "28"},
+    {"id": "2", "name": "Jane Smith", "age": "34"},
+    {"id": "3", "name": "Sam Brown", "age": "45"},
   ];
 
-  void sort<T>(Comparable<T> Function(Map<String, dynamic>) getField,
-      int columnIndex, bool ascending) {
-    data.sort((a, b) {
-      if (!ascending) {
-        final temp = a;
-        a = b;
-        b = temp;
-      }
-      return Comparable.compare(getField(a), getField(b));
-    });
+  // Controllers for editing existing rows
+  late List<TextEditingController> nameControllers;
+  late List<TextEditingController> ageControllers;
+
+  // Controllers for adding new rows
+  final TextEditingController newNameController = TextEditingController();
+  final TextEditingController newAgeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeControllers();
+  }
+
+  void _initializeControllers() {
+    // Initialize controllers for each row
+    nameControllers = tableData
+        .map((row) => TextEditingController(text: row["name"]))
+        .toList();
+    ageControllers = tableData
+        .map((row) => TextEditingController(text: row["age"]))
+        .toList();
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers
+    for (var controller in nameControllers) {
+      controller.dispose();
+    }
+    for (var controller in ageControllers) {
+      controller.dispose();
+    }
+    newNameController.dispose();
+    newAgeController.dispose();
+    super.dispose();
+  }
+
+  // Function to add a new row
+  void _addNewRow() {
+    if (newNameController.text.isNotEmpty && newAgeController.text.isNotEmpty) {
+      setState(() {
+        tableData.add({
+          "id": (tableData.length + 1).toString(),
+          "name": newNameController.text,
+          "age": newAgeController.text,
+        });
+        nameControllers
+            .add(TextEditingController(text: newNameController.text));
+        ageControllers.add(TextEditingController(text: newAgeController.text));
+        newNameController.clear();
+        newAgeController.clear();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(milliseconds: 100),
+            content: Text("Row added successfully!")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(milliseconds: 100),
+            content: Text("Please fill in all fields!")),
+      );
+    }
+  }
+
+  // Function to delete a row
+  void _deleteRow(int index) {
     setState(() {
-      sortColumnIndex = columnIndex;
-      sortAscending = ascending;
+      tableData.removeAt(index);
+      nameControllers.removeAt(index);
+      ageControllers.removeAt(index);
+    });
+  }
+
+  // Function to sort the table data by name in ascending order
+  void _sortTableByName() {
+    setState(() {
+      tableData.sort((a, b) => a["name"].compareTo(b["name"]));
+      // Update controllers after sorting
+      nameControllers = tableData
+          .map((row) => TextEditingController(text: row["name"]))
+          .toList();
+      ageControllers = tableData
+          .map((row) => TextEditingController(text: row["age"]))
+          .toList();
     });
   }
 
@@ -236,41 +392,126 @@ class _SortableTableScreenState extends State<SortableTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sortable Table'),
+        title:
+            const Text("Sortable Table", style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor:
+            CommonColor.primaryColor, // Change to your desired color
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          sortColumnIndex: sortColumnIndex,
-          sortAscending: sortAscending,
-          columns: [
-            DataColumn(
-              label: const Text('ID'),
-              onSort: (columnIndex, ascending) {
-                sort<int>((d) => d['ID'], columnIndex, ascending);
-              },
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            child: Card(
+              margin: const EdgeInsets.all(16.0),
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150,
+                          child: TextField(
+                            controller: newNameController,
+                            decoration: const InputDecoration(
+                              labelText: "Name",
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        SizedBox(
+                          width: 100,
+                          child: TextField(
+                            controller: newAgeController,
+                            decoration: const InputDecoration(
+                              labelText: "Age",
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        ElevatedButton.icon(
+                          onPressed: _addNewRow,
+                          icon: const Icon(Icons.add),
+                          label: const Text("Add Row"),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    // Sort Button
+                    ElevatedButton(
+                      onPressed: _sortTableByName,
+                      child: const Text("Sort by Name"),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Table UI
+                    DataTable(
+                      border: TableBorder.all(color: Colors.grey, width: 1),
+                      columns: const [
+                        DataColumn(
+                            label: Text('ID',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Name',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Age',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Actions',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                      ],
+                      rows: List<DataRow>.generate(
+                        tableData.length,
+                        (index) => DataRow(
+                          cells: [
+                            DataCell(Text(tableData[index]["id"])),
+                            DataCell(
+                              TextField(
+                                controller: nameControllers[index],
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            DataCell(
+                              TextField(
+                                controller: ageControllers[index],
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                            DataCell(
+                              IconButton(
+                                icon:
+                                    const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _deleteRow(index),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Add new row UI
+                  ],
+                ),
+              ),
             ),
-            DataColumn(
-              label: const Text('Name'),
-              onSort: (columnIndex, ascending) {
-                sort<String>((d) => d['Name'], columnIndex, ascending);
-              },
-            ),
-            DataColumn(
-              label: const Text('Age'),
-              onSort: (columnIndex, ascending) {
-                sort<int>((d) => d['Age'], columnIndex, ascending);
-              },
-            ),
-          ],
-          rows: data
-              .map(
-                (e) => DataRow(cells: [
-                  DataCell(Text(e['ID'].toString())),
-                  DataCell(Text(e['Name'])),
-                  DataCell(Text(e['Age'].toString())),
-                ]),
-              )
-              .toList(),
+          ),
         ),
       ),
     );
@@ -285,65 +526,109 @@ class FilterableTableScreen extends StatefulWidget {
 }
 
 class _FilterableTableScreenState extends State<FilterableTableScreen> {
-  List<Map<String, dynamic>> data = [
-    {'ID': 1, 'Name': 'John Doe', 'Age': 28},
-    {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
-    {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
+  // Sample table data
+  List<Map<String, dynamic>> tableData = [
+    {"id": "1", "name": "John Doe", "age": "28"},
+    {"id": "2", "name": "Jane Smith", "age": "34"},
+    {"id": "3", "name": "Sam Brown", "age": "45"},
+    {"id": "4", "name": "Mike Davis", "age": "30"},
+    {"id": "5", "name": "Emily Clark", "age": "40"},
   ];
 
-  List<Map<String, dynamic>>? filteredData;
+  // List to store the filtered data
+  List<Map<String, dynamic>> filteredData = [];
+
+  // Controller for the search/filter input
+  TextEditingController filterController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredData = List.from(data);
+    // Initialize filtered data with all table data initially
+    filteredData = tableData;
   }
 
-  void filterData(String query) {
+  // Filter the table based on the search text
+  void _filterTable(String query) {
+    final filtered = tableData.where((row) {
+      return row["name"].toLowerCase().contains(query.toLowerCase()) ||
+          row["age"].contains(query);
+    }).toList();
     setState(() {
-      filteredData = data
-          .where((d) => d['Name'].toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      filteredData = filtered;
     });
+  }
+
+  @override
+  void dispose() {
+    filterController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Filterable Table'),
+        title: const Text("Filterable Table"),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              onChanged: filterData,
-              decoration: const InputDecoration(
-                labelText: 'Search by Name',
-                prefixIcon: Icon(Icons.search),
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  // Search bar for filtering
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: SizedBox(
+                      width: 300,
+                      child: TextField(
+                        controller: filterController,
+                        onChanged: _filterTable,
+                        decoration: const InputDecoration(
+                          labelText: "Search by name or age",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Table UI
+                  DataTable(
+                    border: TableBorder.all(color: Colors.grey, width: 1),
+                    columns: const [
+                      DataColumn(
+                          label: Text('ID',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Name',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Age',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ],
+                    rows: List<DataRow>.generate(
+                      filteredData.length,
+                      (index) => DataRow(
+                        cells: [
+                          DataCell(Text(filteredData[index]["id"])),
+                          DataCell(Text(filteredData[index]["name"])),
+                          DataCell(Text(filteredData[index]["age"])),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                child: DataTable(
-                  columns: const [
-                    DataColumn(label: Text('ID')),
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('Age')),
-                  ],
-                  rows: filteredData!
-                      .map((e) => DataRow(cells: [
-                            DataCell(Text(e['ID'].toString())),
-                            DataCell(Text(e['Name'])),
-                            DataCell(Text(e['Age'].toString())),
-                          ]))
-                      .toList(),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -438,6 +723,96 @@ class DynamicColumnTableScreen extends StatelessWidget {
               DataCell(Text('45')),
               DataCell(Text('UK')),
             ]),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DataGridTableScreen extends StatefulWidget {
+  const DataGridTableScreen({super.key});
+
+  @override
+  _DataGridTableScreenState createState() => _DataGridTableScreenState();
+}
+
+class _DataGridTableScreenState extends State<DataGridTableScreen> {
+  List<Map<String, dynamic>> data = [
+    {'ID': 1, 'Name': 'John Doe', 'Age': 28},
+    {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
+    {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
+    {'ID': 4, 'Name': 'Lisa White', 'Age': 29},
+    {'ID': 5, 'Name': 'Mark Green', 'Age': 40},
+    {'ID': 6, 'Name': 'Emma Black', 'Age': 36},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Data Grid Table'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Data Grid:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // Number of columns
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 2.5, // Adjust cell width/height ratio
+                ),
+                itemCount:
+                    data.length * 3, // Each row has 3 fields: ID, Name, Age
+                itemBuilder: (context, index) {
+                  // Calculate row and column positions
+                  int rowIndex = index ~/ 3;
+                  int colIndex = index % 3;
+
+                  // Display data based on column index
+                  String value;
+                  switch (colIndex) {
+                    case 0:
+                      value = data[rowIndex]['ID'].toString();
+                      break;
+                    case 1:
+                      value = data[rowIndex]['Name'];
+                      break;
+                    case 2:
+                      value = data[rowIndex]['Age'].toString();
+                      break;
+                    default:
+                      value = '';
+                  }
+
+                  return Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.shade100,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.black26),
+                    ),
+                    child: Text(
+                      value,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
