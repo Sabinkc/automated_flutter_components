@@ -634,7 +634,6 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
     );
   }
 
-  // Interactive List with More Creative and Functional Interactions
   Widget _buildInteractableList() {
     return ListView.builder(
       itemCount: allItems.length,
@@ -643,10 +642,10 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
           child: ListTile(
             title: Text(allItems[index]),
             onTap: () {
-              _showItemDialog(context, allItems[index]);
+              _showItemDialog(context, index); // Pass the index for editing
             },
             onLongPress: () {
-              _highlightItem(index);
+              _highlightItem(index); // Highlight item on long press
             },
           ),
         );
@@ -654,20 +653,36 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
     );
   }
 
-  // Show a dialog with item details
-  void _showItemDialog(BuildContext context, String item) {
+// Method to show a dialog for editing item name
+  void _showItemDialog(BuildContext context, int index) {
+    TextEditingController controller =
+        TextEditingController(text: allItems[index]);
+
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
-          title: Text('Item Details'),
-          content: Text('You tapped on: $item'),
+          title: const Text('Edit Item Name'),
+          content: TextField(
+            controller: controller,
+            decoration: const InputDecoration(hintText: 'Enter new item name'),
+          ),
           actions: [
             TextButton(
-              child: const Text('Close'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context); // Close the dialog without saving
               },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  allItems[index] =
+                      controller.text; // Update the item with new name
+                });
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('Save'),
             ),
           ],
         );
@@ -675,14 +690,13 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
     );
   }
 
-  // Highlight item on long press (for example, change color temporarily)
+// Method to highlight the item on long press (optional)
   void _highlightItem(int index) {
-    final snackBar =
-        SnackBar(content: Text('Long pressed: ${allItems[index]}'));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Long pressed on: ${allItems[index]}')),
+    );
   }
 
-  // Filterable List
   Widget _buildFilterableList() {
     return Column(
       children: [

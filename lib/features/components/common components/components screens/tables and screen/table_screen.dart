@@ -100,12 +100,12 @@ class _TablesAndGridsScreenState extends State<TableScreen> {
                       context,
                       'Tables with dynamically adjustable columns.'),
                   _buildTableCard(
-                      'Data Grid',
+                      'Interactive Table',
                       Icons.grid_on,
                       cardPadding,
                       titleFontSize,
                       context,
-                      'Interactive data grids with features like sorting, filtering, and paging.'),
+                      'Tables which allow users to interact.'),
                 ],
               ),
             ),
@@ -177,13 +177,10 @@ class _TablesAndGridsScreenState extends State<TableScreen> {
                   ),
                 );
                 break;
-              case 'Data Grid':
-                // Navigator.push(
-                //   context,
-                //   // MaterialPageRoute(
-                //   //   builder: (context) => const DataGridScreen(),
-                //   // ),
-                // );
+              case 'Interactive Table':
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return InteractiveTableScreen();
+                }));
                 break;
             }
           },
