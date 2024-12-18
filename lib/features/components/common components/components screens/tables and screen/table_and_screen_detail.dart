@@ -569,9 +569,17 @@ class _FilterableTableScreenState extends State<FilterableTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Filterable Table"),
+        title: const Text("Filterable Table",
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor:
+            CommonColor.primaryColor, // Change to your desired color
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -635,185 +643,638 @@ class _FilterableTableScreenState extends State<FilterableTableScreen> {
   }
 }
 
-class PaginatedTableScreen extends StatelessWidget {
+class PaginatedTableScreen extends StatefulWidget {
   const PaginatedTableScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Paginated Table'),
-      ),
-      body: PaginatedDataTable(
-        header: const Text('User Data'),
-        columns: const [
-          DataColumn(label: Text('ID')),
-          DataColumn(label: Text('Name')),
-          DataColumn(label: Text('Age')),
-        ],
-        source: _DataSource(),
-        rowsPerPage: 3,
-      ),
-    );
-  }
+  _PaginatedTableScreenState createState() => _PaginatedTableScreenState();
 }
 
-class _DataSource extends DataTableSource {
-  final List<Map<String, dynamic>> data = [
-    {'ID': 1, 'Name': 'John Doe', 'Age': 28},
-    {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
-    {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
-    {'ID': 4, 'Name': 'Chris Green', 'Age': 23},
-    {'ID': 5, 'Name': 'Alex Black', 'Age': 30},
+class _PaginatedTableScreenState extends State<PaginatedTableScreen> {
+  // Sample table data
+  List<Map<String, dynamic>> tableData = [
+    {"id": "1", "name": "John Doe", "age": "28"},
+    {"id": "2", "name": "Jane Smith", "age": "34"},
+    {"id": "3", "name": "Sam Brown", "age": "45"},
+    {"id": "4", "name": "Mike Davis", "age": "30"},
+    {"id": "5", "name": "Emily Clark", "age": "40"},
+    {"id": "6", "name": "Jake White", "age": "25"},
+    {"id": "7", "name": "Sarah Green", "age": "33"},
+    {"id": "8", "name": "Tom Black", "age": "29"},
+    {"id": "9", "name": "Anna Grey", "age": "22"},
+    {"id": "10", "name": "David Blue", "age": "41"},
+    {"id": "11", "name": "Olivia Brown", "age": "29"},
+    {"id": "12", "name": "Sophia Clark", "age": "37"},
+    {"id": "13", "name": "Liam Scott", "age": "23"},
+    {"id": "14", "name": "Noah Harris", "age": "50"},
+    {"id": "15", "name": "Ava Lewis", "age": "31"},
   ];
 
+  // Pagination variables
+  int currentPage = 1;
+  int rowsPerPage = 5;
+  int totalPages = 0;
+
   @override
-  DataRow getRow(int index) {
-    final e = data[index];
-    return DataRow(cells: [
-      DataCell(Text(e['ID'].toString())),
-      DataCell(Text(e['Name'])),
-      DataCell(Text(e['Age'].toString())),
-    ]);
+  void initState() {
+    super.initState();
+    totalPages = (tableData.length / rowsPerPage).ceil();
   }
 
-  @override
-  bool get isRowCountApproximate => false;
+  // Get the data for the current page
+  List<Map<String, dynamic>> _getCurrentPageData() {
+    int startIndex = (currentPage - 1) * rowsPerPage;
+    int endIndex = (startIndex + rowsPerPage) > tableData.length
+        ? tableData.length
+        : startIndex + rowsPerPage;
+    return tableData.sublist(startIndex, endIndex);
+  }
 
-  @override
-  int get rowCount => data.length;
+  // Handle next page
+  void _nextPage() {
+    if (currentPage < totalPages) {
+      setState(() {
+        currentPage++;
+      });
+    }
+  }
 
-  @override
-  int get selectedRowCount => 0;
-}
-
-class DynamicColumnTableScreen extends StatelessWidget {
-  const DynamicColumnTableScreen({super.key});
+  // Handle previous page
+  void _previousPage() {
+    if (currentPage > 1) {
+      setState(() {
+        currentPage--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dynamic Column Table'),
+        title: const Text("Paginated Table",
+            style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Age')),
-            DataColumn(label: Text('Country')),
-          ],
-          rows: const [
-            DataRow(cells: [
-              DataCell(Text('1')),
-              DataCell(Text('John Doe')),
-              DataCell(Text('28')),
-              DataCell(Text('Nepal')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('2')),
-              DataCell(Text('Jane Smith')),
-              DataCell(Text('34')),
-              DataCell(Text('USA')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('3')),
-              DataCell(Text('Sam Brown')),
-              DataCell(Text('45')),
-              DataCell(Text('UK')),
-            ]),
-          ],
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  // Table UI with pagination
+                  DataTable(
+                    border: TableBorder.all(color: Colors.grey, width: 1),
+                    columns: const [
+                      DataColumn(
+                          label: Text('ID',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Name',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Age',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ],
+                    rows: List<DataRow>.generate(
+                      _getCurrentPageData().length,
+                      (index) => DataRow(
+                        cells: [
+                          DataCell(Text(_getCurrentPageData()[index]["id"])),
+                          DataCell(Text(_getCurrentPageData()[index]["name"])),
+                          DataCell(Text(_getCurrentPageData()[index]["age"])),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Pagination controls
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: _previousPage,
+                        child: const Text("Previous"),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Page $currentPage of $totalPages",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: _nextPage,
+                        child: const Text("Next"),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class DataGridTableScreen extends StatefulWidget {
-  const DataGridTableScreen({super.key});
+class DynamicColumnTableScreen extends StatefulWidget {
+  const DynamicColumnTableScreen({super.key});
 
   @override
-  _DataGridTableScreenState createState() => _DataGridTableScreenState();
+  _DynamicColumnTableScreenState createState() =>
+      _DynamicColumnTableScreenState();
 }
 
-class _DataGridTableScreenState extends State<DataGridTableScreen> {
-  List<Map<String, dynamic>> data = [
-    {'ID': 1, 'Name': 'John Doe', 'Age': 28},
-    {'ID': 2, 'Name': 'Jane Smith', 'Age': 34},
-    {'ID': 3, 'Name': 'Sam Brown', 'Age': 45},
-    {'ID': 4, 'Name': 'Lisa White', 'Age': 29},
-    {'ID': 5, 'Name': 'Mark Green', 'Age': 40},
-    {'ID': 6, 'Name': 'Emma Black', 'Age': 36},
+class _DynamicColumnTableScreenState extends State<DynamicColumnTableScreen> {
+  // Sample data for the table (dynamic columns and rows)
+  List<Map<String, dynamic>> tableData = [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "age": 28,
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "age": 34,
+    },
+    {
+      "id": "3",
+      "name": "Sam Brown",
+      "age": 45,
+    },
+    {
+      "id": "4",
+      "name": "Mike Davis",
+      "age": 30,
+    },
+    {
+      "id": "5",
+      "name": "Emily Clark",
+      "age": 40,
+    },
+  ];
+
+  // Columns (could be dynamic or user-defined as well)
+  List<String> columnHeaders = [
+    "id",
+    "name",
+    "age",
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data Grid Table'),
+        title: const Text("Dynamic Column Table",
+            style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Data Grid:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // Number of columns
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 2.5, // Adjust cell width/height ratio
-                ),
-                itemCount:
-                    data.length * 3, // Each row has 3 fields: ID, Name, Age
-                itemBuilder: (context, index) {
-                  // Calculate row and column positions
-                  int rowIndex = index ~/ 3;
-                  int colIndex = index % 3;
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Check screen size and adjust accordingly
+                      bool isSmallScreen = constraints.maxWidth < 600;
 
-                  // Display data based on column index
-                  String value;
-                  switch (colIndex) {
-                    case 0:
-                      value = data[rowIndex]['ID'].toString();
-                      break;
-                    case 1:
-                      value = data[rowIndex]['Name'];
-                      break;
-                    case 2:
-                      value = data[rowIndex]['Age'].toString();
-                      break;
-                    default:
-                      value = '';
-                  }
-
-                  return Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.shade100,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.black26),
-                    ),
-                    child: Text(
-                      value,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  );
-                },
+                      return Column(
+                        children: [
+                          // DataTable with responsive behavior
+                          DataTable(
+                            border:
+                                TableBorder.all(color: Colors.grey, width: 1),
+                            columns: columnHeaders
+                                .map(
+                                  (column) => DataColumn(
+                                    label: Text(
+                                      column.toUpperCase(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                            rows: List<DataRow>.generate(
+                              tableData.length,
+                              (index) => DataRow(
+                                cells: columnHeaders
+                                    .map(
+                                      (column) => DataCell(
+                                        // Use Flexible for better spacing in each cell on small screens
+                                        Flexible(
+                                          child: Text(tableData[index][column]
+                                              .toString()),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class InteractiveTableScreen extends StatefulWidget {
+  const InteractiveTableScreen({super.key});
+
+  @override
+  _InteractiveTableScreenState createState() => _InteractiveTableScreenState();
+}
+
+class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
+  // Sample data for the table
+  List<Map<String, dynamic>> tableData = [
+    {"id": "1", "name": "John Doe", "age": 28, "email": "johndoe@email.com"},
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "age": 34,
+      "email": "janesmith@email.com"
+    },
+    {"id": "3", "name": "Sam Brown", "age": 45, "email": "sambrown@email.com"},
+    {
+      "id": "4",
+      "name": "Mike Davis",
+      "age": 30,
+      "email": "mikedavis@email.com"
+    },
+    {
+      "id": "5",
+      "name": "Emily Clark",
+      "age": 40,
+      "email": "emilyclark@email.com"
+    },
+  ];
+
+  List<String> columnHeaders = ["id", "name", "age", "email"];
+
+  // For sorting
+  int _sortColumnIndex = 0;
+  bool _isAscending = true;
+
+  // For filtering
+  TextEditingController filterController = TextEditingController();
+
+  // For adding new row (user input)
+  TextEditingController newIdController = TextEditingController();
+  TextEditingController newNameController = TextEditingController();
+  TextEditingController newAgeController = TextEditingController();
+  TextEditingController newEmailController = TextEditingController();
+
+  @override
+  void dispose() {
+    filterController.dispose();
+    newIdController.dispose();
+    newNameController.dispose();
+    newAgeController.dispose();
+    newEmailController.dispose();
+    super.dispose();
+  }
+
+  // Sort function
+  void _sortData(int columnIndex, bool ascending) {
+    setState(() {
+      _sortColumnIndex = columnIndex;
+      _isAscending = ascending;
+      tableData.sort((a, b) {
+        final aValue = a[columnHeaders[columnIndex]].toString().toLowerCase();
+        final bValue = b[columnHeaders[columnIndex]].toString().toLowerCase();
+        if (ascending) {
+          return aValue.compareTo(bValue);
+        } else {
+          return bValue.compareTo(aValue);
+        }
+      });
+    });
+  }
+
+  // Filter function
+  void _filterTable(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        tableData = [
+          {
+            "id": "1",
+            "name": "John Doe",
+            "age": 28,
+            "email": "johndoe@email.com"
+          },
+          {
+            "id": "2",
+            "name": "Jane Smith",
+            "age": 34,
+            "email": "janesmith@email.com"
+          },
+          {
+            "id": "3",
+            "name": "Sam Brown",
+            "age": 45,
+            "email": "sambrown@email.com"
+          },
+          {
+            "id": "4",
+            "name": "Mike Davis",
+            "age": 30,
+            "email": "mikedavis@email.com"
+          },
+          {
+            "id": "5",
+            "name": "Emily Clark",
+            "age": 40,
+            "email": "emilyclark@email.com"
+          },
+        ]; // Reset data
+      } else {
+        tableData = tableData.where((row) {
+          return row.values.any((value) {
+            return value.toString().toLowerCase().contains(query.toLowerCase());
+          });
+        }).toList();
+      }
+    });
+  }
+
+  // Function to update a row's data
+  void _updateRow(Map<String, dynamic> row) {
+    // Populating data fields with current row data
+    newIdController.text = row['id'];
+    newNameController.text = row['name'];
+    newAgeController.text = row['age'].toString();
+    newEmailController.text = row['email'];
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Update Row"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: newIdController,
+                decoration: const InputDecoration(labelText: "ID"),
+              ),
+              TextField(
+                controller: newNameController,
+                decoration: const InputDecoration(labelText: "Name"),
+              ),
+              TextField(
+                controller: newAgeController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: "Age"),
+              ),
+              TextField(
+                controller: newEmailController,
+                decoration: const InputDecoration(labelText: "Email"),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  row['id'] = newIdController.text;
+                  row['name'] = newNameController.text;
+                  row['age'] = int.parse(newAgeController.text);
+                  row['email'] = newEmailController.text;
+                });
+                Navigator.pop(context);
+              },
+              child: const Text("Update"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel"),
+            ),
           ],
+        );
+      },
+    );
+  }
+
+  // Function to delete a row
+  void _deleteRow(int index) {
+    setState(() {
+      tableData.removeAt(index);
+    });
+  }
+
+  // Function to add a row
+  void _addRow() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Add New Row"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: newIdController,
+                decoration: const InputDecoration(labelText: "ID"),
+              ),
+              TextField(
+                controller: newNameController,
+                decoration: const InputDecoration(labelText: "Name"),
+              ),
+              TextField(
+                controller: newAgeController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: "Age"),
+              ),
+              TextField(
+                controller: newEmailController,
+                decoration: const InputDecoration(labelText: "Email"),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  tableData.add({
+                    "id": newIdController.text,
+                    "name": newNameController.text,
+                    "age": int.parse(newAgeController.text),
+                    "email": newEmailController.text,
+                  });
+                });
+                Navigator.pop(context);
+              },
+              child: const Text("Add"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to show alert on clicking a row
+  void _showRowAlert(Map<String, dynamic> row) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Row Data"),
+          content: Text(row.toString()), // Display entire row data
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Build the table UI
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Interactive Table"),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            children: [
+              // Filter input for searching
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: TextField(
+                  controller: filterController,
+                  onChanged: _filterTable,
+                  decoration: const InputDecoration(
+                    labelText: 'Search',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+              ),
+
+              // Buttons to add and delete rows
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _addRow,
+                      child: const Text("Add Row"),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (tableData.isNotEmpty) {
+                          _deleteRow(
+                              tableData.length - 1); // Deletes the last row
+                        }
+                      },
+                      child: const Text("Delete Last Row"),
+                    ),
+                  ],
+                ),
+              ),
+
+              // DataTable with sorting functionality
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    child: DataTable(
+                      columnSpacing: 20,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      sortColumnIndex: _sortColumnIndex,
+                      sortAscending: _isAscending,
+                      columns: columnHeaders.map((column) {
+                        return DataColumn(
+                          label: Text(column.toUpperCase()),
+                          onSort: (int columnIndex, bool ascending) {
+                            _sortData(columnIndex, ascending);
+                          },
+                        );
+                      }).toList(),
+                      rows: tableData
+                          .map((row) => DataRow(
+                                cells: columnHeaders.map((column) {
+                                  return DataCell(
+                                    GestureDetector(
+                                      onTap: () {
+                                        _showRowAlert(
+                                            row); // Show alert when clicking on a row
+                                      },
+                                      child: Text(row[column].toString()),
+                                    ),
+                                  );
+                                }).toList(),
+                                onLongPress: () {
+                                  _updateRow(row); // Update row on long press
+                                },
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
