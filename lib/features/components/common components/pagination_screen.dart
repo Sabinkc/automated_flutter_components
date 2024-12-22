@@ -36,12 +36,14 @@ class _PaginationScreenState extends State<PaginationScreen> {
     List<int> newData = List.generate(
         _pageSize, (index) => (_currentPage - 1) * _pageSize + index + 1);
 
-    setState(() {
-      _data.addAll(newData);
-      _isLoading = false;
-      _isInitialLoading = false; // First load completed
-      _currentPage++;
-    });
+    if (mounted) {
+      setState(() {
+        _data.addAll(newData);
+        _isLoading = false;
+        _isInitialLoading = false; // First load completed
+        _currentPage++;
+      });
+    }
   }
 
   // Scroll listener for detecting when the user scrolls near the end
@@ -129,7 +131,7 @@ class _PaginationScreenState extends State<PaginationScreen> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController.dispose(); // Properly dispose of the controller
     super.dispose();
   }
 }
