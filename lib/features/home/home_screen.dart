@@ -14,7 +14,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/navigational_components_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/navigation%20components/navigational_components_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/real_time_feature_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/slider_and_progress_indicator_screen.dart';

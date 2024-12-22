@@ -929,31 +929,17 @@ class InteractiveTableScreen extends StatefulWidget {
 }
 
 class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
-  // Sample data for the table
+  // Sample data for the table without email
   List<Map<String, dynamic>> tableData = [
-    {"id": "1", "name": "John Doe", "age": 28, "email": "johndoe@email.com"},
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "age": 34,
-      "email": "janesmith@email.com"
-    },
-    {"id": "3", "name": "Sam Brown", "age": 45, "email": "sambrown@email.com"},
-    {
-      "id": "4",
-      "name": "Mike Davis",
-      "age": 30,
-      "email": "mikedavis@email.com"
-    },
-    {
-      "id": "5",
-      "name": "Emily Clark",
-      "age": 40,
-      "email": "emilyclark@email.com"
-    },
+    {"id": "1", "name": "John Doe", "age": 28},
+    {"id": "2", "name": "Jane Smith", "age": 34},
+    {"id": "3", "name": "Sam Brown", "age": 45},
+    {"id": "4", "name": "Mike Davis", "age": 30},
+    {"id": "5", "name": "Emily Clark", "age": 40},
   ];
 
-  List<String> columnHeaders = ["id", "name", "age", "email"];
+  // Updated column headers without email
+  List<String> columnHeaders = ["id", "name", "age"];
 
   // For sorting
   int _sortColumnIndex = 0;
@@ -966,7 +952,6 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
   TextEditingController newIdController = TextEditingController();
   TextEditingController newNameController = TextEditingController();
   TextEditingController newAgeController = TextEditingController();
-  TextEditingController newEmailController = TextEditingController();
 
   @override
   void dispose() {
@@ -974,7 +959,6 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
     newIdController.dispose();
     newNameController.dispose();
     newAgeController.dispose();
-    newEmailController.dispose();
     super.dispose();
   }
 
@@ -1000,36 +984,11 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
     setState(() {
       if (query.isEmpty) {
         tableData = [
-          {
-            "id": "1",
-            "name": "John Doe",
-            "age": 28,
-            "email": "johndoe@email.com"
-          },
-          {
-            "id": "2",
-            "name": "Jane Smith",
-            "age": 34,
-            "email": "janesmith@email.com"
-          },
-          {
-            "id": "3",
-            "name": "Sam Brown",
-            "age": 45,
-            "email": "sambrown@email.com"
-          },
-          {
-            "id": "4",
-            "name": "Mike Davis",
-            "age": 30,
-            "email": "mikedavis@email.com"
-          },
-          {
-            "id": "5",
-            "name": "Emily Clark",
-            "age": 40,
-            "email": "emilyclark@email.com"
-          },
+          {"id": "1", "name": "John Doe", "age": 28},
+          {"id": "2", "name": "Jane Smith", "age": 34},
+          {"id": "3", "name": "Sam Brown", "age": 45},
+          {"id": "4", "name": "Mike Davis", "age": 30},
+          {"id": "5", "name": "Emily Clark", "age": 40},
         ]; // Reset data
       } else {
         tableData = tableData.where((row) {
@@ -1041,73 +1000,12 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
     });
   }
 
-  // Function to update a row's data
-  void _updateRow(Map<String, dynamic> row) {
-    // Populating data fields with current row data
-    newIdController.text = row['id'];
-    newNameController.text = row['name'];
-    newAgeController.text = row['age'].toString();
-    newEmailController.text = row['email'];
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Update Row"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: newIdController,
-                decoration: const InputDecoration(labelText: "ID"),
-              ),
-              TextField(
-                controller: newNameController,
-                decoration: const InputDecoration(labelText: "Name"),
-              ),
-              TextField(
-                controller: newAgeController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: "Age"),
-              ),
-              TextField(
-                controller: newEmailController,
-                decoration: const InputDecoration(labelText: "Email"),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  row['id'] = newIdController.text;
-                  row['name'] = newNameController.text;
-                  row['age'] = int.parse(newAgeController.text);
-                  row['email'] = newEmailController.text;
-                });
-                Navigator.pop(context);
-              },
-              child: const Text("Update"),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("Cancel"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Function to delete a row
-  void _deleteRow(int index) {
-    setState(() {
-      tableData.removeAt(index);
-    });
-  }
-
   // Function to add a row
   void _addRow() {
+    newIdController.clear();
+    newNameController.clear();
+    newAgeController.clear();
+
     showDialog(
       context: context,
       builder: (context) {
@@ -1129,10 +1027,6 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(labelText: "Age"),
               ),
-              TextField(
-                controller: newEmailController,
-                decoration: const InputDecoration(labelText: "Email"),
-              ),
             ],
           ),
           actions: [
@@ -1142,8 +1036,7 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
                   tableData.add({
                     "id": newIdController.text,
                     "name": newNameController.text,
-                    "age": int.parse(newAgeController.text),
-                    "email": newEmailController.text,
+                    "age": int.tryParse(newAgeController.text) ?? 0,
                   });
                 });
                 Navigator.pop(context);
@@ -1160,14 +1053,19 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
     );
   }
 
-  // Function to show alert on clicking a row
-  void _showRowAlert(Map<String, dynamic> row) {
+  // Function to show details of a specific row
+  void _showRowDetails(Map<String, dynamic> row) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Row Data"),
-          content: Text(row.toString()), // Display entire row data
+          title: const Text("Row Details"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: row.entries
+                .map((entry) => Text("${entry.key}: ${entry.value}"))
+                .toList(),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -1184,9 +1082,20 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Interactive Table"),
-        backgroundColor: Colors.blue,
+        title: const Text(
+          "Interactive Table",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: CommonColor.primaryColor,
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -1221,8 +1130,9 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (tableData.isNotEmpty) {
-                          _deleteRow(
-                              tableData.length - 1); // Deletes the last row
+                          setState(() {
+                            tableData.removeLast();
+                          });
                         }
                       },
                       child: const Text("Delete Last Row"),
@@ -1231,18 +1141,19 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
                 ),
               ),
 
-              // DataTable with sorting functionality
+              // DataTable with sorting functionality and borders
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SingleChildScrollView(
                     child: DataTable(
                       columnSpacing: 20,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                      ),
                       sortColumnIndex: _sortColumnIndex,
                       sortAscending: _isAscending,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black), // Add border
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       columns: columnHeaders.map((column) {
                         return DataColumn(
                           label: Text(column.toUpperCase()),
@@ -1252,22 +1163,20 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
                         );
                       }).toList(),
                       rows: tableData
-                          .map((row) => DataRow(
-                                cells: columnHeaders.map((column) {
-                                  return DataCell(
-                                    GestureDetector(
-                                      onTap: () {
-                                        _showRowAlert(
-                                            row); // Show alert when clicking on a row
-                                      },
-                                      child: Text(row[column].toString()),
-                                    ),
-                                  );
-                                }).toList(),
-                                onLongPress: () {
-                                  _updateRow(row); // Update row on long press
-                                },
-                              ))
+                          .map(
+                            (row) => DataRow(
+                              cells: columnHeaders.map((column) {
+                                return DataCell(
+                                  GestureDetector(
+                                    onTap: () {
+                                      _showRowDetails(row);
+                                    },
+                                    child: Text(row[column].toString()),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          )
                           .toList(),
                     ),
                   ),

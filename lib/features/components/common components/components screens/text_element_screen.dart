@@ -45,7 +45,7 @@ class _TextElementScreenState extends State<TextElementScreen> {
           ),
         ),
         child: RawScrollbar(
-          thumbColor: CommonColor.primaryColor,
+          thumbColor: CommonColor.secondaryColor,
           thumbVisibility: true,
           thickness: 4,
           radius: const Radius.circular(8),
