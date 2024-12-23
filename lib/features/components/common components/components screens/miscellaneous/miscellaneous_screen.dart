@@ -1,17 +1,15 @@
-import 'package:components_automation/features/components/common%20components/components%20screens/file%20handling%20and%20download/file_handling_detail_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
-class FileHandlingAndDownloadScreen extends StatefulWidget {
-  const FileHandlingAndDownloadScreen({super.key});
+class MiscellaneousScreen extends StatefulWidget {
+  const MiscellaneousScreen({super.key});
 
   @override
-  _FileHandlingAndDownloadScreenState createState() =>
-      _FileHandlingAndDownloadScreenState();
+  _MiscellaneousScreenState createState() => _MiscellaneousScreenState();
 }
 
-class _FileHandlingAndDownloadScreenState
-    extends State<FileHandlingAndDownloadScreen> {
+class _MiscellaneousScreenState extends State<MiscellaneousScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -29,8 +27,8 @@ class _FileHandlingAndDownloadScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("File Handling and Downloads",
-            style: TextStyle(color: Colors.white)),
+        title:
+            const Text("Miscellaneous", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
         leading: IconButton(
@@ -46,7 +44,7 @@ class _FileHandlingAndDownloadScreenState
           gradient: LinearGradient(
             colors: [
               CommonColor.primaryColorDark,
-              CommonColor.primaryColorLight
+              CommonColor.primaryColorLight,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -69,48 +67,48 @@ class _FileHandlingAndDownloadScreenState
                 mainAxisSpacing: 8.0,
                 childAspectRatio: 1,
                 children: [
-                  buildFileHandlingWidget(
-                      'File Picker',
-                      Icons.insert_drive_file,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Pick files from your device'),
-                  buildFileHandlingWidget(
-                      'File Upload',
-                      Icons.upload_file,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Upload files to the server'),
-                  buildFileHandlingWidget(
-                      'Drag and Drop Upload',
-                      Icons.cloud_upload,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Drag and drop files to upload'),
-                  buildFileHandlingWidget(
-                      'Download File',
-                      Icons.download,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Download files from the server'),
-                  buildFileHandlingWidget(
-                      'File Viewer',
-                      Icons.pageview,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'View files in the app'),
-                  buildFileHandlingWidget(
-                      'File Explorer',
-                      Icons.folder,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Explore files and directories'),
+               
+                  buildMiscellaneousWidget(
+                    'Collapse animations',
+                    Icons.animation,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Animate widgets collapsing smoothly',
+                  ),
+                  buildMiscellaneousWidget(
+                    'Expandable section',
+                    Icons.expand,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Expand or collapse sections with a click',
+                  ),
+                  buildMiscellaneousWidget(
+                    'Voting widget',
+                    Icons.thumb_up,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Allow users to upvote and downvote content',
+                  ),
+               
+                  buildMiscellaneousWidget(
+                    'Countdown timer',
+                    Icons.timer,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Show a timer counting down',
+                  ),
+                  buildMiscellaneousWidget(
+                    'Custom paint',
+                    Icons.brush,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Design unique shapes or patterns',
+                  ),
                 ],
               ),
             ),
@@ -120,13 +118,14 @@ class _FileHandlingAndDownloadScreenState
     );
   }
 
-  Widget buildFileHandlingWidget(
-      String title,
-      IconData icon,
-      double cardPadding,
-      double titleFontSize,
-      BuildContext context,
-      String tooltipMessage) {
+  Widget buildMiscellaneousWidget(
+    String title,
+    IconData icon,
+    double cardPadding,
+    double titleFontSize,
+    BuildContext context,
+    String tooltipMessage,
+  ) {
     return Tooltip(
       message: tooltipMessage,
       child: Card(
@@ -138,53 +137,49 @@ class _FileHandlingAndDownloadScreenState
           onTap: () {
             // Update navigation based on the widget type
             switch (title) {
-              case 'File Picker':
+              
+              case 'Collapse animations':
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FilePickerScreen(),
+                    builder: (context) => const CollapseAnimationsScreen(),
                   ),
                 );
                 break;
-              case 'File Upload':
+              case 'Expandable section':
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FileUploadScreen(),
+                    builder: (context) => const ExpandableSectionScreen(),
                   ),
                 );
                 break;
-              case 'Drag and Drop Upload':
+              case 'Voting widget':
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const DragAndDropScreen(),
+                    builder: (context) => const VotingWidgetScreen(),
                   ),
                 );
                 break;
-              case 'Download File':
+              
+              case 'Countdown timer':
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const DownloadFileScreen(),
+                    builder: (context) => const CountdownTimerScreen(),
                   ),
                 );
                 break;
-              case 'File Viewer':
+              case 'Custom paint':
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FileViewerScreen(),
+                    builder: (context) => const CustomPaintScreen(),
                   ),
                 );
                 break;
-              case 'File Explorer':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FileExplorerScreen(),
-                  ),
-                );
+              default:
                 break;
             }
           },
@@ -217,5 +212,3 @@ class _FileHandlingAndDownloadScreenState
     );
   }
 }
-
-// Placeholder screens for navigation

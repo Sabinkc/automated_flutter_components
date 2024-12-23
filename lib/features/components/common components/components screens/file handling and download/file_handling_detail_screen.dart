@@ -3,17 +3,11 @@ import 'package:components_automation/core/constants.dart';
 
 import 'package:file_picker/file_picker.dart';
 
-import 'dart:typed_data';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'dart:io' show Platform;
-
-import 'package:flutter/foundation.dart' show kIsWeb;
-
-
-
-import 'package:desktop_drop/desktop_drop.dart'; 
-
 
 class FilePickerScreen extends StatefulWidget {
   const FilePickerScreen({super.key});
@@ -25,7 +19,8 @@ class FilePickerScreen extends StatefulWidget {
 class _FilePickerScreenState extends State<FilePickerScreen> {
   String? singleFileName; // To store the selected single file name
   String? singleFileSize; // To store the selected single file size
-  List<String> multipleFileNames = []; // List to store names of multiple selected files
+  List<String> multipleFileNames =
+      []; // List to store names of multiple selected files
 
   // Method to pick a single file
   Future<void> _pickSingleFile(BuildContext context) async {
@@ -36,7 +31,8 @@ class _FilePickerScreenState extends State<FilePickerScreen> {
         final file = result.files.first;
         setState(() {
           singleFileName = file.name;
-          singleFileSize = file.size != null ? '${file.size} bytes' : 'Unknown size';
+          singleFileSize =
+              file.size != null ? '${file.size} bytes' : 'Unknown size';
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -74,7 +70,9 @@ class _FilePickerScreenState extends State<FilePickerScreen> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${multipleFileNames.length} files picked successfully')),
+          SnackBar(
+              content: Text(
+                  '${multipleFileNames.length} files picked successfully')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -134,9 +132,6 @@ class _FilePickerScreenState extends State<FilePickerScreen> {
     );
   }
 }
-
-
-
 
 class FileUploadScreen extends StatefulWidget {
   const FileUploadScreen({super.key});
@@ -259,153 +254,185 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
   }
 }
 
-
-
-
-class DragAndDropUploadScreen extends StatefulWidget {
-  const DragAndDropUploadScreen({super.key});
+class DragAndDropScreen extends StatefulWidget {
+  const DragAndDropScreen({Key? key}) : super(key: key);
 
   @override
-  _DragAndDropUploadScreenState createState() =>
-      _DragAndDropUploadScreenState();
+  _DragAndDropScreenState createState() => _DragAndDropScreenState();
 }
 
-class _DragAndDropUploadScreenState extends State<DragAndDropUploadScreen> {
-  // Common Variables
-  List<String> droppedFiles = [];
-  bool isDragging = false;
+class _DragAndDropScreenState extends State<DragAndDropScreen> {
+  late DropzoneViewController _controller;
+  String _fileName = '';
+  bool _isHovering = false;
 
-  // Dropzone Variables (for web)
-  late DropzoneViewController dropzoneController;
+  // Handles the file drop event
+  void _onDrop(dynamic ev) {
+    final file = ev[0];
+    setState(() {
+      _fileName = file['name']; // Extract the file name and display it
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Drag & Drop Upload'),
+        title: const Text('Drag and Drop file',
+            style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor, // Adjust this for your theme
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
       ),
-      body: kIsWeb
-          ? _buildWebDragAndDrop(context)
-          : (Platform.isWindows || Platform.isMacOS || Platform.isLinux)
-              ? _buildDesktopDragAndDrop(context)
-              : _buildUnsupportedPlatform(),
-    );
-  }
-
-  /// Web Implementation (Using `flutter_dropzone`)
-  Widget _buildWebDragAndDrop(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          DropzoneView(
-            onCreated: (controller) => dropzoneController = controller,
-            onDrop: (event) async {
-              final fileName = await dropzoneController.getFilename(event);
-              setState(() {
-                droppedFiles.add(fileName);
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('File uploaded: $fileName')),
-              );
-            },
-            onHover: () {
-              setState(() => isDragging = true);
-            },
-            onLeave: () {
-              setState(() => isDragging = false);
-            },
-          ),
-          Container(
-            height: 200,
-            width: 300,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: isDragging ? Colors.blue : Colors.grey,
-                width: 3,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Drag & drop zone
+            Container(
+              width: 300,
+              height: 200,
+              decoration: BoxDecoration(
+                color: _isHovering ? Colors.lightBlue[100] : Colors.transparent,
+                border: Border.all(color: Colors.blue, width: 2),
+                borderRadius: BorderRadius.circular(10),
               ),
-              borderRadius: BorderRadius.circular(10),
-              color: isDragging ? Colors.blue.withOpacity(0.2) : Colors.grey[200],
-            ),
-            child: Center(
-              child: Text(
-                isDragging ? 'Release to upload' : 'Drag and drop files here (Web)',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: isDragging ? Colors.blue : Colors.grey,
-                ),
+              child: DropzoneView(
+                onCreated: (controller) {
+                  _controller = controller;
+                },
+                onDrop: _onDrop, // Handle the drop event
+                onHover: () {
+                  setState(() {
+                    _isHovering = true; // Show hover effect
+                  });
+                },
+                onLeave: () {
+                  setState(() {
+                    _isHovering = false; // Remove hover effect
+                  });
+                },
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Desktop Implementation (Using `desktop_drop`)
-  Widget _buildDesktopDragAndDrop(BuildContext context) {
-    return Center(
-      child: DropTarget(
-        onDragEntered: (details) {
-          setState(() => isDragging = true);
-        },
-        onDragExited: (details) {
-          setState(() => isDragging = false);
-        },
-        onDragDone: (details) {
-          setState(() {
-            droppedFiles.addAll(details.files.map((file) => file.name).toList());
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Files uploaded: ${details.files.map((f) => f.name).join(", ")}'),
-            ),
-          );
-        },
-        child: Container(
-          height: 200,
-          width: 300,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: isDragging ? Colors.blue : Colors.grey,
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(10),
-            color: isDragging ? Colors.blue.withOpacity(0.2) : Colors.grey[200],
-          ),
-          child: Center(
-            child: Text(
-              isDragging
-                  ? 'Release to upload'
-                  : 'Drag and drop files here (Desktop)',
-              style: TextStyle(
-                fontSize: 16,
-                color: isDragging ? Colors.blue : Colors.grey,
+            SizedBox(height: 20),
+            // Display file name if a file is dropped
+            if (_fileName.isNotEmpty)
+              Text(
+                'File Name: $_fileName', // Display the name of the dropped file
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-            ),
-          ),
+            // Provide instructions if no file is dropped
+            if (_fileName.isEmpty)
+              Text(
+                'Drag and drop a file here',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+          ],
         ),
       ),
     );
   }
-
-  /// Unsupported Platform Fallback
-  Widget _buildUnsupportedPlatform() {
-    return const Center(
-      child: Text('Drag and drop not supported on this platform.'),
-    );
-  }
 }
 
-
-class DownloadFileScreen extends StatelessWidget {
+class DownloadFileScreen extends StatefulWidget {
   const DownloadFileScreen({Key? key}) : super(key: key);
+
+  @override
+  _DownloadFileScreenState createState() => _DownloadFileScreenState();
+}
+
+class _DownloadFileScreenState extends State<DownloadFileScreen> {
+  bool isDownloading = false;
+  String? downloadedFileName;
+  String errorMessage = '';
+
+  // Simulate the download of the file from assets to the device storage
+  Future<void> _downloadFile(BuildContext context) async {
+    setState(() {
+      isDownloading = true;
+      errorMessage = ''; // Reset error message
+    });
+
+    try {
+      // Retrieve the file from the assets folder
+      final byteData = await rootBundle.load('assets/sampleFile.pdf');
+
+      // Get the path to the app's document directory
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/sampleFile.pdf';
+
+      // Write the byte data to the file
+      final file = File(filePath);
+      await file.writeAsBytes(byteData.buffer.asUint8List());
+
+      setState(() {
+        downloadedFileName = filePath; // Store the path where the file is saved
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('File downloaded to: $filePath')),
+      );
+    } catch (e) {
+      setState(() {
+        errorMessage = 'Error: ${e.toString()}';
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    } finally {
+      setState(() {
+        isDownloading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Download File')),
-      body: const Center(child: Text('Download File Screen')),
+      appBar: AppBar(
+        title:
+            const Text('Download File', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor:
+            CommonColor.primaryColor, // You can customize the color
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: isDownloading ? null : () => _downloadFile(context),
+                child: isDownloading
+                    ? const CircularProgressIndicator()
+                    : const Text('Download File'),
+              ),
+              const SizedBox(height: 16),
+              if (downloadedFileName != null) ...[
+                Text('File saved at: $downloadedFileName'),
+              ],
+              if (errorMessage.isNotEmpty) ...[
+                Text(
+                  errorMessage,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

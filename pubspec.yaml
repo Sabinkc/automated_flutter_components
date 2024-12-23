@@ -48,6 +48,8 @@ dependencies:
   video_player: ^2.9.2
   flutter_dropzone: ^4.2.1
   desktop_drop: ^0.5.0
+  http: ^1.2.2
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +80,7 @@ flutter:
     - assets/download1.jpg
     - assets/download2.jpg
     - assets/download3.jpg
+    - assets/sampleFile.pdf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
