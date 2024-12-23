@@ -6,14 +6,14 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/card_and_container_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_and_graph_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/file_handling_and_download_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/file%20handling%20and%20download/file_handling_and_download_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/grid%20and%20layout/grid_and_layout_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/image%20and%20media/images_and_media_screen.dart';
 import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/interactive_widgets_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/interactive%20widget/interactive_widgets_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/navigation%20components/navigational_components_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/real_time_feature_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const InputAndFormScreen(),
                         const SelectionControlScreen(),
                         const NavigationalComponentsScreen(),
-                        const PaginationScreen(),
+                        PaginationScreen(),
                         const ListScreen(),
                         const TableScreen(),
                         SliderAndProgressIndicatorScreen(),
