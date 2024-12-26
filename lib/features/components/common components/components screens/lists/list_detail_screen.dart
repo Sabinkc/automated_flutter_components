@@ -544,7 +544,7 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
             // Then show the snackbar after updating the list
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  duration: Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 100),
                   content: Text('$dismissedItem dismissed')),
             );
           },
@@ -552,7 +552,7 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
           child: Card(
             child: ListTile(
               title: Text(allItems[index]),
-              leading: Icon(Icons.delete),
+              leading: const Icon(Icons.delete),
             ),
           ),
         );
@@ -587,7 +587,7 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
             children: (item['children'] as List<String>).map((child) {
               return ListTile(
                 title: Text(child),
-                leading: Icon(Icons.chevron_right),
+                leading: const Icon(Icons.chevron_right),
                 onTap: () {},
               );
             }).toList(),
@@ -771,8 +771,8 @@ class _ListDetailScreenState extends State<ListDetailScreen> {
       itemBuilder: (context, index) {
         if (index == 999) {
           // Simulate infinite scroll by adding more items at the end
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
+          return const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Center(child: Text("Loading more...")),
           );
         }

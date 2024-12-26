@@ -1,7 +1,6 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartDetailScreen extends StatelessWidget {
   final String title;

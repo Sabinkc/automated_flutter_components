@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         PaginationScreen(),
                         const ListScreen(),
                         const TableScreen(),
-                        SliderAndProgressIndicatorScreen(),
+                        const SliderAndProgressIndicatorScreen(),
                         const DialgoueAndPopupScreen(),
                         const ImagesAndMediaScreen(),
                         const CardAndContainerScreen(),

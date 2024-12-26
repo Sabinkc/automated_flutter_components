@@ -4,6 +4,9 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'package:signature/signature.dart';
 
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+
+
 class SortableKanbanBoardScreen extends StatefulWidget {
   const SortableKanbanBoardScreen({super.key});
 
@@ -242,7 +245,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     _focusedDay = focusedDay;
                   });
                 },
-                calendarStyle: CalendarStyle(
+                calendarStyle: const CalendarStyle(
                   todayDecoration: BoxDecoration(
                     color: Colors.blueAccent,
                     shape: BoxShape.circle,
@@ -452,14 +455,111 @@ class _SignaturePadScreenState extends State<SignaturePadScreen> {
   }
 }
 
-class AnimatedWidgetsScreen extends StatelessWidget {
-  const AnimatedWidgetsScreen({super.key});
+
+
+class AnimatedWidgetScreen extends StatefulWidget {
+  const AnimatedWidgetScreen({super.key});
+
+  @override
+  _AnimatedWidgetScreenState createState() => _AnimatedWidgetScreenState();
+}
+
+class _AnimatedWidgetScreenState extends State<AnimatedWidgetScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _rotationAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the animation controller
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    // Define the scale animation (scaling from 0.5 to 1.5)
+    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.5).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    // Define the rotation animation (rotating 360 degrees)
+    _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.14159265359).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _animate() {
+    if (_controller.isCompleted) {
+      _controller.reverse(); // Reverse the animation if it's completed
+    } else {
+      _controller.forward(); // Start the animation if it's not completed
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+       appBar: AppBar(
+        title: const Text(
+          "Animated widget",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: _animate, // Start/Reverse animation when tapped
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Transform.rotate(
+                  angle: _rotationAnimation.value,
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Tap Me!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
+
 
 
 
@@ -565,11 +665,141 @@ class _ParallaxScrollingScreenState extends State<ParallaxScrollingScreen> {
   }
 }
 
-class CustomizedBottomNavigationScreen extends StatelessWidget {
-  const CustomizedBottomNavigationScreen({super.key});
+
+class CustomisedBottomNavigationScreen extends StatefulWidget {
+  const CustomisedBottomNavigationScreen({super.key});
+
+  @override
+  _CustomisedBottomNavigationScreenState createState() =>
+      _CustomisedBottomNavigationScreenState();
+}
+
+class _CustomisedBottomNavigationScreenState
+    extends State<CustomisedBottomNavigationScreen> {
+  int _currentIndex = 0;
+
+  // Screens for each tab
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const SearchScreen(),
+    const NotificationsScreen(),
+    const ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
+    return Scaffold(
+     appBar: AppBar(
+        title: const Text(
+          "Customised Navigation",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
+      ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: ConvexAppBar(
+        items: const [
+          TabItem(icon: Icons.home, title: "Home"),
+          TabItem(icon: Icons.search, title: "Search"),
+          // TabItem(icon: Icons.notifications, title: "Notifications"),
+          TabItem(icon: Icons.person, title: "Profile"),
+        ],
+        initialActiveIndex: 0,
+        backgroundColor: Colors.deepPurple,
+        activeColor: Colors.amber,
+        color: Colors.white,
+        style: TabStyle.react,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        curve: Curves.easeInOut,
+        elevation: 10,
+      ),
+    );
   }
 }
+
+// Mock Screens for Navigation
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "Home Screen",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.blueAccent,
+        ),
+      ),
+    );
+  }
+}
+
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "Search Screen",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.green,
+        ),
+      ),
+    );
+  }
+}
+
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "Notifications Screen",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.orange,
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "Profile Screen",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.purple,
+        ),
+      ),
+    );
+  }
+}
+

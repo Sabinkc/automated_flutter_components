@@ -67,19 +67,19 @@ class _BottomTabScreenState extends State<BottomTabScreen> {
 
   // Content for each tab
   final List<Widget> _tabs = [
-    Center(
+    const Center(
       child: Text(
         "Home Tab Content",
         style: TextStyle(fontSize: 20),
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         "Search Tab Content",
         style: TextStyle(fontSize: 20),
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         "Settings Tab Content",
         style: TextStyle(fontSize: 20),
@@ -379,7 +379,7 @@ class _BreadcrumbScreenState extends State<BreadcrumbScreen> {
   static const int _maxBreadcrumbs = 5;
 
   List<String> _breadcrumbList = ['Home'];
-  Set<String> _visitedSections = {'Home'}; // Track visited sections
+  final Set<String> _visitedSections = {'Home'}; // Track visited sections
 
   void _addBreadcrumb(String newBreadcrumb) {
     setState(() {
@@ -665,7 +665,7 @@ class DropdownMenuScreen extends StatefulWidget {
 
 class _DropdownScreenState extends State<DropdownMenuScreen> {
   String _message = 'Press menu icon to navigate'; // Initial message
-  List<String> _options = ['Home', 'Category', 'Product', 'Checkout'];
+  final List<String> _options = ['Home', 'Category', 'Product', 'Checkout'];
 
   @override
   Widget build(BuildContext context) {
@@ -768,7 +768,7 @@ class ContextMenuScreen extends StatefulWidget {
 class _ContextMenuScreenState extends State<ContextMenuScreen> {
   String _message =
       'Double tap anywhere to open context menu'; // Initial message
-  List<String> _options = ['Home', 'Category', 'Product', 'Checkout'];
+  final List<String> _options = ['Home', 'Category', 'Product', 'Checkout'];
 
   @override
   Widget build(BuildContext context) {

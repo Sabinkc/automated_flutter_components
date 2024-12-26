@@ -190,7 +190,7 @@ class _SliderAndProgressIndicatorScreenState
                       height: 14.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [Colors.red, Colors.yellow],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -218,7 +218,7 @@ class _SliderAndProgressIndicatorScreenState
         ),
         ShaderMask(
           shaderCallback: (Rect bounds) {
-            return LinearGradient(
+            return const LinearGradient(
               colors: [Colors.red, Colors.yellow],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -228,12 +228,12 @@ class _SliderAndProgressIndicatorScreenState
             decoration: BoxDecoration(
                 color: CommonColor.primaryColor,
                 borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: CircularProgressIndicator(
               value: value,
               strokeWidth: 6.0,
               backgroundColor: Colors.transparent,
-              valueColor: AlwaysStoppedAnimation(Colors.white), // Placeholder
+              valueColor: const AlwaysStoppedAnimation(Colors.white), // Placeholder
             ),
           ),
         ),

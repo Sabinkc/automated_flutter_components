@@ -19,11 +19,11 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
     double cardPadding = width > 800 ? 6.0 : 12.0;
     double titleFontSize = width > 800 ? 18 : 16;
 
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
 
     @override
     void dispose() {
-      _scrollController.dispose();
+      scrollController.dispose();
       super.dispose();
     }
 
@@ -55,13 +55,13 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RawScrollbar(
-            controller: _scrollController,
+            controller: scrollController,
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
             radius: const Radius.circular(8),
             child: SingleChildScrollView(
-              controller: _scrollController,
+              controller: scrollController,
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: width > 1000 ? 5 : (width > 600 ? 3 : 2),
@@ -112,7 +112,7 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
                     titleFontSize,
                     context,
                     'Bring your UI to life with animations.',
-                    const AnimatedWidgetsScreen(),
+                    const AnimatedWidgetScreen(),
                   ),
                   buildAdvancedComponent(
                     'Parallax Scrolling',
@@ -130,7 +130,7 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
                     titleFontSize,
                     context,
                     'Enhance navigation with customized styles and behavior.',
-                    const CustomizedBottomNavigationScreen(),
+                    const CustomisedBottomNavigationScreen(),
                   ),
                 ],
               ),

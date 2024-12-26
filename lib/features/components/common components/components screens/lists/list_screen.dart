@@ -1,5 +1,4 @@
 import 'package:components_automation/core/constants.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_detail_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_detail_screen.dart';
 import 'package:flutter/material.dart';
 

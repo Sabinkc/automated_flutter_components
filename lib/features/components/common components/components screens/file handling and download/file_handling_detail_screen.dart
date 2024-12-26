@@ -123,7 +123,7 @@ class _FilePickerScreenState extends State<FilePickerScreen> {
               if (multipleFileNames.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 const Text('Picked Files:'),
-                ...multipleFileNames.map((file) => Text(file)).toList(),
+                ...multipleFileNames.map((file) => Text(file)),
               ],
             ],
           ),
@@ -244,7 +244,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
               if (selectedFiles.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 const Text('Selected Files:'),
-                ...selectedFiles.map((file) => Text(file)).toList(),
+                ...selectedFiles.map((file) => Text(file)),
               ],
             ],
           ),
@@ -255,7 +255,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
 }
 
 class DragAndDropScreen extends StatefulWidget {
-  const DragAndDropScreen({Key? key}) : super(key: key);
+  const DragAndDropScreen({super.key});
 
   @override
   _DragAndDropScreenState createState() => _DragAndDropScreenState();
@@ -319,16 +319,16 @@ class _DragAndDropScreenState extends State<DragAndDropScreen> {
                 },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Display file name if a file is dropped
             if (_fileName.isNotEmpty)
               Text(
                 'File Name: $_fileName', // Display the name of the dropped file
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             // Provide instructions if no file is dropped
             if (_fileName.isEmpty)
-              Text(
+              const Text(
                 'Drag and drop a file here',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
@@ -340,7 +340,7 @@ class _DragAndDropScreenState extends State<DragAndDropScreen> {
 }
 
 class DownloadFileScreen extends StatefulWidget {
-  const DownloadFileScreen({Key? key}) : super(key: key);
+  const DownloadFileScreen({super.key});
 
   @override
   _DownloadFileScreenState createState() => _DownloadFileScreenState();
@@ -438,7 +438,7 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
 }
 
 class FileViewerScreen extends StatelessWidget {
-  const FileViewerScreen({Key? key}) : super(key: key);
+  const FileViewerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -450,7 +450,7 @@ class FileViewerScreen extends StatelessWidget {
 }
 
 class FileExplorerScreen extends StatelessWidget {
-  const FileExplorerScreen({Key? key}) : super(key: key);
+  const FileExplorerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

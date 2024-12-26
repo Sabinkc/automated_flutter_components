@@ -1,12 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/widgets.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:video_player/video_player.dart';
 
 class ImageAndMediaDetailScreen extends StatefulWidget {
   final String title;

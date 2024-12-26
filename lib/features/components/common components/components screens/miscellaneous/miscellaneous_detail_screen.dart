@@ -106,7 +106,7 @@ class _ExpandableSectionScreenState extends State<ExpandableSectionScreen> {
               },
               child: Card(
                 child: Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -350,23 +350,23 @@ class _CountdownTimerScreenState extends State<CountdownTimerScreen> {
               // Start / Resume Button
               ElevatedButton(
                 onPressed: _startTimer,
-                child: Text(_isTimerRunning ? 'Timer Running' : 'Start Timer'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _isTimerRunning ? Colors.grey : Colors.green, // Replaced primary
                   foregroundColor: Colors.white, // Replaced onPrimary
                   minimumSize: const Size(200, 50),
                 ),
+                child: Text(_isTimerRunning ? 'Timer Running' : 'Start Timer'),
               ),
               const SizedBox(height: 20),
               // Reset Button
               ElevatedButton(
                 onPressed: _resetTimer,
-                child: const Text('Reset Timer'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red, // Replaced primary
                   foregroundColor: Colors.white, // Replaced onPrimary
                   minimumSize: const Size(200, 50),
                 ),
+                child: const Text('Reset Timer'),
               ),
             ],
           ),
@@ -418,7 +418,7 @@ class GradientCirclePainter extends CustomPainter {
 
     // Draw gradient circle
     final Rect rect = Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: size.width / 2);
-    paint.shader = RadialGradient(
+    paint.shader = const RadialGradient(
       colors: [Colors.blue, Colors.purple],
       stops: [0.0, 1.0],
     ).createShader(rect);
