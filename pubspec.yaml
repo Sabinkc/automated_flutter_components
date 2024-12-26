@@ -53,6 +53,8 @@ dependencies:
   shimmer: ^3.0.0
   flutter_colorpicker: ^1.1.0
   lottie: ^3.1.3
+  table_calendar: ^3.0.8
+  signature: ^5.5.0
 
 dev_dependencies:
   flutter_test:
@@ -76,16 +78,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   # - assets/
-  #   - assets/asset_image.jpg
-  #   - assets/static_image.jpg
-  #   - assets/heart.json
-  #   - assets/download1.jpg
-  #   - assets/download2.jpg
-  #   - assets/download3.jpg
-  #   - assets/sampleFile.pdf
-  
   assets:
     - assets/asset_image.jpg
     - assets/static_image.jpg
@@ -94,7 +86,6 @@ flutter:
     - assets/download2.jpg
     - assets/download3.jpg
     - assets/sampleFile.pdf
-  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
