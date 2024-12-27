@@ -3,7 +3,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/advanced%20components/advanced_component_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/authentication_and_security_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/button_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/card_and_container_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/card%20and%20container/card_and_container_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_and_graph_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/file%20handling%20and%20download/file_handling_and_download_screen.dart';
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {'title': 'Charts & Graphs', 'icon': Icons.insert_chart},
     {'title': 'Interactive Widgets', 'icon': Icons.widgets},
     {'title': 'Text Elements', 'icon': Icons.text_fields},
-    {'title': 'Menus & Navigation', 'icon': Icons.menu},
+    // {'title': 'Menus & Navigation', 'icon': Icons.menu},
     {'title': 'File Handling & Downloads', 'icon': Icons.file_download},
     {'title': 'Grid & Layouts', 'icon': Icons.grid_on},
     {'title': 'Real-time Features', 'icon': Icons.update},
@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const ChartAndGraphScreen(),
                         const InteractiveWidgetsScreen(),
                         const TextElementScreen(),
-                        const MenusAndNavigationScreen(),
+                        // const MenusAndNavigationScreen(),
                         const FileHandlingAndDownloadScreen(),
                         const GridAndLayoutScreen(),
                         const RealTimeFeatureScreen(),

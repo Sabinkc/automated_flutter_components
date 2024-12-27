@@ -313,14 +313,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 }
 
-class MapViewerScreen extends StatelessWidget {
-  const MapViewerScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 
 class SignaturePadScreen extends StatefulWidget {
   const SignaturePadScreen({super.key});
