@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
@@ -233,7 +232,8 @@ class _SliderAndProgressIndicatorScreenState
               value: value,
               strokeWidth: 6.0,
               backgroundColor: Colors.transparent,
-              valueColor: const AlwaysStoppedAnimation(Colors.white), // Placeholder
+              valueColor:
+                  const AlwaysStoppedAnimation(Colors.white), // Placeholder
             ),
           ),
         ),
@@ -244,33 +244,29 @@ class _SliderAndProgressIndicatorScreenState
   Widget _buildSliderContent(double value, String type) {
     return Column(
       children: [
-        Tooltip(
-          message:
-              "$type Slider: A slider that lets the user select a value within a range by sliding a thumb.",
-          child: type == "Vertical"
-              ? SizedBox(
-                  height: 100,
-                  child: RotatedBox(
-                    quarterTurns: 1,
-                    child: Slider(
-                      value: value,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _verticalSliderValue = newValue;
-                        });
-                      },
-                    ),
+        type == "Vertical"
+            ? SizedBox(
+                height: 100,
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: Slider(
+                    value: value,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _verticalSliderValue = newValue;
+                      });
+                    },
                   ),
-                )
-              : Slider(
-                  value: value,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _horizontalSliderValue = newValue;
-                    });
-                  },
                 ),
-        ),
+              )
+            : Slider(
+                value: value,
+                onChanged: (newValue) {
+                  setState(() {
+                    _horizontalSliderValue = newValue;
+                  });
+                },
+              ),
         Text(
           "${(value * 100).toStringAsFixed(1)}%",
           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -282,20 +278,16 @@ class _SliderAndProgressIndicatorScreenState
   Widget _buildRangeSliderContent() {
     return Column(
       children: [
-        Tooltip(
-          message:
-              "Range Slider: A slider with two thumbs that lets the user select a range of values.",
-          child: RangeSlider(
-            values: _rangeSliderValues,
-            min: 0,
-            max: 100,
-            divisions: 100,
-            onChanged: (RangeValues values) {
-              setState(() {
-                _rangeSliderValues = values;
-              });
-            },
-          ),
+        RangeSlider(
+          values: _rangeSliderValues,
+          min: 0,
+          max: 100,
+          divisions: 100,
+          onChanged: (RangeValues values) {
+            setState(() {
+              _rangeSliderValues = values;
+            });
+          },
         ),
         Text(
           "Range: ${_rangeSliderValues.start.toStringAsFixed(1)} - ${_rangeSliderValues.end.toStringAsFixed(1)}",

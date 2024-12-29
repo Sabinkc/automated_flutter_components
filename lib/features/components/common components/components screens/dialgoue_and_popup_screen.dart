@@ -1,5 +1,6 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DialgoueAndPopupScreen extends StatefulWidget {
   const DialgoueAndPopupScreen({super.key});
@@ -31,6 +32,21 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: const [
+            DrawerHeader(
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+            ),
+            ListTile(
+              title: Text('Item 2'),
+            ),
+          ],
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -58,7 +74,8 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                 _buildControlCard(
                   'Alert Dialog',
                   Tooltip(
-                    message: 'Shows an alert dialog with a simple message.',
+                    message:
+                        'Opens a simple alert dialog with a title and message.',
                     child: ElevatedButton(
                       onPressed: () {
                         _showAlertDialog(context);
@@ -73,7 +90,7 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                 _buildControlCard(
                   'Confirmation Dialog',
                   Tooltip(
-                    message: 'Displays a dialog asking for confirmation.',
+                    message: 'Opens a dialog to confirm or cancel an action.',
                     child: ElevatedButton(
                       onPressed: () {
                         _showConfirmationDialog(context);
@@ -86,24 +103,9 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                   titleFontSize,
                 ),
                 _buildControlCard(
-                  'Modal Dialog',
-                  Tooltip(
-                    message: 'Shows a modal dialog with simple content.',
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _showModalDialog(context);
-                      },
-                      child: const Text('Show Modal Dialog'),
-                    ),
-                  ),
-                  iconSize,
-                  cardPadding,
-                  titleFontSize,
-                ),
-                _buildControlCard(
                   'Full-screen Modal',
                   Tooltip(
-                    message: 'Displays a full-screen modal bottom sheet.',
+                    message: 'Opens a full-screen modal dialog.',
                     child: ElevatedButton(
                       onPressed: () {
                         _showFullScreenModal(context);
@@ -118,14 +120,10 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                 _buildControlCard(
                   'Tooltip',
                   Tooltip(
-                    message: 'Shows a message when the button is tapped.',
+                    message: 'This is a tooltip',
                     child: ElevatedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Tooltip Shown!')),
-                        );
-                      },
-                      child: const Text('Show Tooltip'),
+                      onPressed: () {},
+                      child: const Text('Hover/double-tap'),
                     ),
                   ),
                   iconSize,
@@ -135,11 +133,14 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                 _buildControlCard(
                   'Snackbar',
                   Tooltip(
-                    message: 'Displays a Snackbar message at the bottom.',
+                    message:
+                        'Shows a brief message at the bottom of the screen.',
                     child: ElevatedButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Snackbar Message')),
+                          const SnackBar(
+                              duration: Duration(milliseconds: 300),
+                              content: Text('This is Snackbar Message')),
                         );
                       },
                       child: const Text('Show Snackbar'),
@@ -150,25 +151,9 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                   titleFontSize,
                 ),
                 _buildControlCard(
-                  'Toast',
-                  Tooltip(
-                    message:
-                        'Displays a toast message (using third-party packages).',
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Toast functionality can be implemented using third-party packages like fluttertoast
-                      },
-                      child: const Text('Show Toast'),
-                    ),
-                  ),
-                  iconSize,
-                  cardPadding,
-                  titleFontSize,
-                ),
-                _buildControlCard(
                   'Slide-over Panel',
                   Tooltip(
-                    message: 'Shows a slide-over panel dialog.',
+                    message: 'Displays a sliding panel overlay.',
                     child: ElevatedButton(
                       onPressed: () {
                         _showSlideOverPanel(context);
@@ -181,14 +166,14 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                   titleFontSize,
                 ),
                 _buildControlCard(
-                  'Drawer Overlay',
+                  'Custom Dialog',
                   Tooltip(
-                    message: 'Opens a drawer overlay.',
+                    message: 'Displays a custom-styled dialog.',
                     child: ElevatedButton(
                       onPressed: () {
-                        _showDrawerOverlay(context);
+                        _showCustomDialog(context);
                       },
-                      child: const Text('Show Drawer Overlay'),
+                      child: const Text('Show Custom Dialog'),
                     ),
                   ),
                   iconSize,
@@ -196,14 +181,90 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
                   titleFontSize,
                 ),
                 _buildControlCard(
-                  'Pop-up Menu',
+                  'Multi-option Dialog',
                   Tooltip(
-                    message: 'Displays a pop-up menu with options.',
+                    message: 'Displays multiple options for selection.',
                     child: ElevatedButton(
                       onPressed: () {
-                        _showPopUpMenu(context);
+                        _showMultiOptionDialog(context);
                       },
-                      child: const Text('Show Pop-up Menu'),
+                      child: const Text('Show Multi-option Dialog'),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                ),
+                _buildControlCard(
+                  'Error Dialog',
+                  Tooltip(
+                    message: 'Displays an error message.',
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showErrorDialog(context);
+                      },
+                      child: const Text('Show Error Dialog'),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                ),
+                _buildControlCard(
+                  'Loading Dialog',
+                  Tooltip(
+                    message: 'Shows a loading indicator.',
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showLoadingDialog(context);
+                      },
+                      child: const Text('Show Loading Dialog'),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                ),
+       
+                _buildControlCard(
+                  'Bottom Sheet',
+                  Tooltip(
+                    message: 'Displays a bottom sheet.',
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showBottomSheet(context);
+                      },
+                      child: const Text('Show Bottom Sheet'),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                ),
+                _buildControlCard(
+                  'Action Sheet',
+                  Tooltip(
+                    message: 'Displays a list of actions at the bottom.',
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showActionSheet(context);
+                      },
+                      child: const Text('Show Action Sheet'),
+                    ),
+                  ),
+                  iconSize,
+                  cardPadding,
+                  titleFontSize,
+                ),
+                _buildControlCard(
+                  'Animated Dialog',
+                  Tooltip(
+                    message: 'Shows a dialog with animation.',
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showAnimatedDialog(context);
+                      },
+                      child: const Text('Show Animated Dialog'),
                     ),
                   ),
                   iconSize,
@@ -217,6 +278,280 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
       ),
     );
   }
+
+  void _showCustomDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue.shade100, Colors.blue.shade300],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Dialog title with styled text
+                Text(
+                  'Custom Dialog',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                // Dialog description
+                Text(
+                  'This is a custom-styled dialog.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blueGrey.shade700,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Horizontal divider
+                Divider(color: Colors.blue.shade800),
+                const SizedBox(height: 10),
+                // Action buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue.shade600,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green.shade600,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showMultiOptionDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Multi-option Dialog'),
+          content: const Text('Choose an option:'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Option 1'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Option 2'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Option 3'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Error', style: TextStyle(color: Colors.red)),
+          content: const Text('An error has occurred.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    bool isLoading = true; // To control the dialog content
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            // Delayed to change dialog content after 1 second
+            Future.delayed(const Duration(seconds: 1), () {
+              if (isLoading) {
+                setState(() {
+                  isLoading = false;
+                });
+              }
+
+              // Automatically dismiss dialog 1 second after showing success message
+              Future.delayed(const Duration(seconds: 1), () {
+                if (!isLoading && context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              });
+            });
+
+            return Dialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: isLoading
+                    ? const SizedBox(
+                        height: 60,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(
+                        height: 60,
+                        child: Center(
+                          child: Text(
+                            'Loaded Successfully!',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                      ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+
+
+void _showBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true, // Makes the bottom sheet height customizable
+    builder: (context) {
+      return Container(
+        padding: const EdgeInsets.all(16.0),
+        height: MediaQuery.of(context).size.height * 0.75, // Adjust the height (75% of screen height)
+        child: const Center(
+          child: Text(
+            'This is a bottom sheet',
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+  void _showActionSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.share),
+              title: const Text('Share'),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+            ListTile(
+              leading: const Icon(Icons.copy),
+              title: const Text('Copy'),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text('Delete'),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+ void _showAnimatedDialog(BuildContext context) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: true,
+    barrierLabel: '',
+    transitionDuration: const Duration(milliseconds: 500), // Increased duration for smoothness
+    pageBuilder: (context, _, __) {
+      return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: const Text(
+            'Animated Dialog',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+    },
+    transitionBuilder: (context, animation, secondaryAnimation, child) {
+      // Define the animation for scaling and fading in
+      var curve = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
+      var scaleAnimation = Tween<double>(begin: 0.7, end: 1.0).animate(curve);
+      var opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(curve);
+
+      return FadeTransition(
+        opacity: opacityAnimation,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: child,
+        ),
+      );
+    },
+  );
+}
+
 
   // Alert Dialog
   void _showAlertDialog(BuildContext context) {
@@ -266,27 +601,6 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
     );
   }
 
-  // Modal Dialog
-  void _showModalDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: const Text('Modal Dialog'),
-          children: <Widget>[
-            const Text('This is a simple modal dialog'),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   // Full-screen Modal
   void _showFullScreenModal(BuildContext context) {
     showModalBottomSheet(
@@ -315,32 +629,6 @@ class _DialogComponentsScreenState extends State<DialgoueAndPopupScreen> {
           ),
         );
       },
-    );
-  }
-
-  // Drawer Overlay
-  void _showDrawerOverlay(BuildContext context) {
-    Scaffold.of(context).openDrawer();
-  }
-
-  // Pop-up Menu
-  void _showPopUpMenu(BuildContext context) {
-    final RenderBox overlay =
-        Overlay.of(context).context.findRenderObject() as RenderBox;
-    showMenu(
-      context: context,
-      position: const RelativeRect.fromLTRB(100, 100, 100, 100),
-      items: [
-        const PopupMenuItem<String>(
-          value: 'Option 1',
-          child: Text('Option 1'),
-        ),
-        const PopupMenuItem<String>(
-          value: 'Option 2',
-          child: Text('Option 2'),
-        ),
-      ],
-      elevation: 8.0,
     );
   }
 
