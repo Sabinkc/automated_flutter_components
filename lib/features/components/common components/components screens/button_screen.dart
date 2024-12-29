@@ -946,7 +946,7 @@ class ButtonScreen extends StatefulWidget {
 class _ButtonScreenState extends State<ButtonScreen> {
   final bool _markedCheckboxValue = true;
   final bool _unMarkedCheckboxValue = false;
-  final String? _radioValue = 'Option 1';
+  final String _radioValue = 'Option 1';
   bool _ontoggleValue = true;
   bool _offtoggleValue = false;
   String _dropdownValue = 'Option 1';
@@ -955,7 +955,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
   bool _isHoveringHoverbutton = false;
   bool _firstCheckboxValue = false;
   bool _secondCheckboxValue = false;
-  final String? _radioValueMarked = 'Option 1';
+  final String _radioValueMarked = 'Option 1';
   String? _selectedGender;
 
   @override
@@ -1690,7 +1690,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HomeScreen()), // Replace 'HomePage' with your actual home page widget
+                                  const HomeScreen()), // Replace 'HomePage' with your actual home page widget
                         );
                       },
                       splashColor: Colors.pinkAccent.withOpacity(0.2),

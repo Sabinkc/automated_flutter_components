@@ -179,7 +179,7 @@ class DragAndDropScreen extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return DragTarget<String>(
-          onAccept: (itemName) {
+          onAcceptWithDetails: (itemName) {
             setState(() {
               acceptedItem =
                   itemName == 'Item 1' ? 'Accepted: $itemName' : 'Not Accepted';
@@ -291,7 +291,7 @@ class _ResizableWidgetScreenState extends State<ResizableWidgetScreen> {
                     width: width,
                     height: height,
                     color: Colors.blueAccent,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Resizable Box",
                         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -391,9 +391,9 @@ class _ResizablePanelScreenState extends State<ResizablePanelScreen> {
             width: leftPanelWidth,
             color: Colors.blueAccent,
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
                   "Left Panel",
                   style: TextStyle(color: Colors.white, fontSize: 18),
@@ -503,7 +503,7 @@ class _SortablePanelScreenState extends State<SortablePanelScreen> {
                         child: Center(
                           child: Text(
                             panels[index],
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: const TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
                       ),
@@ -515,7 +515,7 @@ class _SortablePanelScreenState extends State<SortablePanelScreen> {
                       child: Center(
                         child: Text(
                           panels[index],
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: const TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),
                     ),
@@ -749,7 +749,7 @@ class _FlipCardsScreenState extends State<FlipCardsScreen>
       decoration: BoxDecoration(
         color: isFlipped ? Colors.orangeAccent : Colors.blueAccent,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 10,
@@ -760,7 +760,7 @@ class _FlipCardsScreenState extends State<FlipCardsScreen>
       child: Center(
         child: Text(
           isFlipped ? "Back of Card" : "Front of Card",
-          style: TextStyle(color: Colors.white, fontSize: 24),
+          style: const TextStyle(color: Colors.white, fontSize: 24),
         ),
       ),
     );
@@ -818,12 +818,12 @@ class _SwipableListScreenState extends State<SwipableListScreen> {
               });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     content: Text("Deleted ${items[index]}")),
               );
             },
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ListTile(
                 title: Text(items[index]),
                 tileColor: Colors.blue[50],

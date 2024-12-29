@@ -3,7 +3,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/advanced%20components/advanced_component_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/authentication_and_security_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/button_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/card_and_container_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/card%20and%20container/card_and_container_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/chart%20and%20graph/chart_and_graph_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/dialgoue_and_popup_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/file%20handling%20and%20download/file_handling_and_download_screen.dart';
@@ -16,7 +16,7 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/navigation%20components/navigational_components_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/real_time_feature_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/selection_control_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/selection%20control/selection_control_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/slider_and_progress_indicator_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/specialized%20ui%20component/specialized_ui_component_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/tables%20and%20screen/table_screen.dart';
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {'title': 'Charts & Graphs', 'icon': Icons.insert_chart},
     {'title': 'Interactive Widgets', 'icon': Icons.widgets},
     {'title': 'Text Elements', 'icon': Icons.text_fields},
-    {'title': 'Menus & Navigation', 'icon': Icons.menu},
+    // {'title': 'Menus & Navigation', 'icon': Icons.menu},
     {'title': 'File Handling & Downloads', 'icon': Icons.file_download},
     {'title': 'Grid & Layouts', 'icon': Icons.grid_on},
     {'title': 'Real-time Features', 'icon': Icons.update},
@@ -139,14 +139,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         PaginationScreen(),
                         const ListScreen(),
                         const TableScreen(),
-                        SliderAndProgressIndicatorScreen(),
+                        const SliderAndProgressIndicatorScreen(),
                         const DialgoueAndPopupScreen(),
                         const ImagesAndMediaScreen(),
                         const CardAndContainerScreen(),
                         const ChartAndGraphScreen(),
                         const InteractiveWidgetsScreen(),
                         const TextElementScreen(),
-                        const MenusAndNavigationScreen(),
+                        // const MenusAndNavigationScreen(),
                         const FileHandlingAndDownloadScreen(),
                         const GridAndLayoutScreen(),
                         const RealTimeFeatureScreen(),

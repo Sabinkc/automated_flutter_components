@@ -308,8 +308,8 @@ class _StepperScreenState extends State<StepperScreen> {
     return [
       Step(
         title: const Text("Step 1"),
-        content: Column(
-          children: const [
+        content: const Column(
+          children: [
             Text("This is the first step of the process."),
             SizedBox(height: 20),
             Text("Fill out some information here."),
@@ -319,8 +319,8 @@ class _StepperScreenState extends State<StepperScreen> {
       ),
       Step(
         title: const Text("Step 2"),
-        content: Column(
-          children: const [
+        content: const Column(
+          children: [
             Text("This is the second step of the process."),
             SizedBox(height: 20),
             Text("Enter additional details here."),
@@ -330,8 +330,8 @@ class _StepperScreenState extends State<StepperScreen> {
       ),
       Step(
         title: const Text("Step 3"),
-        content: Column(
-          children: const [
+        content: const Column(
+          children: [
             Text("This is the third and final step."),
             SizedBox(height: 20),
             Text("Review your information before submitting."),
@@ -556,7 +556,7 @@ class TagCloudScreen extends StatelessWidget {
             // Handle tag tap (for now just showing a snack bar)
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   content: Text('You tapped on $tag')),
             );
           },
@@ -807,9 +807,9 @@ class DividerScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Content before the Vertical Divider
-                  Flexible(
+                  const Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Left of Vertical Divider',
                         style: TextStyle(fontSize: 16.0),
@@ -818,7 +818,7 @@ class DividerScreen extends StatelessWidget {
                     ),
                   ),
                   // Vertical Divider
-                  Container(
+                  SizedBox(
                     height: 100, // Set a height to ensure divider shows up
                     child: VerticalDivider(
                       color: Colors.grey[600], // Divider color
@@ -829,9 +829,9 @@ class DividerScreen extends StatelessWidget {
                     ),
                   ),
                   // Content after the Vertical Divider
-                  Flexible(
+                  const Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Right of Vertical Divider',
                         style: TextStyle(fontSize: 16.0),

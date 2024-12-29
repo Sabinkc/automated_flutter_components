@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreenMobile> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     });
   }

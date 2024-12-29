@@ -1,17 +1,15 @@
-import 'package:components_automation/features/components/common%20components/components%20screens/advanced%20components/advanced_component_detail_screen.dart';
-
+import 'package:components_automation/features/components/common%20components/components%20screens/selection%20control/selection_control_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
-class AdvancedComponentScreen extends StatefulWidget {
-  const AdvancedComponentScreen({super.key});
+class SelectionControlScreen extends StatefulWidget {
+  const SelectionControlScreen({super.key});
 
   @override
-  _AdvancedComponentScreenState createState() =>
-      _AdvancedComponentScreenState();
+  _SelectionControlState createState() => _SelectionControlState();
 }
 
-class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
+class _SelectionControlState extends State<SelectionControlScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -29,7 +27,7 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Specialized UI components",
+        title: const Text("Selection controls",
             style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
@@ -69,60 +67,104 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
                 mainAxisSpacing: 8.0,
                 childAspectRatio: 1,
                 children: [
-                  buildAdvancedComponent(
-                    'Sortable Kanban Board',
-                    Icons.animation,
+                  buildSelectionControl(
+                    'Check box',
+                    Icons.check_box,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'Organize tasks visually using a drag-and-drop Kanban board.',
-                    const SortableKanbanBoardScreen(),
+                    'Select multiple options',
+                    const CheckboxScreen(),
                   ),
-                  buildAdvancedComponent(
-                    'Calendar',
-                    Icons.calendar_today,
+                  buildSelectionControl(
+                    'Radio button',
+                    Icons.radio_button_checked,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'View and manage events in month, week, or day views.',
-                    const CalendarScreen(),
+                    'Select one option from a group',
+                    const RadioButtonScreen(),
                   ),
-             
-                  buildAdvancedComponent(
-                    'Signature Pad',
-                    Icons.edit,
+                  buildSelectionControl(
+                    'Switch',
+                    Icons.toggle_on,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'Capture handwritten signatures digitally.',
-                    const SignaturePadScreen(),
+                    'Toggle between ON and OFF states',
+                    const SwitchScreen(),
                   ),
-              buildAdvancedComponent(
-                    'Animated Widgets',
-                    Icons.animation,
+                  buildSelectionControl(
+                    'Range slider',
+                    Icons.tune,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'Bring your UI to life with animations.',
-                    const AnimatedWidgetScreen(),
+                    'Select a range of values',
+                    const RangeSliderScreen(),
                   ),
-                  buildAdvancedComponent(
-                    'Parallax Scrolling',
-                    Icons.view_carousel,
+                  buildSelectionControl(
+                    'Dropdown',
+                    Icons.arrow_drop_down,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'Create immersive scrolling effects.',
-                    const ParallaxScrollingScreen(),
+                    'Select one option from a dropdown list',
+                    const DropdownScreen(),
                   ),
-                  buildAdvancedComponent(
-                    'Customized Bottom Navigation',
-                    Icons.menu,
+                  buildSelectionControl(
+                    'Multiselect dropdown',
+                    Icons.arrow_drop_down_circle,
                     cardPadding,
                     titleFontSize,
                     context,
-                    'Enhance navigation with customized styles and behavior.',
-                    const CustomisedBottomNavigationScreen(),
+                    'Select multiple options from a dropdown list',
+                     const MultiSelectDropdownScreen(),
+                  ),
+                  buildSelectionControl(
+                    'Segmented control',
+                    Icons.view_array,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Switch between multiple views',
+                    const SegmentedControlScreen(),
+                  ),
+                  buildSelectionControl(
+                    'Chip selection',
+                    Icons.label,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Select options using chips',
+                    const ChipSelectionScreen(),
+                  ),
+                  buildSelectionControl(
+                    'Stepper',
+                    Icons.format_list_numbered,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Move through steps in a process',
+                    const StepperScreen(),
+                  ),
+                  buildSelectionControl(
+                    'Popup menu',
+                    Icons.more_vert,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Show options in a popup menu',
+                    const PopMenuScreen(),
+                  ),
+                  buildSelectionControl(
+                    'Gesture-based selection',
+                    Icons.gesture,
+                    cardPadding,
+                    titleFontSize,
+                    context,
+                    'Select options using gestures',
+                    const GestureSelectionScreen(),
                   ),
                 ],
               ),
@@ -133,7 +175,7 @@ class _AdvancedComponentScreenState extends State<AdvancedComponentScreen> {
     );
   }
 
-  Widget buildAdvancedComponent(
+  Widget buildSelectionControl(
     String title,
     IconData icon,
     double cardPadding,

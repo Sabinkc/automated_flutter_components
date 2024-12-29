@@ -115,7 +115,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
               if (selectedFiles.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 const Text('Selected Files:'),
-                ...selectedFiles.map((file) => Text(file)).toList(),
+                ...selectedFiles.map((file) => Text(file)),
               ],
             ],
           ),

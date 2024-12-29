@@ -19,11 +19,11 @@ class _NavigationalComponentsScreenState
     double cardPadding = width > 800 ? 6.0 : 12.0;
     double titleFontSize = width > 800 ? 18 : 16;
 
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
 
     @override
     void dispose() {
-      _scrollController
+      scrollController
           .dispose(); // Clean up the controller when the widget is disposed.
       super.dispose();
     }
@@ -55,13 +55,13 @@ class _NavigationalComponentsScreenState
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RawScrollbar(
-            controller: _scrollController,
+            controller: scrollController,
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
             radius: const Radius.circular(8),
             child: SingleChildScrollView(
-              controller: _scrollController,
+              controller: scrollController,
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: width > 1000 ? 5 : (width > 600 ? 3 : 2),

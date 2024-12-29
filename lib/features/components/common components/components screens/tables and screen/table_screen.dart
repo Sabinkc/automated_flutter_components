@@ -179,7 +179,7 @@ class _TablesAndGridsScreenState extends State<TableScreen> {
                 break;
               case 'Interactive Table':
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return InteractiveTableScreen();
+                  return const InteractiveTableScreen();
                 }));
                 break;
             }

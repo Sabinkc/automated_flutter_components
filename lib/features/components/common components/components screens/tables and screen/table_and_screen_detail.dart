@@ -767,10 +767,10 @@ class _PaginatedTableScreenState extends State<PaginatedTableScreen> {
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: _previousPage,
-                        child: const Text("Previous"),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                         ),
+                        child: const Text("Previous"),
                       ),
                       const SizedBox(width: 10),
                       Text(
@@ -780,10 +780,10 @@ class _PaginatedTableScreenState extends State<PaginatedTableScreen> {
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: _nextPage,
-                        child: const Text("Next"),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                         ),
+                        child: const Text("Next"),
                       ),
                       const SizedBox(width: 10),
                     ],
@@ -1092,7 +1092,7 @@ class _InteractiveTableScreenState extends State<InteractiveTableScreen> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )),
