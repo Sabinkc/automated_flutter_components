@@ -55,160 +55,144 @@ class _CardAndContainerState extends State<CardAndContainerScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RawScrollbar(
-            controller: scrollController,
             thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
             radius: const Radius.circular(8),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: width > 1000 ? 5 : (width > 600 ? 3 : 2),
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                childAspectRatio: 1,
-                children: [
-                  buildCardAndContainer(
-                    'Basic card',
-                    Icons.credit_card, // Icon for basic card
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'Displays a simple card with title and description.', // Tooltip
-                    const BasicCardScreen(),
-                  ),
-                  buildCardAndContainer(
-                    'Expandable card',
-                    Icons.expand, // Icon for expandable card
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'A card that can expand to show more content.', // Tooltip
-                    const ExpandableCardScreen(),
-                  ),
-                  buildCardAndContainer(
-                    'Collapsible card',
-                    Icons.unfold_less, // Icon for collapsible card
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'A card that can collapse to hide its content.', // Tooltip
-                    const CollapsibleCardScreen(),
-                  ),
-                  buildCardAndContainer(
-                    'Image card',
-                    Icons.image, // Icon for image card
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'A card that displays an image along with text.', // Tooltip
-                    const ImageCardScreen(),
-                  ),
-                  buildCardAndContainer(
-                    'Card with actions',
-                    Icons.touch_app, // Icon for card with actions
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'A card with buttons or actionable elements.', // Tooltip
-                    const CardWithActionScreen(),
-                  ),
-                  buildCardAndContainer(
-  'Profile card',
-  Icons.person, // Icon for profile card
-  cardPadding,
-  titleFontSize,
-  context,
-  'Displays user information such as profile picture and details.', // Tooltip
-  const ProfileCardScreen(),
-),
-
-
-buildCardAndContainer(
-  'Notification card',
-  Icons.notifications, // Icon for notification card
-  cardPadding,
-  titleFontSize,
-  context,
-  'Displays notifications with actions like dismiss or read.', // Tooltip
-  const NotificationCardScreen(),
-),
-
-buildCardAndContainer(
-  'Animated card',
-  Icons.animation, // Icon for animated card
-  cardPadding,
-  titleFontSize,
-  context,
-  'A card with animation effects like transitions.', // Tooltip
-  const AnimatedCardScreen(),
-),
-
-
-buildCardAndContainer(
-  'Basic container',
-  Icons.square, // Icon for basic container
-  cardPadding,
-  titleFontSize,
-  context,
-  'A simple container to hold and style content.', // Tooltip
-  const BasicContainerScreen(),
-),
-
-
-
-buildCardAndContainer(
-  'Stacked container',
-  Icons.layers, // Icon for stacked container
-  cardPadding,
-  titleFontSize,
-  context,
-  'Layers multiple containers or widgets on top of each other.', // Tooltip
-  const StackedContainerScreen(),
-),
-
-buildCardAndContainer(
-  'Overlay container',
-  Icons.layers_outlined, // Icon for overlay container
-  cardPadding,
-  titleFontSize,
-  context,
-  'A container with overlay effects like gradients or semi-transparent layers.', // Tooltip
-  const OverlayContainerScreen(),
-),
-
-buildCardAndContainer(
-  'Scrollable container',
-  Icons.view_list, // Icon for scrollable container
-  cardPadding,
-  titleFontSize,
-  context,
-  'A container that enables scrolling for large content.', // Tooltip
-  const ScrollableContainerScreen(),
-),
-
-
-                  buildCardAndContainer(
-                    'Widget Container',
-                    Icons.widgets, // Icon for widget container
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'A container to demonstrate various widgets.', // Tooltip
-                    const WidgetContainerScreen(),
-                  ),
-                  buildCardAndContainer(
-                    'Grid container',
-                    Icons.grid_view, // Icon for grid container
-                    cardPadding,
-                    titleFontSize,
-                    context,
-                    'Displays content in a grid format.', // Tooltip
-                    const GridContainerScreen(),
-                  ),
-                ],
-              ),
+            child: GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: width > 1000 ? 5 : (width > 600 ? 3 : 2),
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 1,
+              children: [
+                buildCardAndContainer(
+                  'Basic card',
+                  Icons.credit_card, // Icon for basic card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'Displays a simple card with title and description.', // Tooltip
+                  const BasicCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Expandable card',
+                  Icons.expand, // Icon for expandable card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A card that can expand to show more content.', // Tooltip
+                  const ExpandableCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Collapsible card',
+                  Icons.unfold_less, // Icon for collapsible card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A card that can collapse to hide its content.', // Tooltip
+                  const CollapsibleCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Image card',
+                  Icons.image, // Icon for image card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A card that displays an image along with text.', // Tooltip
+                  const ImageCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Card with actions',
+                  Icons.touch_app, // Icon for card with actions
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A card with buttons or actionable elements.', // Tooltip
+                  const CardWithActionScreen(),
+                ),
+                buildCardAndContainer(
+                  'Profile card',
+                  Icons.person, // Icon for profile card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'Displays user information such as profile picture and details.', // Tooltip
+                  const ProfileCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Notification card',
+                  Icons.notifications, // Icon for notification card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'Displays notifications with actions like dismiss or read.', // Tooltip
+                  const NotificationCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Animated card',
+                  Icons.animation, // Icon for animated card
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A card with animation effects like transitions.', // Tooltip
+                  const AnimatedCardScreen(),
+                ),
+                buildCardAndContainer(
+                  'Basic container',
+                  Icons.square, // Icon for basic container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A simple container to hold and style content.', // Tooltip
+                  const BasicContainerScreen(),
+                ),
+                buildCardAndContainer(
+                  'Stacked container',
+                  Icons.layers, // Icon for stacked container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'Layers multiple containers or widgets on top of each other.', // Tooltip
+                  const StackedContainerScreen(),
+                ),
+                buildCardAndContainer(
+                  'Overlay container',
+                  Icons.layers_outlined, // Icon for overlay container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A container with overlay effects like gradients or semi-transparent layers.', // Tooltip
+                  const OverlayContainerScreen(),
+                ),
+                buildCardAndContainer(
+                  'Scrollable container',
+                  Icons.view_list, // Icon for scrollable container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A container that enables scrolling for large content.', // Tooltip
+                  const ScrollableContainerScreen(),
+                ),
+                buildCardAndContainer(
+                  'Widget Container',
+                  Icons.widgets, // Icon for widget container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'A container to demonstrate various widgets.', // Tooltip
+                  const WidgetContainerScreen(),
+                ),
+                buildCardAndContainer(
+                  'Grid container',
+                  Icons.grid_view, // Icon for grid container
+                  cardPadding,
+                  titleFontSize,
+                  context,
+                  'Displays content in a grid format.', // Tooltip
+                  const GridContainerScreen(),
+                ),
+              ],
             ),
           ),
         ),

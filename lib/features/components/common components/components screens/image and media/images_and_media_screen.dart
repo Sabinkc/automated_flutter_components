@@ -42,7 +42,7 @@ class _ImageAndMediaScreenState extends State<ImagesAndMediaScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RawScrollbar(
-            thumbColor: Colors.blueGrey,
+            thumbColor: CommonColor.secondaryColor,
             thumbVisibility: true,
             thickness: 4,
             radius: const Radius.circular(8),
