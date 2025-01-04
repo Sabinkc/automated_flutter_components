@@ -246,7 +246,7 @@ class _SliderAndProgressIndicatorScreenState
       children: [
         type == "Vertical"
             ? SizedBox(
-                height: 100,
+                height: 80,
                 child: RotatedBox(
                   quarterTurns: 1,
                   child: Slider(
@@ -353,14 +353,13 @@ class _SliderAndProgressIndicatorScreenState
       child: Padding(
         padding: EdgeInsets.all(padding),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               title,
               style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
             Expanded(child: content),
           ],
         ),

@@ -94,6 +94,7 @@ flutter:
     - assets/download2.jpg
     - assets/download3.jpg
     - assets/sampleFile.pdf
+    - assets/bee.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
