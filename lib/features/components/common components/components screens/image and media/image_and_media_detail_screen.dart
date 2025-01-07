@@ -344,7 +344,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 class ImageAndMediaDetailScreen extends StatefulWidget {
   final String title;
@@ -361,23 +361,23 @@ class ImageAndMediaDetailScreen extends StatefulWidget {
 }
 
 class _ImageAndMediaDetailScreenState extends State<ImageAndMediaDetailScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
+  // late VideoPlayerController _controller;
+  // late Future<void> _initializeVideoPlayerFuture;
 
-  @override
-  void initState() {
-    super.initState();
-    // Use the asset video instead of a network URL
-    _controller = VideoPlayerController.asset('assets/bee.mp4');
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true); // Set the video to loop, if desired
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Use the asset video instead of a network URL
+  //   _controller = VideoPlayerController.asset('assets/bee.mp4');
+  //   _initializeVideoPlayerFuture = _controller.initialize();
+  //   _controller.setLooping(true); // Set the video to loop, if desired
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -592,33 +592,33 @@ class _ImageAndMediaDetailScreenState extends State<ImageAndMediaDetailScreen> {
     );
   }
 
-  // Widget _buildVideoPlayer() {
-  //   return const Text("Failed to load video");
-  // }
-
   Widget _buildVideoPlayer() {
-    return Center(
-      child: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // Once the video is initialized, display it
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            );
-          } else if (snapshot.hasError) {
-            // Show an error message if initialization failed
-            return Center(
-                child: Text('Failed to load video: ${snapshot.error}'));
-          } else {
-            // While loading, display a loading spinner
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+    return const Text("Failed to load video");
   }
+
+  // Widget _buildVideoPlayer() {
+  //   return Center(
+  //     child: FutureBuilder(
+  //       future: _initializeVideoPlayerFuture,
+  //       builder: (context, snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.done) {
+  //           // Once the video is initialized, display it
+  //           return AspectRatio(
+  //             aspectRatio: _controller.value.aspectRatio,
+  //             child: VideoPlayer(_controller),
+  //           );
+  //         } else if (snapshot.hasError) {
+  //           // Show an error message if initialization failed
+  //           return Center(
+  //               child: Text('Failed to load video: ${snapshot.error}'));
+  //         } else {
+  //           // While loading, display a loading spinner
+  //           return const Center(child: CircularProgressIndicator());
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
   Widget _buildAudioPlayer() {
     return Container(
