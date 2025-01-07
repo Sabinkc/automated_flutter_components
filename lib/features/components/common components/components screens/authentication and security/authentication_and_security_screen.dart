@@ -1,18 +1,17 @@
-import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_detail_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/specialized%20ui%20component/specialized_ui_component_screen_detail.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/authentication%20and%20security/authentication_and_security_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
-class SpecializedUiComponentScreen extends StatefulWidget {
-  const SpecializedUiComponentScreen({super.key});
+class AuthenticationAndSecurityScreen extends StatefulWidget {
+  const AuthenticationAndSecurityScreen({super.key});
 
   @override
-  _SpecializedUiComponentScreenState createState() =>
-      _SpecializedUiComponentScreenState();
+  _AuthenticationAndSecurityScreenState createState() =>
+      _AuthenticationAndSecurityScreenState();
 }
 
-class _SpecializedUiComponentScreenState
-    extends State<SpecializedUiComponentScreen> {
+class _AuthenticationAndSecurityScreenState
+    extends State<AuthenticationAndSecurityScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -30,7 +29,7 @@ class _SpecializedUiComponentScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Specialized UI components",
+        title: const Text("Authentication and Security Screen",
             style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
@@ -67,95 +66,59 @@ class _SpecializedUiComponentScreenState
               mainAxisSpacing: 8.0,
               childAspectRatio: 1,
               children: [
-                buildSpecialUiComponent(
-                  'Tag input',
-                  Icons.animation,
+                buildAuthenticationAndSecurityComponent(
+                  'Login form',
+                  Icons.login,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Allows users to input and manage tags effectively.',
-                  const TagInputScreen(),
+                  'Allows users to log in securely.',
+                  const LoginScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Avatar',
-                  Icons.account_circle,
+                buildAuthenticationAndSecurityComponent(
+                  'Registration form',
+                  Icons.app_registration,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Displays user profile pictures or icons.',
-                  const AvatarScreen(),
+                  'Enables new users to register.',
+                  const RegistrationScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Rating stars',
-                  Icons.star,
+                buildAuthenticationAndSecurityComponent(
+                  'Forgot password form',
+                  Icons.lock_reset,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Used for user feedback through star ratings.',
-                  const RatingStarScreen(),
+                  'Helps users reset their password.',
+                  const ForgotPasswordScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Stepper',
-                  Icons.linear_scale,
+                buildAuthenticationAndSecurityComponent(
+                  'Captcha',
+                  Icons.security,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Displays progress through numbered steps.',
-                  const StepperScreen(),
+                  'Prevents automated bots from accessing the system.',
+                  const CaptchaScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Timeline',
-                  Icons.timeline,
+                buildAuthenticationAndSecurityComponent(
+                  'Two factor authentication',
+                  Icons.verified,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Visualizes events in chronological order.',
-                  const TimelineScreen(),
+                  'Adds an extra layer of security.',
+                  const TwoFactorAuthScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Tag cloud',
-                  Icons.cloud,
+                buildAuthenticationAndSecurityComponent(
+                  'Social logins',
+                  Icons.person_add_alt,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Shows tags in varying sizes based on importance.',
-                  const TagCloudScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Shimmer effect',
-                  Icons.blur_on,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Creates a loading placeholder animation.',
-                  const ShimmerEffectScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Lottie animation',
-                  Icons.animation,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Displays engaging JSON-based animations.',
-                  const LottieAnimationScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Divider',
-                  Icons.horizontal_rule,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Separates content with a horizontal line.',
-                  const DividerScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Color picker',
-                  Icons.color_lens,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Provides a UI to select colors.',
-                  const ColorPickerScreen(),
+                  'Allows users to log in using social media accounts.',
+                  const SocialLoginScreen(),
                 ),
               ],
             ),
@@ -165,7 +128,7 @@ class _SpecializedUiComponentScreenState
     );
   }
 
-  Widget buildSpecialUiComponent(
+  Widget buildAuthenticationAndSecurityComponent(
     String title,
     IconData icon,
     double cardPadding,

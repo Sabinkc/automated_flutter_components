@@ -14,12 +14,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
 
 class File_Data_Model {
   final String name;
@@ -688,12 +686,6 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
   }
 }
 
-
-
-
-
-
-
 class FileViewerScreen extends StatelessWidget {
   const FileViewerScreen({super.key});
 
@@ -746,7 +738,6 @@ class MobilePdfViewer extends StatelessWidget {
     );
   }
 }
-
 
 // class FileViewerScreen extends StatelessWidget {
 //   const FileViewerScreen({super.key});
@@ -833,7 +824,6 @@ class MobilePdfViewer extends StatelessWidget {
 //     );
 //   }
 // }
-
 
 class FileExplorerScreen extends StatelessWidget {
   const FileExplorerScreen({super.key});
