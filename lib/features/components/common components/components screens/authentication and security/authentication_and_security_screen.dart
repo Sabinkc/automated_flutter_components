@@ -2,7 +2,6 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
-
 class AuthenticationAndSecurityScreen extends StatefulWidget {
   const AuthenticationAndSecurityScreen({super.key});
 
@@ -110,7 +109,7 @@ class _AuthenticationAndSecurityScreenState
                   titleFontSize,
                   context,
                   'Adds an extra layer of security.',
-                  const TwoFactorAuthenticationScreen(),
+                  const TwoFactorAuthScreen(),
                 ),
                 buildAuthenticationAndSecurityComponent(
                   'Social logins',
@@ -119,7 +118,7 @@ class _AuthenticationAndSecurityScreenState
                   titleFontSize,
                   context,
                   'Allows users to log in using social media accounts.',
-                  const SocialLoginsScreen(),
+                  const SocialLoginScreen(),
                 ),
               ],
             ),
@@ -183,5 +182,3 @@ class _AuthenticationAndSecurityScreenState
     );
   }
 }
-
-
