@@ -1,5 +1,5 @@
 import 'package:components_automation/core/constants.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/accessibility_feature_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/accessibility%20features/accessibility_feature_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/advanced%20components/advanced_component_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/authentication%20and%20security/authentication_and_security_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/button_screen.dart';
