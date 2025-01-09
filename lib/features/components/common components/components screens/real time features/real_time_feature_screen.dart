@@ -1,18 +1,16 @@
-import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_detail_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/specialized%20ui%20component/specialized_ui_component_screen_detail.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/authentication%20and%20security/authentication_and_security_detail_screen.dart';
+import 'package:components_automation/features/components/common%20components/components%20screens/real%20time%20features/real_time_feature_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
-class SpecializedUiComponentScreen extends StatefulWidget {
-  const SpecializedUiComponentScreen({super.key});
+class RealTimeFeatureScreen extends StatefulWidget {
+  const RealTimeFeatureScreen({super.key});
 
   @override
-  _SpecializedUiComponentScreenState createState() =>
-      _SpecializedUiComponentScreenState();
+  _RealTimeFeatureScreenState createState() => _RealTimeFeatureScreenState();
 }
 
-class _SpecializedUiComponentScreenState
-    extends State<SpecializedUiComponentScreen> {
+class _RealTimeFeatureScreenState extends State<RealTimeFeatureScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -30,7 +28,7 @@ class _SpecializedUiComponentScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Specialized UI components",
+        title: const Text("Realtime feature screen",
             style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor,
@@ -67,104 +65,50 @@ class _SpecializedUiComponentScreenState
               mainAxisSpacing: 8.0,
               childAspectRatio: 1,
               children: [
-                buildSpecialUiComponent(
-                  'Tag input',
-                  Icons.animation,
+                buildRealTimeFeatureComponent(
+                  'Live chat window',
+                  Icons.chat,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Allows users to input and manage tags effectively.',
-                  const TagInputScreen(),
+                  'This component allows users to engage in real-time chat with others.',
+                  const LiveChatWindowScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Avatar',
-                  Icons.account_circle,
+                buildRealTimeFeatureComponent(
+                  'Notifications',
+                  Icons.notifications,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Displays user profile pictures or icons.',
-                  const AvatarScreen(),
+                  'This component keeps users updated with real-time notifications.',
+                  const NotificationsScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Rating stars',
-                  Icons.star,
+                buildRealTimeFeatureComponent(
+                  'Activity feed',
+                  Icons.rss_feed,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Used for user feedback through star ratings.',
-                  const RatingStarScreen(),
+                  'Displays the user’s activity in a real-time feed, keeping them informed.',
+                  const ActivityFeedScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Stepper',
-                  Icons.linear_scale,
+                buildRealTimeFeatureComponent(
+                  'Typing indicator',
+                  Icons.text_fields,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Displays progress through numbered steps.',
-                  const StepperScreen(),
+                  'Shows when another user is typing in real-time.',
+                  const TypingIndicatorScreen(),
                 ),
-                buildSpecialUiComponent(
-                  'Timeline',
-                  Icons.timeline,
+                buildRealTimeFeatureComponent(
+                  'Real time updates',
+                  Icons.update,
                   cardPadding,
                   titleFontSize,
                   context,
-                  'Visualizes events in chronological order.',
-                  const TimelineScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Tag cloud',
-                  Icons.cloud,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Shows tags in varying sizes based on importance.',
-                  const TagCloudScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Shimmer effect',
-                  Icons.blur_on,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Creates a loading placeholder animation.',
-                  const ShimmerEffectScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Lottie animation',
-                  Icons.animation,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Displays engaging JSON-based animations.',
-                  const LottieAnimationScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Divider',
-                  Icons.horizontal_rule,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Separates content with a horizontal line.',
-                  const DividerScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Color picker',
-                  Icons.color_lens,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Provides a UI to select colors.',
-                  const ColorPickerScreen(),
-                ),
-                buildSpecialUiComponent(
-                  'Floating input labels',
-                  Icons.color_lens,
-                  cardPadding,
-                  titleFontSize,
-                  context,
-                  'Provides floating labels for input.',
-                  const FloatingLabelScreen(),
+                  'Shows live updates on various components, keeping the app in sync.',
+                  const RealTimeUpdatesScreen(),
                 ),
               ],
             ),
@@ -174,7 +118,7 @@ class _SpecializedUiComponentScreenState
     );
   }
 
-  Widget buildSpecialUiComponent(
+  Widget buildRealTimeFeatureComponent(
     String title,
     IconData icon,
     double cardPadding,

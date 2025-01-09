@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
@@ -61,7 +62,7 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
         children: [
           DropzoneView(
             onCreated: (controller) => this.controller = controller,
-            onDrop: UploadedFile,
+            onDropFile: UploadedFile,
             onHover: () => setState(() => highlight = true),
             onLeave: () => setState(() => highlight = false),
           ),
@@ -213,50 +214,50 @@ class DroppedFileWidget extends StatelessWidget {
   }
 }
 
-class DragAndDropScreen extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+// class DragAndDropScreen extends StatefulWidget {
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<DragAndDropScreen> {
-  File_Data_Model? file;
+// class _MyHomePageState extends State<DragAndDropScreen> {
+//   File_Data_Model? file;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            const Text('Drag and drop', style: TextStyle(color: Colors.white)),
-        centerTitle: true,
-        backgroundColor:
-            CommonColor.primaryColor, // You can customize the color
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back to the previous screen
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Container(
-                  height: 300,
-                  child: DropZoneWidget(
-                    onDroppedFile: (file) => setState(() => this.file = file),
-                  ),
-                ),
-                SizedBox(height: 20),
-                DroppedFileWidget(file: file),
-              ],
-            )),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title:
+//             const Text('Drag and drop', style: TextStyle(color: Colors.white)),
+//         centerTitle: true,
+//         backgroundColor:
+//             CommonColor.primaryColor, // You can customize the color
+//         leading: IconButton(
+//           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+//           onPressed: () {
+//             Navigator.pop(context); // Navigate back to the previous screen
+//           },
+//         ),
+//       ),
+//       body: SingleChildScrollView(
+//         child: Container(
+//             alignment: Alignment.center,
+//             padding: EdgeInsets.all(15),
+//             child: Column(
+//               children: [
+//                 Container(
+//                   height: 300,
+//                   child: DropZoneWidget(
+//                     onDroppedFile: (file) => setState(() => this.file = file),
+//                   ),
+//                 ),
+//                 SizedBox(height: 20),
+//                 DroppedFileWidget(file: file),
+//               ],
+//             )),
+//       ),
+//     );
+//   }
+// }
 
 class FilePickerScreen extends StatefulWidget {
   const FilePickerScreen({super.key});
@@ -608,6 +609,9 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
     });
 
     try {
+      // Simulate a delay (remove in production)
+      await Future.delayed(const Duration(seconds: 2));
+
       // Retrieve the file from the assets folder
       final byteData = await rootBundle.load('assets/sampleFile.pdf');
 
@@ -623,15 +627,24 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
         downloadedFileName = filePath; // Store the path where the file is saved
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('File downloaded to: $filePath')),
-      );
+      // Show a SnackBar after the progress is hidden
+      Future.delayed(const Duration(milliseconds: 300), () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(milliseconds: 300),
+            content: Text('File downloaded to: $filePath'),
+          ),
+        );
+      });
     } catch (e) {
       setState(() {
         errorMessage = 'Error: ${e.toString()}';
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
+        SnackBar(
+          duration: const Duration(milliseconds: 300),
+          content: Text('Error: ${e.toString()}'),
+        ),
       );
     } finally {
       setState(() {
@@ -644,11 +657,12 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Download File', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Download File',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
-        backgroundColor:
-            CommonColor.primaryColor, // You can customize the color
+        backgroundColor: CommonColor.primaryColor, // Customize as needed
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
@@ -659,32 +673,132 @@ class _DownloadFileScreenState extends State<DownloadFileScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: isDownloading ? null : () => _downloadFile(context),
-                child: isDownloading
-                    ? const CircularProgressIndicator()
-                    : const Text('Download File'),
-              ),
-              const SizedBox(height: 16),
-              if (downloadedFileName != null) ...[
-                Text('File saved at: $downloadedFileName'),
-              ],
-              if (errorMessage.isNotEmpty) ...[
-                Text(
-                  errorMessage,
-                  style: const TextStyle(color: Colors.red),
+          child: isDownloading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
+                    Text('Downloading file...'),
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed:
+                          isDownloading ? null : () => _downloadFile(context),
+                      child: const Text('Download sampleFile'),
+                    ),
+                    const SizedBox(height: 16),
+                    if (downloadedFileName != null)
+                      Text(
+                        'File saved at: $downloadedFileName',
+                        textAlign: TextAlign.center,
+                      ),
+                    if (errorMessage.isNotEmpty)
+                      Text(
+                        errorMessage,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );
   }
 }
+
+// class FileViewerScreen extends StatefulWidget {
+//   const FileViewerScreen({super.key});
+
+//   @override
+//   _FileViewerScreenState createState() => _FileViewerScreenState();
+// }
+
+// class _FileViewerScreenState extends State<FileViewerScreen> {
+//   String? filePath;
+//   bool isLoading = true;
+
+//   // Load the PDF file from assets and save it to the app's document directory
+//   Future<void> _loadPDF() async {
+//     try {
+//       // Load PDF from assets
+//       final byteData = await rootBundle.load('assets/sampleFile.pdf');
+
+//       // Get the path to the app's document directory
+//       final directory = await getApplicationDocumentsDirectory();
+//       final filePath = '${directory.path}/sampleFile.pdf';
+
+//       // Write the byte data to the file
+//       final file = File(filePath);
+//       await file.writeAsBytes(byteData.buffer.asUint8List());
+
+//       setState(() {
+//         this.filePath = filePath;
+//         isLoading = false; // Stop loading once the file is saved
+//       });
+//     } catch (e) {
+//       setState(() {
+//         isLoading = false; // Stop loading in case of an error
+//       });
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Error loading PDF: ${e.toString()}')),
+//       );
+//     }
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loadPDF(); // Call the function to load the PDF when the screen is created
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('File Viewer', style: TextStyle(color: Colors.white)),
+//         centerTitle: true,
+//         backgroundColor: Colors.blue, // Customize as needed
+//         leading: IconButton(
+//           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+//           onPressed: () {
+//             Navigator.pop(context); // Navigate back to the previous screen
+//           },
+//         ),
+//       ),
+//       body: isLoading
+//           ? const Center(child: CircularProgressIndicator()) // Show loading indicator
+//           : filePath == null
+//               ? const Center(
+//                   child: Text(
+//                     'Error loading file.',
+//                     style: TextStyle(color: Colors.red),
+//                   ),
+//                 )
+//               : PDFView(
+//                   filePath: filePath!,
+//                   enableSwipe: true,
+//                   swipeHorizontal: true,
+//                   autoSpacing: false,
+//                   pageFling: true,
+//                   onError: (error) {
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(content: Text('Failed to load PDF: $error')),
+//                     );
+//                   },
+//                   onRender: (pages) {
+//                     debugPrint('PDF loaded with $pages pages');
+//                   },
+//                   onPageChanged: (page, total) {
+//                     debugPrint('Page $page of $total');
+//                   },
+//                 ),
+//     );
+//   }
+// }
 
 class FileViewerScreen extends StatelessWidget {
   const FileViewerScreen({super.key});
@@ -692,147 +806,255 @@ class FileViewerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('File Viewer')),
-      body: const FileViewer(),
+      appBar: AppBar(
+        title: const Text('File Viewer', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor, // Customize as needed
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => FileViewerContentScreen()));
+              },
+              child: Text("View sampleFile"))),
     );
   }
 }
 
-class FileViewer extends StatelessWidget {
-  const FileViewer({super.key});
+class FileViewerContentScreen extends StatefulWidget {
+  const FileViewerContentScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    if (kIsWeb) {
-      return const WebPdfViewer();
-    } else {
-      return const MobilePdfViewer();
+  _FileViewerScreenState createState() => _FileViewerScreenState();
+}
+
+class _FileViewerScreenState extends State<FileViewerContentScreen> {
+  String? filePath;
+  bool isLoading = true;
+
+  // Load the PDF file from assets and save it to the app's document directory
+  Future<void> _loadPDF() async {
+    try {
+      // Load PDF from assets
+      final byteData = await rootBundle.load('assets/sampleFile.pdf');
+
+      // Get the path to the app's document directory
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/sampleFile.pdf';
+
+      // Write the byte data to the file
+      final file = File(filePath);
+      await file.writeAsBytes(byteData.buffer.asUint8List());
+
+      setState(() {
+        this.filePath = filePath;
+        isLoading = false; // Stop loading once the file is saved
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false; // Stop loading in case of an error
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading PDF: ${e.toString()}')),
+      );
     }
   }
-}
-
-class WebPdfViewer extends StatelessWidget {
-  const WebPdfViewer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return InAppWebView(
-      initialUrlRequest: URLRequest(
-        url: WebUri(
-            'https://mozilla.github.io/pdf.js/web/viewer.html?file=assets/sampleFile.pdf'),
-      ),
-      initialOptions: InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(),
-      ),
-    );
+  void initState() {
+    super.initState();
+    _loadPDF(); // Load PDF file when the screen is initialized
   }
-}
-
-class MobilePdfViewer extends StatelessWidget {
-  const MobilePdfViewer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PDFView(
-      filePath: 'assets/sampleFile.pdf', // Path to PDF in your assets folder
-    );
-  }
-}
-
-// class FileViewerScreen extends StatelessWidget {
-//   const FileViewerScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('File Viewer')),
-//       body: const Center(
-//         child: FileViewer(), // Widget to display file from assets
-//       ),
-//     );
-//   }
-// }
-
-// class FileViewer extends StatelessWidget {
-//   const FileViewer({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         ElevatedButton(
-//           onPressed: () => _viewPdfFile(context),
-//           child: const Text('View PDF File'),
-//         ),
-//       ],
-//     );
-//   }
-
-//   // Function to load and view PDF from assets
-//   Future<void> _viewPdfFile(BuildContext context) async {
-//     final ByteData data = await rootBundle.load('assets/sampleFile.pdf');
-//     final buffer = data.buffer.asUint8List(); // Convert ByteData to Uint8List
-
-//     // Navigate to PDF viewer screen
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => PdfViewer(pdfData: buffer),
-//       ),
-//     );
-//   }
-// }
-
-// class PdfViewer extends StatelessWidget {
-//   final Uint8List pdfData;
-
-//   const PdfViewer({super.key, required this.pdfData});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('PDF Viewer')),
-//       body: PDFView(
-//         onRender: (pages) {
-//           print('PDF Rendered: $pages pages');
-//         },
-//         onError: (error) {
-//           print('Error loading PDF: $error');
-//         },
-//         onPageError: (page, error) {
-//           print('Error on page $page: $error');
-//         },
-//         pdfData: pdfData, // Pass the loaded PDF data to the PDF viewer
-//       ),
-//     );
-//   }
-// }
-
-// class ImageViewer extends StatelessWidget {
-//   final Uint8List imageData;
-
-//   const ImageViewer({super.key, required this.imageData});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Image Viewer')),
-//       body: Center(
-//         child: Image.memory(imageData), // Display image from memory
-//       ),
-//     );
-//   }
-// }
-
-class FileExplorerScreen extends StatelessWidget {
-  const FileExplorerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('File Explorer')),
-      body: const Center(child: Text('File Explorer Screen')),
+      appBar: AppBar(
+        title: const Text('sampleFile', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor, // Customize as needed
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator()) // Show loading indicator
+          : filePath == null
+              ? const Center(
+                  child: Text(
+                    'Error loading file.',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
+              : PDFView(
+                  filePath: filePath!,
+                  enableSwipe: true,
+                  swipeHorizontal: false, // Vertical scroll enabled
+                  autoSpacing: false,
+                  pageFling: true,
+                  onError: (error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to load PDF: $error')),
+                    );
+                  },
+                  onRender: (pages) {
+                    debugPrint('PDF loaded with $pages pages');
+                  },
+                  onPageChanged: (page, total) {
+                    debugPrint('Page $page of $total');
+                  },
+                ),
+    );
+  }
+}
+
+class FileExplorerScreen extends StatefulWidget {
+  const FileExplorerScreen({super.key});
+
+  @override
+  _FileExplorerScreenState createState() => _FileExplorerScreenState();
+}
+
+class _FileExplorerScreenState extends State<FileExplorerScreen> {
+  String? currentDirectory;
+  List<FileSystemEntity>? files;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentDirectory(); // Start by getting the app's directory or any other directory
+  }
+
+  // Get the current directory to explore
+  Future<void> _getCurrentDirectory() async {
+    // Set the initial directory to app's document directory (or customize as needed)
+    final directory = await getApplicationDocumentsDirectory();
+    setState(() {
+      currentDirectory = directory.path;
+      _loadFiles();
+    });
+  }
+
+  // Load files and directories inside the current directory
+  Future<void> _loadFiles() async {
+    final dir = Directory(currentDirectory!);
+    final filesList = dir.listSync(); // List all files and directories
+    setState(() {
+      files = filesList;
+    });
+  }
+
+  // Navigate to a directory and load its files
+  void _navigateToDirectory(String path) {
+    setState(() {
+      currentDirectory = path;
+      _loadFiles(); // Load files inside the directory
+    });
+  }
+
+  // Open a file (can be customized to open PDFs or images)
+  Future<void> _openFile(FileSystemEntity file) async {
+    if (file is File) {
+      final filePath = file.path;
+      // Handle file opening, e.g., open PDF, image, etc.
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            duration: Duration(milliseconds: 300),
+            content: Text('Opening file: $filePath')),
+      );
+    }
+  }
+
+  // Pick a file from the device
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      final filePath = result.files.single.path;
+      if (filePath != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              duration: Duration(seconds: 1),
+              content: Text('Selected file: $filePath')),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            const Text('File Explorer', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: CommonColor.primaryColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: files == null
+          ? const Center(
+              child: CircularProgressIndicator()) // Show loading indicator
+          : Column(
+              children: [
+                // Show current directory
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Current Directory: $currentDirectory',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: files!.length,
+                    itemBuilder: (context, index) {
+                      final file = files![index];
+                      final fileName = file.path.split('/').last;
+                      return ListTile(
+                        leading: Icon(
+                            file is Directory ? Icons.folder : Icons.file_copy),
+                        title: Text(fileName),
+                        onTap: () {
+                          if (file is Directory) {
+                            // Navigate into the directory
+                            _navigateToDirectory(file.path);
+                          } else {
+                            // Open the file
+                            _openFile(file);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                // Button to pick a file from the device
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: _pickFile,
+                    child: const Text('Pick a File'),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

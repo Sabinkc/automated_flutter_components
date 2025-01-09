@@ -83,13 +83,13 @@ class _FileHandlingAndDownloadScreenState
                       titleFontSize,
                       context,
                       'Upload files to the server'),
-                  buildFileHandlingWidget(
-                      'Drag and Drop Upload',
-                      Icons.cloud_upload,
-                      cardPadding,
-                      titleFontSize,
-                      context,
-                      'Drag and drop files to upload'),
+                  // buildFileHandlingWidget(
+                  //     'Drag and Drop Upload',
+                  //     Icons.cloud_upload,
+                  //     cardPadding,
+                  //     titleFontSize,
+                  //     context,
+                  //     'Drag and drop files to upload'),
                   buildFileHandlingWidget(
                       'Download File',
                       Icons.download,
@@ -154,14 +154,14 @@ class _FileHandlingAndDownloadScreenState
                   ),
                 );
                 break;
-              case 'Drag and Drop Upload':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>  DragAndDropScreen(),
-                  ),
-                );
-                break;
+              // case 'Drag and Drop Upload':
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) =>  DragAndDropScreen(),
+              //     ),
+              //   );
+              //   break;
               case 'Download File':
                 Navigator.push(
                   context,
@@ -174,7 +174,7 @@ class _FileHandlingAndDownloadScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FileViewerScreen(),
+                    builder: (context) => FileViewerScreen(),
                   ),
                 );
                 break;
