@@ -11,11 +11,11 @@ class SortableKanbanBoardScreen extends StatefulWidget {
   const SortableKanbanBoardScreen({super.key});
 
   @override
-  _SortableKanbanBoardScreenState createState() =>
-      _SortableKanbanBoardScreenState();
+  SortableKanbanBoardScreenState createState() =>
+      SortableKanbanBoardScreenState();
 }
 
-class _SortableKanbanBoardScreenState extends State<SortableKanbanBoardScreen> {
+class SortableKanbanBoardScreenState extends State<SortableKanbanBoardScreen> {
   List<String> todo = ['Task 1', 'Task 2', 'Task 3'];
   List<String> inProgress = ['Task 4'];
   List<String> done = ['Task 5'];
@@ -319,10 +319,10 @@ class SignaturePadScreen extends StatefulWidget {
   const SignaturePadScreen({super.key});
 
   @override
-  _SignaturePadScreenState createState() => _SignaturePadScreenState();
+  SignaturePadScreenState createState() => SignaturePadScreenState();
 }
 
-class _SignaturePadScreenState extends State<SignaturePadScreen> {
+class SignaturePadScreenState extends State<SignaturePadScreen> {
   // Signature controller to capture the signature
   final SignatureController _controller = SignatureController(
     penColor: Colors.black,
@@ -454,10 +454,10 @@ class AnimatedWidgetScreen extends StatefulWidget {
   const AnimatedWidgetScreen({super.key});
 
   @override
-  _AnimatedWidgetScreenState createState() => _AnimatedWidgetScreenState();
+  AnimatedWidgetScreenState createState() => AnimatedWidgetScreenState();
 }
 
-class _AnimatedWidgetScreenState extends State<AnimatedWidgetScreen>
+class AnimatedWidgetScreenState extends State<AnimatedWidgetScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -560,11 +560,11 @@ class ParallaxScrollingScreen extends StatefulWidget {
   const ParallaxScrollingScreen({super.key});
 
   @override
-  _ParallaxScrollingScreenState createState() =>
-      _ParallaxScrollingScreenState();
+  ParallaxScrollingScreenState createState() =>
+      ParallaxScrollingScreenState();
 }
 
-class _ParallaxScrollingScreenState extends State<ParallaxScrollingScreen> {
+class ParallaxScrollingScreenState extends State<ParallaxScrollingScreen> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -663,11 +663,11 @@ class CustomisedBottomNavigationScreen extends StatefulWidget {
   const CustomisedBottomNavigationScreen({super.key});
 
   @override
-  _CustomisedBottomNavigationScreenState createState() =>
-      _CustomisedBottomNavigationScreenState();
+  CustomisedBottomNavigationScreenState createState() =>
+      CustomisedBottomNavigationScreenState();
 }
 
-class _CustomisedBottomNavigationScreenState
+class CustomisedBottomNavigationScreenState
     extends State<CustomisedBottomNavigationScreen> {
   int _currentIndex = 0;
 
@@ -681,7 +681,7 @@ class _CustomisedBottomNavigationScreenState
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
 
     return Scaffold(
      appBar: AppBar(
@@ -729,7 +729,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         "Home Screen",
         style: TextStyle(
@@ -747,7 +747,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         "Search Screen",
         style: TextStyle(
@@ -765,7 +765,7 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         "Notifications Screen",
         style: TextStyle(
@@ -783,7 +783,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
         "Profile Screen",
         style: TextStyle(

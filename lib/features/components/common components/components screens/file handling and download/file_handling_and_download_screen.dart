@@ -6,11 +6,11 @@ class FileHandlingAndDownloadScreen extends StatefulWidget {
   const FileHandlingAndDownloadScreen({super.key});
 
   @override
-  _FileHandlingAndDownloadScreenState createState() =>
-      _FileHandlingAndDownloadScreenState();
+  FileHandlingAndDownloadScreenState createState() =>
+      FileHandlingAndDownloadScreenState();
 }
 
-class _FileHandlingAndDownloadScreenState
+class FileHandlingAndDownloadScreenState
     extends State<FileHandlingAndDownloadScreen> {
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,6 @@ class _FileHandlingAndDownloadScreenState
     double titleFontSize = width > 800 ? 18 : 16;
 
     final ScrollController scrollController = ScrollController();
-
-    @override
-    void dispose() {
-      scrollController.dispose();
-      super.dispose();
-    }
 
     return Scaffold(
       appBar: AppBar(

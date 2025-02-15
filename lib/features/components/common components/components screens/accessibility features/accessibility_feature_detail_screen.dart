@@ -1,6 +1,5 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ScreenReaderHintsScreen extends StatelessWidget {
   const ScreenReaderHintsScreen({super.key});
@@ -428,8 +427,6 @@ class _FocusIndicatorScreenState extends State<FocusIndicatorScreen> {
     );
   }
 }
-
-
 
 class HighContrastModeScreen extends StatefulWidget {
   @override

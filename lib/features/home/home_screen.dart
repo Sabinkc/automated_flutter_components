@@ -12,7 +12,6 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/inputs%20and%20forms/input_and_form_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/interactive%20widget/interactive_widgets_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/lists/list_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/menus_and_navigation_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/miscellaneous/miscellaneous_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/navigation%20components/navigational_components_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/real%20time%20features/real_time_feature_screen.dart';
@@ -22,21 +21,17 @@ import 'package:components_automation/features/components/common%20components/co
 import 'package:components_automation/features/components/common%20components/components%20screens/tables%20and%20screen/table_screen.dart';
 import 'package:components_automation/features/components/common%20components/components%20screens/text_element_screen.dart';
 import 'package:components_automation/features/components/common%20components/pagination_screen.dart';
-import 'package:components_automation/features/home/landing_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   // List of 22 titles and corresponding icons
   final List<Map<String, dynamic>> components = [
     {'title': 'Buttons', 'icon': Icons.radio_button_checked},
@@ -99,125 +94,138 @@ class _HomeScreenState extends State<HomeScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: RawScrollbar(
-          thumbColor: CommonColor.secondaryColor,
-          thumbVisibility: true,
-          thickness: 8,
-          radius: const Radius.circular(8),
-          child: Padding(
-            padding: EdgeInsets.all(screenHeight * 0.02),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: screenWidth < 700
-                    ? 2
-                    : 3, // Set to a fixed number of columns (3)
-                crossAxisSpacing: screenWidth * 0.05,
-                mainAxisSpacing: screenHeight * 0.05,
-                childAspectRatio:
-                    screenWidth / 400, // Adjust this ratio for size
-              ),
-              itemCount: components.length,
-              itemBuilder: (context, index) {
-                return MouseRegion(
-                  onEnter: (_) {
-                    setState(() {
-                      hoveredIndex = index; // Set hovered index
-                    });
-                  },
-                  onExit: (_) {
-                    setState(() {
-                      hoveredIndex = -1; // Reset on hover exit
-                    });
-                  },
-                  child: GestureDetector(
-                    onTap: () {
-                      List<Widget> destinations = [
-                        const ButtonScreen(),
-                        const InputAndFormScreen(),
-                        const SelectionControlScreen(),
-                        const NavigationalComponentsScreen(),
-                        PaginationScreen(),
-                        const ListScreen(),
-                        const TableScreen(),
-                        const SliderAndProgressIndicatorScreen(),
-                        const DialgoueAndPopupScreen(),
-                        const ImagesAndMediaScreen(),
-                        const CardAndContainerScreen(),
-                        const ChartAndGraphScreen(),
-                        const InteractiveWidgetsScreen(),
-                        const TextElementScreen(),
-                        // const MenusAndNavigationScreen(),
-                        const FileHandlingAndDownloadScreen(),
-                        const GridAndLayoutScreen(),
-                        const RealTimeFeatureScreen(),
-                        const AuthenticationAndSecurityScreen(),
-                        const AdvancedComponentScreen(),
-                        const AccessibilityFeatureScreen(),
-                        const SpecializedUiComponentScreen(),
-                        const MiscellaneousScreen(),
-                      ];
-                      Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => destinations[index],
-                      ));
+        child: Semantics(
+          child: RawScrollbar(
+            thumbColor: CommonColor.secondaryColor,
+            thumbVisibility: true,
+            thickness: 8,
+            radius: const Radius.circular(8),
+            child: Padding(
+              padding: EdgeInsets.all(screenHeight * 0.02),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: screenWidth < 700
+                      ? 2
+                      : 3, // Set to a fixed number of columns (3)
+                  crossAxisSpacing: screenWidth * 0.05,
+                  mainAxisSpacing: screenHeight * 0.05,
+                  childAspectRatio:
+                      screenWidth / 400, // Adjust this ratio for size
+                ),
+                itemCount: components.length,
+                itemBuilder: (context, index) {
+                  return MouseRegion(
+                    onEnter: (_) {
+                      setState(() {
+                        hoveredIndex = index; // Set hovered index
+                      });
                     },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      decoration: BoxDecoration(
-                        color: hoveredIndex == index
-                            ? CommonColor.primaryColorLight
-                            : Colors.white, // Change color on hover
-                        borderRadius:
-                            BorderRadius.circular(screenHeight * 0.02),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 8,
-                            offset: Offset(4, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.zero,
-                            height: screenHeight * 0.1,
-                            width: screenWidth * 0.1,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                colors: [
-                                  CommonColor.primaryColor,
-                                  CommonColor.secondaryColor,
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                    onExit: (_) {
+                      setState(() {
+                        hoveredIndex = -1; // Reset on hover exit
+                      });
+                    },
+                    child: GestureDetector(
+                      onTap: () {
+                        List<Widget> destinations = [
+                          const ButtonScreen(),
+                          const InputAndFormScreen(),
+                          const SelectionControlScreen(),
+                          const NavigationalComponentsScreen(),
+                          const PaginationScreen(),
+                          const ListScreen(),
+                          const TableScreen(),
+                          const SliderAndProgressIndicatorScreen(),
+                          const DialgoueAndPopupScreen(),
+                          const ImagesAndMediaScreen(),
+                          const CardAndContainerScreen(),
+                          const ChartAndGraphScreen(),
+                          const InteractiveWidgetsScreen(),
+                          const TextElementScreen(),
+                          const FileHandlingAndDownloadScreen(),
+                          const GridAndLayoutScreen(),
+                          const RealTimeFeatureScreen(),
+                          const AuthenticationAndSecurityScreen(),
+                          const AdvancedComponentScreen(),
+                          const AccessibilityFeatureScreen(),
+                          const SpecializedUiComponentScreen(),
+                          const MiscellaneousScreen(),
+                        ];
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => destinations[index],
+                        ));
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        decoration: BoxDecoration(
+                          color: hoveredIndex == index
+                              ? CommonColor.primaryColorLight
+                              : Colors.white, // Change color on hover
+                          borderRadius:
+                              BorderRadius.circular(screenHeight * 0.02),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 8,
+                              offset: Offset(4, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.zero,
+                              height: screenHeight * 0.1,
+                              width: screenWidth * 0.1,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    CommonColor.primaryColor,
+                                    CommonColor.secondaryColor,
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                              ),
+                              child: Semantics(
+                                label: components[index]['icon'].toString(),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    components[index]['icon'],
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
-                            child: Icon(
-                              components[index]['icon'],
-                              color: Colors.white,
+                            const SizedBox(
+                              height: 5,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            components[index]['title'],
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: CommonColor.primaryColorDark,
-                            ),
-                          ),
-                        ],
+                            Semantics(
+                              label: components[index]['title'].toString(),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  components[index]['title'],
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.primaryColorDark,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),

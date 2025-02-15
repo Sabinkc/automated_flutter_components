@@ -1,4 +1,4 @@
-import 'package:components_automation/features/components/common%20components/components%20screens/advanced%20components/advanced_component_detail_screen.dart';
+
 import 'package:components_automation/features/components/common%20components/components%20screens/card%20and%20container/card_and_container_detail_screen.dart';
 
 import 'package:flutter/material.dart';

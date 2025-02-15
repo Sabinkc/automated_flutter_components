@@ -1,6 +1,5 @@
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class BasicCardScreen extends StatelessWidget {
   const BasicCardScreen({super.key});

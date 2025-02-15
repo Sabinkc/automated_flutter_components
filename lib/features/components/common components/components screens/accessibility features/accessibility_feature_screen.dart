@@ -1,5 +1,5 @@
 import 'package:components_automation/features/components/common%20components/components%20screens/accessibility%20features/accessibility_feature_detail_screen.dart';
-import 'package:components_automation/features/components/common%20components/components%20screens/real%20time%20features/real_time_feature_detail_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:components_automation/core/constants.dart';
 
@@ -7,11 +7,11 @@ class AccessibilityFeatureScreen extends StatefulWidget {
   const AccessibilityFeatureScreen({super.key});
 
   @override
-  _AccessibilityFeatureScreenState createState() =>
-      _AccessibilityFeatureScreenState();
+  AccessibilityFeatureScreenState createState() =>
+      AccessibilityFeatureScreenState();
 }
 
-class _AccessibilityFeatureScreenState
+class AccessibilityFeatureScreenState
     extends State<AccessibilityFeatureScreen> {
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,9 @@ class _AccessibilityFeatureScreenState
     double cardPadding = width > 800 ? 6.0 : 12.0;
     double titleFontSize = width > 800 ? 18 : 16;
 
-    final ScrollController scrollController = ScrollController();
+  
 
-    @override
-    void dispose() {
-      scrollController.dispose();
-      super.dispose();
-    }
+  
 
     return Scaffold(
       appBar: AppBar(
