@@ -74,7 +74,7 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -92,8 +92,8 @@ class _InputAndFormScreenState extends State<InputAndFormScreen> {
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
-        ),
-      ),
+        ),),
+      
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
