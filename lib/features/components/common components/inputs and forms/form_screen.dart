@@ -100,7 +100,7 @@ class _FormScreenState extends State<FormScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Form", style: TextStyle(color: Colors.white)),
@@ -185,27 +185,42 @@ class _FormScreenState extends State<FormScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text('Gender: '),
-                  Radio<String>(
-                    value: 'Male',
-                    groupValue: _gender,
-                    onChanged: (value) {
-                      setState(() {
-                        _gender = value;
-                      });
-                    },
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Gender: '),
                   ),
-                  const Text('Male'),
-                  Radio<String>(
-                    value: 'Female',
-                    groupValue: _gender,
-                    onChanged: (value) {
-                      setState(() {
-                        _gender = value;
-                      });
-                    },
+                  Semantics(
+                    button: true,
+                    child: Radio<String>(
+                      value: 'Male',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value;
+                        });
+                      },
+                    ),
                   ),
-                  const Text('Female'),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Male'),
+                  ),
+                  Semantics(
+                    button: true,
+                    child: Radio<String>(
+                      value: 'Female',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value;
+                        });
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Female'),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -285,18 +300,27 @@ class _FormScreenState extends State<FormScreen> {
                           horizontal: 32, vertical: 16),
                       textStyle: const TextStyle(fontSize: 16),
                     ),
-                    child: const Text('Submit'),
+                    child: TextButton(
+                      onPressed: () {
+                        _submitForm;
+                      },
+                      child: const Text('Submit'),
+                    ),
                   ),
                   ElevatedButton(
-                    onPressed: _resetForm,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey, // Set button color
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 16),
-                    ),
-                    child: const Text('Reset'),
-                  ),
+                      onPressed: _resetForm,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey, // Set button color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        textStyle: const TextStyle(fontSize: 16),
+                      ),
+                      child: TextButton(
+                        child: const Text('Reset'),
+                        onPressed: () {
+                          _resetForm;
+                        },
+                      )),
                 ],
               ),
             ],

@@ -1,5 +1,3 @@
-
-
 import 'package:components_automation/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -82,7 +80,10 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('File Upload', style: TextStyle(color: Colors.white)),
+        title: Semantics(
+            button: true,
+            child: const Text('File Upload',
+                style: TextStyle(color: Colors.white))),
         centerTitle: true,
         backgroundColor: CommonColor.primaryColor, // Adjust this for your theme
         leading: IconButton(
@@ -100,12 +101,21 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
             children: [
               ElevatedButton(
                 onPressed: () => _uploadSingleFile(context),
-                child: const Text('Upload Single File'),
+                child: TextButton(
+                    onPressed: () {
+                      _uploadSingleFile(context);
+                    },
+                    child: const Text('Upload Single File')),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => _uploadMultipleFiles(context),
-                child: const Text('Upload Multiple Files'),
+                child: TextButton(
+                  onPressed: () {
+                    _uploadMultipleFiles(context);
+                  },
+                  child: const Text('Upload Multiple Files'),
+                ),
               ),
               const SizedBox(height: 16),
               if (fileName != null) ...[
