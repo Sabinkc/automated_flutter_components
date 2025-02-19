@@ -302,7 +302,8 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        _submitForm;
+                        _submitForm();
+                        debugPrint("submit pressed");
                       },
                       child: const Text('Submit'),
                     ),
@@ -318,7 +319,7 @@ class _FormScreenState extends State<FormScreen> {
                       child: TextButton(
                         child: const Text('Reset'),
                         onPressed: () {
-                          _resetForm;
+                          _resetForm();
                         },
                       )),
                 ],

@@ -59,6 +59,31 @@ class HomeScreenState extends State<HomeScreen> {
     {'title': 'Miscellaneous', 'icon': Icons.more_horiz},
   ];
 
+  List<Widget> destinations = [
+    const ButtonScreen(),
+    const InputAndFormScreen(),
+    const SelectionControlScreen(),
+    const NavigationalComponentsScreen(),
+    const PaginationScreen(),
+    const ListScreen(),
+    const TableScreen(),
+    const SliderAndProgressIndicatorScreen(),
+    const DialgoueAndPopupScreen(),
+    const ImagesAndMediaScreen(),
+    const CardAndContainerScreen(),
+    const ChartAndGraphScreen(),
+    const InteractiveWidgetsScreen(),
+    const TextElementScreen(),
+    const FileHandlingAndDownloadScreen(),
+    const GridAndLayoutScreen(),
+    const RealTimeFeatureScreen(),
+    const AuthenticationAndSecurityScreen(),
+    const AdvancedComponentScreen(),
+    const AccessibilityFeatureScreen(),
+    const SpecializedUiComponentScreen(),
+    const MiscellaneousScreen(),
+  ];
+
   int hoveredIndex = -1; // Track the hovered index
 
   @override
@@ -83,148 +108,140 @@ class HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
             )),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              CommonColor.primaryColorDark,
-              CommonColor.primaryColorLight
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      body: Semantics(
+        button: true,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                CommonColor.primaryColorDark,
+                CommonColor.primaryColorLight
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-        ),
-        child: Semantics(
-          child: RawScrollbar(
-            thumbColor: CommonColor.secondaryColor,
-            thumbVisibility: true,
-            thickness: 8,
-            radius: const Radius.circular(8),
-            child: Padding(
-              padding: EdgeInsets.all(screenHeight * 0.02),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenWidth < 700
-                      ? 2
-                      : 3, // Set to a fixed number of columns (3)
-                  crossAxisSpacing: screenWidth * 0.05,
-                  mainAxisSpacing: screenHeight * 0.05,
-                  childAspectRatio:
-                      screenWidth / 400, // Adjust this ratio for size
-                ),
-                itemCount: components.length,
-                itemBuilder: (context, index) {
-                  return MouseRegion(
-                    onEnter: (_) {
-                      setState(() {
-                        hoveredIndex = index; // Set hovered index
-                      });
-                    },
-                    onExit: (_) {
-                      setState(() {
-                        hoveredIndex = -1; // Reset on hover exit
-                      });
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        List<Widget> destinations = [
-                          const ButtonScreen(),
-                          const InputAndFormScreen(),
-                          const SelectionControlScreen(),
-                          const NavigationalComponentsScreen(),
-                          const PaginationScreen(),
-                          const ListScreen(),
-                          const TableScreen(),
-                          const SliderAndProgressIndicatorScreen(),
-                          const DialgoueAndPopupScreen(),
-                          const ImagesAndMediaScreen(),
-                          const CardAndContainerScreen(),
-                          const ChartAndGraphScreen(),
-                          const InteractiveWidgetsScreen(),
-                          const TextElementScreen(),
-                          const FileHandlingAndDownloadScreen(),
-                          const GridAndLayoutScreen(),
-                          const RealTimeFeatureScreen(),
-                          const AuthenticationAndSecurityScreen(),
-                          const AdvancedComponentScreen(),
-                          const AccessibilityFeatureScreen(),
-                          const SpecializedUiComponentScreen(),
-                          const MiscellaneousScreen(),
-                        ];
-                        Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => destinations[index],
-                        ));
+          child: Semantics(
+            button: true,
+            label: "Scroll bar",
+            child: RawScrollbar(
+              thumbColor: CommonColor.secondaryColor,
+              thumbVisibility: true,
+              thickness: 8,
+              radius: const Radius.circular(8),
+              child: Padding(
+                padding: EdgeInsets.all(screenHeight * 0.02),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: screenWidth < 700
+                        ? 2
+                        : 3, // Set to a fixed number of columns (3)
+                    crossAxisSpacing: screenWidth * 0.05,
+                    mainAxisSpacing: screenHeight * 0.05,
+                    childAspectRatio:
+                        screenWidth / 400, // Adjust this ratio for size
+                  ),
+                  itemCount: components.length,
+                  itemBuilder: (context, index) {
+                    return MouseRegion(
+                      onEnter: (_) {
+                        setState(() {
+                          hoveredIndex = index; // Set hovered index
+                        });
                       },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color: hoveredIndex == index
-                              ? CommonColor.primaryColorLight
-                              : Colors.white, // Change color on hover
-                          borderRadius:
-                              BorderRadius.circular(screenHeight * 0.02),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 8,
-                              offset: Offset(4, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.zero,
-                              height: screenHeight * 0.1,
-                              width: screenWidth * 0.1,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  colors: [
-                                    CommonColor.primaryColor,
-                                    CommonColor.secondaryColor,
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
+                      onExit: (_) {
+                        setState(() {
+                          hoveredIndex = -1; // Reset on hover exit
+                        });
+                      },
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => destinations[index],
+                          ));
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          decoration: BoxDecoration(
+                            color: hoveredIndex == index
+                                ? CommonColor.primaryColorLight
+                                : Colors.white, // Change color on hover
+                            borderRadius:
+                                BorderRadius.circular(screenHeight * 0.02),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 8,
+                                offset: Offset(4, 4),
                               ),
-                              child: Semantics(
-                                label: components[index]['icon'].toString(),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    components[index]['icon'],
-                                    color: Colors.white,
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.zero,
+                                height: screenHeight * 0.1,
+                                width: screenWidth * 0.1,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      CommonColor.primaryColor,
+                                      CommonColor.secondaryColor,
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                                child: Semantics(
+                                  label: components[index]['icon'].toString(),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .push(CupertinoPageRoute(
+                                        builder: (context) =>
+                                            destinations[index],
+                                      ));
+                                    },
+                                    icon: Icon(
+                                      components[index]['icon'],
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Semantics(
-                              label: components[index]['title'].toString(),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  components[index]['title'],
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: CommonColor.primaryColorDark,
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Semantics(
+                                label: components[index]['title'].toString(),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(CupertinoPageRoute(
+                                      builder: (context) => destinations[index],
+                                    ));
+                                  },
+                                  child: Text(
+                                    components[index]['title'],
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.primaryColorDark,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
