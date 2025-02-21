@@ -91,82 +91,101 @@ class _PaginationScreenState extends State<PaginationScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    maxLength: 100, // Limit the input to 100 characters
-                    decoration: const InputDecoration(
-                      labelText: 'Enter text to search',
-                      border: OutlineInputBorder(),
-                      counterText: '', // Hides the character count
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: _performSearch,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            if (_isLoading)
-              const Expanded(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            else if (_searchResults.isNotEmpty)
-              Expanded(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _getPaginatedData().length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: ListTile(
-                              title: Text(_getPaginatedData()[index]),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        totalPages,
-                        (index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: ElevatedButton(
-                            onPressed: () => _goToPage(index + 1),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _currentPage == index + 1
-                                  ? CommonColor.primaryColor
-                                  : Colors.grey,
-                            ),
-                            child: Text('${index + 1}'),
-                          ),
+      body: Semantics(
+        container: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Semantics(
+                      container: true,
+                      child: TextField(
+                        controller: _searchController,
+                        maxLength: 100, // Limit the input to 100 characters
+                        decoration: const InputDecoration(
+                          labelText: 'Enter text to search',
+                          border: OutlineInputBorder(),
+                          counterText: '', // Hides the character count
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )
-            else
-              const Expanded(
-                child: Center(
-                  child: Text('Enter a search term and press the search icon'),
-                ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: _performSearch,
+                  ),
+                ],
               ),
-          ],
+              const SizedBox(height: 16.0),
+              if (_isLoading)
+                Expanded(
+                  child: Semantics(
+                    button: true,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                )
+              else if (_searchResults.isNotEmpty)
+                Expanded(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: _getPaginatedData().length,
+                          itemBuilder: (context, index) {
+                            return Semantics(
+                              button: true,
+                              child: Card(
+                                child: ListTile(
+                                  title: TextButton(
+                                      onPressed: () {},
+                                      child: Text(_getPaginatedData()[index])),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          totalPages,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: ElevatedButton(
+                              onPressed: () => _goToPage(index + 1),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: _currentPage == index + 1
+                                    ? CommonColor.primaryColor
+                                    : Colors.grey,
+                              ),
+                              child: Semantics(
+                                  container: true, child: Text('${index + 1}')),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                Expanded(
+                  child: Center(
+                    child: Semantics(
+                        container: true,
+                        child: Text(
+                            'Enter a search term and press the search icon')),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

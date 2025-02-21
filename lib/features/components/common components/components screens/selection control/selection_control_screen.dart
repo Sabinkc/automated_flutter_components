@@ -183,31 +183,32 @@ class _SelectionControlState extends State<SelectionControlScreen> {
     String tooltipMessage,
     Widget navigationScreen,
   ) {
-    return Tooltip(
-      margin: const EdgeInsets.only(top: 20),
-      message: tooltipMessage,
-      child: Semantics(
-        button: true,
-        child: Card(
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => navigationScreen,
-                ),
-              );
-            },
-            child: Padding(
-              padding: EdgeInsets.all(cardPadding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
+    return Semantics(
+      button: true,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => navigationScreen,
+              ),
+            );
+          },
+          child: Padding(
+            padding: EdgeInsets.all(cardPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Tooltip only around IconButton
+                Tooltip(
+                  margin: const EdgeInsets.only(top: 80),
+                  message: tooltipMessage,
+                  child: IconButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -218,28 +219,29 @@ class _SelectionControlState extends State<SelectionControlScreen> {
                     },
                     icon: Icon(icon, size: 50, color: Colors.blueAccent),
                   ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => navigationScreen,
-                        ),
-                      );
-                    },
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(height: 10),
+                // Tooltip only around TextButton
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => navigationScreen,
                       ),
-                      textAlign: TextAlign.center,
+                    );
+                  },
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: titleFontSize,
+                      fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 10),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
         ),

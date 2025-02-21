@@ -35,22 +35,25 @@ class _CheckboxScreenState extends State<CheckboxScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return CheckboxListTile(
-              title: Text(_items[index]['name']),
-              value: _items[index]['isChecked'],
-              onChanged: (value) {
-                setState(() {
-                  _items[index]['isChecked'] = value!;
-                });
-              },
-              controlAffinity: ListTileControlAffinity.leading,
-            );
-          },
+      body: Semantics(
+        button: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: _items.length,
+            itemBuilder: (context, index) {
+              return CheckboxListTile(
+                title: Text(_items[index]['name']),
+                value: _items[index]['isChecked'],
+                onChanged: (value) {
+                  setState(() {
+                    _items[index]['isChecked'] = value!;
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.leading,
+              );
+            },
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -82,7 +85,33 @@ class _CheckboxScreenState extends State<CheckboxScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Items"),
+          child: TextButton(
+              onPressed: () {
+                final selectedItems = _items
+                    .where((item) => item['isChecked'])
+                    .map((item) => item['name'])
+                    .toList();
+
+                // Display selected items in a dialog
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Items"),
+                    content: Text(
+                      selectedItems.isNotEmpty
+                          ? selectedItems.join(", ")
+                          : "No items selected.",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Items")),
         ),
       ),
     );
@@ -123,22 +152,25 @@ class _RadioButtonScreenState extends State<RadioButtonScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: _options.length,
-          itemBuilder: (context, index) {
-            return RadioListTile<String>(
-              title: Text(_options[index]),
-              value: _options[index],
-              groupValue: _selectedOption,
-              onChanged: (value) {
-                setState(() {
-                  _selectedOption = value!;
-                });
-              },
-            );
-          },
+      body: Semantics(
+        button: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: _options.length,
+            itemBuilder: (context, index) {
+              return RadioListTile<String>(
+                title: Text(_options[index]),
+                value: _options[index],
+                groupValue: _selectedOption,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedOption = value!;
+                  });
+                },
+              );
+            },
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -164,7 +196,27 @@ class _RadioButtonScreenState extends State<RadioButtonScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Option"),
+          child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Option"),
+                    content: Text(
+                      _selectedOption != null
+                          ? "You selected: $_selectedOption"
+                          : "No option selected.",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Option")),
         ),
       ),
     );
@@ -202,22 +254,25 @@ class _SwitchScreenState extends State<SwitchScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return SwitchListTile(
-              title: Text(_items[index]['name']),
-              value: _items[index]['isOn'],
-              onChanged: (value) {
-                setState(() {
-                  _items[index]['isOn'] = value;
-                });
-              },
-              secondary: const Icon(Icons.power_settings_new),
-            );
-          },
+      body: Semantics(
+        button: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: _items.length,
+            itemBuilder: (context, index) {
+              return SwitchListTile(
+                title: Text(_items[index]['name']),
+                value: _items[index]['isOn'],
+                onChanged: (value) {
+                  setState(() {
+                    _items[index]['isOn'] = value;
+                  });
+                },
+                secondary: const Icon(Icons.power_settings_new),
+              );
+            },
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -246,7 +301,30 @@ class _SwitchScreenState extends State<SwitchScreen> {
               ),
             );
           },
-          child: const Text("Show Switch Status"),
+          child: TextButton(
+              onPressed: () {
+                final switchesStatus = _items
+                    .map((item) =>
+                        "${item['name']}: ${item['isOn'] ? "On" : "Off"}")
+                    .toList()
+                    .join("\n");
+
+                // Display the switches' status in a dialog
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Switch Status"),
+                    content: Text(switchesStatus),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Switch Status")),
         ),
       ),
     );
@@ -289,20 +367,23 @@ class _RangeSliderScreenState extends State<RangeSliderScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            RangeSlider(
-              values: _currentRange,
-              min: 0,
-              max: 100,
-              divisions: 20,
-              labels: RangeLabels(
-                _currentRange.start.round().toString(),
-                _currentRange.end.round().toString(),
+            Semantics(
+              button: true,
+              child: RangeSlider(
+                values: _currentRange,
+                min: 0,
+                max: 100,
+                divisions: 20,
+                labels: RangeLabels(
+                  _currentRange.start.round().toString(),
+                  _currentRange.end.round().toString(),
+                ),
+                onChanged: (RangeValues newRange) {
+                  setState(() {
+                    _currentRange = newRange;
+                  });
+                },
               ),
-              onChanged: (RangeValues newRange) {
-                setState(() {
-                  _currentRange = newRange;
-                });
-              },
             ),
             const SizedBox(height: 20),
             Text(
@@ -333,7 +414,25 @@ class _RangeSliderScreenState extends State<RangeSliderScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Range"),
+          child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Range"),
+                    content: Text(
+                      "You selected a range from ${_currentRange.start.round()} to ${_currentRange.end.round()}",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Range")),
         ),
       ),
     );
@@ -430,7 +529,25 @@ class _DropdownScreenState extends State<DropdownScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Option"),
+          child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Option"),
+                    content: Text(
+                      "You selected: $_selectedValue",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Option")),
         ),
       ),
     );
@@ -525,7 +642,25 @@ class _MultiSelectDropdownScreenState extends State<MultiSelectDropdownScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Options"),
+          child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Options"),
+                    content: Text(
+                      "You selected: ${_selectedValues.join(', ')}",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Options")),
         ),
       ),
     );
@@ -587,10 +722,13 @@ class _SegmentedControlScreenState extends State<SegmentedControlScreen> {
                 groupValue: _selectedIndex,
               ),
               const SizedBox(height: 20),
-              Text(
-                "Selected Segment: Segment ${_selectedIndex + 1}",
-                style: const TextStyle(fontSize: 16),
-              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Selected Segment: Segment ${_selectedIndex + 1}",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              )
             ],
           ),
         ),
@@ -598,26 +736,44 @@ class _SegmentedControlScreenState extends State<SegmentedControlScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {
-            // Display selected segment in a dialog
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Selected Segment"),
-                content: Text(
-                  "You selected: Segment ${_selectedIndex + 1}",
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("OK"),
+            onPressed: () {
+              // Display selected segment in a dialog
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Selected Segment"),
+                  content: Text(
+                    "You selected: Segment ${_selectedIndex + 1}",
                   ),
-                ],
-              ),
-            );
-          },
-          child: const Text("Show Selected Segment"),
-        ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("OK"),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Segment"),
+                    content: Text(
+                      "You selected: Segment ${_selectedIndex + 1}",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Segment"),
+            )),
       ),
     );
   }
@@ -674,7 +830,7 @@ class _ChipSelectionScreenState extends State<ChipSelectionScreen> {
                 runSpacing: 10.0, // space between rows
                 children: _chipOptions.map((chip) {
                   return ChoiceChip(
-                    label: Text(chip),
+                    label: Semantics(button: true, child: Text(chip)),
                     selected: _selectedChips.contains(chip),
                     onSelected: (isSelected) {
                       setState(() {
@@ -718,7 +874,25 @@ class _ChipSelectionScreenState extends State<ChipSelectionScreen> {
               ),
             );
           },
-          child: const Text("Show Selected Chips"),
+          child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Chips"),
+                    content: Text(
+                      "You selected: ${_selectedChips.join(', ')}",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Chips")),
         ),
       ),
     );
@@ -737,13 +911,16 @@ class _StepperScreenState extends State<StepperScreen> {
   int _currentStep = 0;
 
   // Steps content
-  List<Step> _steps = [
+  final List<Step> _steps = [
     Step(
       title: const Text('Step 1: Personal Details'),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Enter your name, email, and other personal details.'),
+        children: [
+          TextButton(
+              onPressed: () {},
+              child:
+                  Text('Enter your name, email, and other personal details.')),
           // Add relevant form fields here
         ],
       ),
@@ -753,8 +930,12 @@ class _StepperScreenState extends State<StepperScreen> {
       title: const Text('Step 2: Address'),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Provide your address details.'),
+        children: [
+          TextButton(
+            isSemanticButton: true,
+            onPressed: () {},
+            child: Text('Provide your address details.'),
+          )
           // Add address form fields here
         ],
       ),
@@ -764,8 +945,11 @@ class _StepperScreenState extends State<StepperScreen> {
       title: const Text('Step 3: Confirmation'),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Review your details and submit the form.'),
+        children: [
+          TextButton(
+            onPressed: () {},
+            child: Text('Review your details and submit the form.'),
+          )
           // Add a review section or confirmation info here
         ],
       ),
@@ -831,26 +1015,44 @@ class _StepperScreenState extends State<StepperScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {
-            // Display the final step confirmation in a dialog
-            if (_currentStep == _steps.length - 1) {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Form Submitted"),
-                  content: const Text("You have completed all the steps!"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("OK"),
+            onPressed: () {
+              // Display the final step confirmation in a dialog
+              if (_currentStep == _steps.length - 1) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Form Submitted"),
+                    content: const Text("You have completed all the steps!"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
+            child: TextButton(
+              onPressed: () {
+                if (_currentStep == _steps.length - 1) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Form Submitted"),
+                      content: const Text("You have completed all the steps!"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("OK"),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            }
-          },
-          child: const Text("Submit Form"),
-        ),
+                  );
+                }
+              },
+              child: const Text("Submit Form"),
+            )),
       ),
     );
   }
@@ -933,26 +1135,44 @@ class _PopMenuScreenState extends State<PopMenuScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {
-            // Display selected option in a dialog
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Selected Option"),
-                content: Text(
-                  "You selected: $_selectedOption",
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("OK"),
+            onPressed: () {
+              // Display selected option in a dialog
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Selected Option"),
+                  content: Text(
+                    "You selected: $_selectedOption",
                   ),
-                ],
-              ),
-            );
-          },
-          child: const Text("Show Selected Option"),
-        ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("OK"),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Selected Option"),
+                    content: Text(
+                      "You selected: $_selectedOption",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Show Selected Option"),
+            )),
       ),
     );
   }
@@ -1041,11 +1261,15 @@ class _GestureSelectionScreenState extends State<GestureSelectionScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {
-            _showSelectionDialog(_selectedGesture);
-          },
-          child: const Text("Show Selected Gesture"),
-        ),
+            onPressed: () {
+              _showSelectionDialog(_selectedGesture);
+            },
+            child: TextButton(
+              onPressed: () {
+                _showSelectionDialog(_selectedGesture);
+              },
+              child: const Text("Show Selected Gesture"),
+            )),
       ),
     );
   }
